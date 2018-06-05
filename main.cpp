@@ -25,13 +25,13 @@ int main()
     //sf::View view ( sf::Vector2f(337.5,337.5), sf::Vector2f (225, 225));
     //PLAYER
     sf::Texture playerTexture;
-    playerTexture.loadFromFile("link4.png");
+    playerTexture.loadFromFile("../Textures/link4.png");
     Player player(&playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
     //COINS
     sf::Texture coinTexture;
-    coinTexture.loadFromFile("coin.png");
+    coinTexture.loadFromFile("../Textures/coin.png");
     sf::SoundBuffer buffer;
-    buffer.loadFromFile("smw_coin.wav");
+    buffer.loadFromFile("../Textures/smw_coin.wav");
     sf::Sound coinSound;
     coinSound.setBuffer(buffer);
 
@@ -45,7 +45,7 @@ int main()
 
     //TEXT
     sf::Font font;
-    font.loadFromFile("Triforce.ttf");
+    font.loadFromFile("../Textures/Triforce.ttf");
     sf::Text pickedCoins;
     pickedCoins.setFont(font);
     pickedCoins.setPosition(window.getSize().x - pickedCoins.getCharacterSize()*5, 0);
