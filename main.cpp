@@ -60,34 +60,18 @@ int main()
     {
         deltaTime = clock.restart().asSeconds();
 
-        sf::Event event;
-        while (window.pollEvent(event))
+        sf::Event evnt;
+        while (window.pollEvent(evnt))
         {
-            switch (event.type)
+            switch (evnt.type)
             {
-                case sf::Event::KeyReleased:
-                    switch (event.key.code)
-                    {
-                        case sf::Keyboard::F11:
-                            if(isFullscreen){
-                                window.create(sf::VideoMode(1366,768), "Legend of Zelda!", sf::Style::Default);
-                                isFullscreen=false;
-                            }
-                            else
-                            {
-                                window.create(sf::VideoMode(1366,768), "Legend of Zelda!", sf::Style::Fullscreen);
-                                isFullscreen=true;
-                            }
-                            break;
-                    }
-                    break;
 
                 case sf::Event::Closed:
                     window.close();
                     break;
 
                 case sf::Event::Resized:
-                    sf::FloatRect visibleArea(0,0, event.size.width, event.size.height);
+                    sf::FloatRect visibleArea(0,0, evnt.size.width, evnt.size.height);
                     window.setView(sf::View(visibleArea));
                     pickedCoins.setPosition(window.getSize().x - pickedCoins.getCharacterSize()*5, 0);
 
