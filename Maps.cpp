@@ -7,8 +7,8 @@
 #include <SFML/Graphics.hpp>
 Maps::Maps() {
     int k=0,x=0,y=0;
-    this->one.loadFromFile("../Textures/texture1.jpg");
-    this->two.loadFromFile("../Textures/texture2.png");
+    this->one.loadFromFile("../Textures/ground_1.jpeg");
+    this->two.loadFromFile("../Textures/ground_2.jpeg");
 
     for (int i = 0; i <numTextures ; ++i) {
         for (int j = 0; j <numTextures ; ++j) {

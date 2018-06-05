@@ -49,7 +49,8 @@ int main()
     sf::Text pickedCoins;
     pickedCoins.setFont(font);
     pickedCoins.setPosition(window.getSize().x - pickedCoins.getCharacterSize()*5, 0);
-    pickedCoins.setFillColor(sf::Color::Yellow);
+    pickedCoins.setColor(sf::Color::Yellow);
+
 
 
     float deltaTime;
@@ -60,13 +61,13 @@ int main()
     {
         deltaTime = clock.restart().asSeconds();
 
-        sf::Event event;
-        while (window.pollEvent(event))
+        sf::Event evnt;
+        while (window.pollEvent(evnt))
         {
-            switch (event.type)
+            switch (evnt.type)
             {
                 case sf::Event::KeyReleased:
-                    switch (event.key.code)
+                    switch (evnt.key.code)
                     {
                         case sf::Keyboard::F11:
                             if(isFullscreen){
@@ -87,7 +88,7 @@ int main()
                     break;
 
                 case sf::Event::Resized:
-                    sf::FloatRect visibleArea(0,0, event.size.width, event.size.height);
+                    sf::FloatRect visibleArea(0, 0, evnt.size.width, evnt.size.height);
                     window.setView(sf::View(visibleArea));
                     pickedCoins.setPosition(window.getSize().x - pickedCoins.getCharacterSize()*5, 0);
 
