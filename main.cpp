@@ -10,7 +10,7 @@
 int main()
 {
     //WINDOW
-    sf::RenderWindow window(sf::VideoMode(700, 700), "Legend of Zelda", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(675, 675), "Legend of Zelda", sf::Style::Close);
     bool isFullscreen = true;
     //BACKGROUND
     /*sf::Texture textBackground;
