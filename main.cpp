@@ -10,19 +10,10 @@
 int main()
 {
     //WINDOW
-    sf::RenderWindow window(sf::VideoMode(675, 675), "Legend of Zelda", sf::Style::Close);
-    bool isFullscreen = true;
-    //BACKGROUND
-    /*sf::Texture textBackground;
-    textBackground.loadFromFile("/home/frangio/Scaricati/grass.jpg");
-    sf::Sprite back;
-    textBackground.setRepeated(true);
-    back.setTexture(textBackground);
-    back.setScale(sf::Vector2f(2.f, 2.f));
-    back.scale(sf::Vector2f(0.5f, 0.25f));*/
+    sf::RenderWindow window(sf::VideoMode(843, 675), "Binding of Zelda", sf::Style::Close);
+    //MAP
     srand((unsigned)time(nullptr));
     Maps map;
-    //sf::View view ( sf::Vector2f(337.5,337.5), sf::Vector2f (225, 225));
     //PLAYER
     sf::Texture playerTexture;
     playerTexture.loadFromFile("../Textures/link4.png");
@@ -36,11 +27,10 @@ int main()
     coinSound.setBuffer(buffer);
 
     int rCoin=5;
-    int nCoin=10;
+    int nCoin = 5;
     std::vector<Coin*> coins;
     for (int i=0; i<rCoin; i++) {
         coins.push_back(new Coin(&coinTexture, sf::Vector2u(6, 1), 0.08f, 10, 200.0f + 60.0f * i, 206.0f));
-        coins.push_back(new Coin(&coinTexture, sf::Vector2u(6, 1), 0.08f, 10, 200.0f + 60.0f * i, 266.0f));
     }
 
     //TEXT
@@ -66,23 +56,6 @@ int main()
         {
             switch (evnt.type)
             {
-                case sf::Event::KeyReleased:
-                    switch (evnt.key.code)
-                    {
-                        case sf::Keyboard::F11:
-                            if(isFullscreen){
-                                window.create(sf::VideoMode(1366,768), "Legend of Zelda!", sf::Style::Default);
-                                isFullscreen=false;
-                            }
-                            else
-                            {
-                                window.create(sf::VideoMode(1366,768), "Legend of Zelda!", sf::Style::Fullscreen);
-                                isFullscreen=true;
-                            }
-                            break;
-                    }
-                    break;
-
                 case sf::Event::Closed:
                     window.close();
                     break;
@@ -93,15 +66,11 @@ int main()
                     pickedCoins.setPosition(window.getSize().x - pickedCoins.getCharacterSize()*5, 0);
 
                     break;
-
-
             }
         }
         //WINDOW
         window.clear();
         map.showMaps(window);
-        //window.setView(view);
-
         //PLAYER
         player.Update(deltaTime, window);
         player.Draw(window);
@@ -111,8 +80,6 @@ int main()
             coin->rotate(deltaTime);
             coin->Draw(window);
         }
-
-
         //PICKING COINS
         for(int i=0; i<nCoin; i++){
             if(player.playerBorder.getGlobalBounds().intersects(coins[i]->coinBorder.getGlobalBounds())){
