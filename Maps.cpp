@@ -7,22 +7,22 @@
 #include <SFML/Graphics.hpp>
 Maps::Maps() {
     int k=0,x=0,y=0;
-    this->one.loadFromFile("../Textures/ground_1.jpeg");
-    this->two.loadFromFile("../Textures/ground_2.jpeg");
-    this->three.loadFromFile("../Textures/ground_3.jpg");
-    this->four.loadFromFile("../Textures/ground_4.jpeg");
+    this->one.loadFromFile("../Textures/tiles 1b.png");
+    this->two.loadFromFile("../Textures/tiles 2b.png");
+    this->three.loadFromFile("../Textures/tiles 3b.png");
+    //this->four.loadFromFile("../Textures/ground_4.jpeg");
 
     for (int i = 0; i <numTextures ; ++i) {
         for (int j = 0; j <numTextures ; ++j) {
             this->blocks[k].updateBlock(&this->one, &this->two, &this->three, &this->four);
             this->blocks[k].setPosition(x,y);
 
-            x+=175;
+            x += 173;
             k++;
 
         }
         x=0;
-        y+=175;
+        y += 173;
         k++;
     }
 }

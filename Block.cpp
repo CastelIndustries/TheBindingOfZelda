@@ -4,7 +4,7 @@
 
 #include "Block.h"
 Block::Block() {
-    this->type = rand() % 4;
+    this->type = rand() % 3;
 }
 Block::~Block() {}
 void Block::showBlock(sf::RenderWindow &window) {
@@ -22,9 +22,9 @@ void Block::updateBlock(sf::Texture *one, sf::Texture *two, sf::Texture *three, 
         case 2:
             this->terrain.setTexture(*three);
             break;
-        case 3:
-            this->terrain.setTexture(*four);
-            break;
+            /*case 3:
+                this->terrain.setTexture(*four);
+                break;*/
     }
 }
 void Block::setPosition(int x, int y) {
