@@ -18,6 +18,7 @@ int main() {
     //PLAYER
     sf::Texture playerTexture;
     playerTexture.loadFromFile("../Textures/link4.png");
+
     Player player(&playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
 
     //ELEMENTS

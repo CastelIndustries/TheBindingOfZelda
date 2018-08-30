@@ -2,29 +2,31 @@
 // Created by frangio on 24/04/18.
 //
 
+
 #ifndef SFML_TESTS_PLAYER_H
 #define SFML_TESTS_PLAYER_H
 
-#include "Character.h"
 
+#include "RangedCharacter.h"
 
-class Player : public Character
-{
+class Player : public RangedCharacter {
 public:
-    Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed): Character(texture, imageCount, switchTime, speed){};
-    virtual ~Player();
+    //Player();
 
-    virtual void Update(float deltaTime, sf::RenderWindow& window) override;
-    virtual void Draw(sf::RenderWindow& window) override ;
-    virtual void CorrectDisplay(sf::RenderWindow& window) override ;
+    Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : RangedCharacter(texture,
+                                                                                                           imageCount,
+                                                                                                           switchTime,
+                                                                                                           speed) {};
 
+    ~Player();
 
+    virtual void Update(float deltaTime, sf::RenderWindow &window) override;
 
-private:
-    float speed, dash;
-    sf::RectangleShape body;
-    Animation animation;
-    unsigned  int row;
+    virtual void Draw(sf::RenderWindow &window) override;
+
+    virtual void CorrectDisplay(sf::RenderWindow &window) override;
+
+    void RangedAttack() override {};                            //TO DO
 };
 
 

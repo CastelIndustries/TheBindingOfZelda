@@ -34,3 +34,19 @@ void Animation::Update(int row, float deltaTime) {
     uvRect.left = currentImage.x * uvRect.width;
     uvRect.width = abs(uvRect.width);
 }
+
+float Animation::getSwitchTime() const {
+    return switchTime;
+}
+
+void Animation::setSwitchTime(float switchTime) {
+    Animation::switchTime = switchTime;
+}
+
+const sf::Vector2u &Animation::getImageCount() const {
+    return imageCount;
+}
+
+void Animation::setImageCount(const sf::Vector2u &imageCount) {
+    Animation::imageCount = imageCount;
+}
