@@ -19,9 +19,9 @@ protected:
     sf::Texture one;
     sf::Texture two;
     sf::Texture three;
-    sf::Texture four;
-    Block blocks[100];
-    static const int numTextures=4;
+    //sf::Texture four;
+    Block blocks[200];
+    static const int numTextures=10;
 
 
 };

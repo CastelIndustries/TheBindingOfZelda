@@ -5,24 +5,19 @@
 #ifndef SFML_TESTS_PLAYER_H
 #define SFML_TESTS_PLAYER_H
 
-
-#include <SFML/Graphics/RectangleShape.hpp>
-#include "Animation.h"
+#include "Character.h"
 
 
-class Player
+class Player : public Character
 {
 public:
-    Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed);
-    ~Player();
+    Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed): Character(texture, imageCount, switchTime, speed){};
+    virtual ~Player();
 
-    void Update(float deltaTime, sf::RenderWindow& window);
-    void Draw(sf::RenderWindow& window);
-    void CorrectDisplay(sf::RenderWindow& window);
+    virtual void Update(float deltaTime, sf::RenderWindow& window) override;
+    virtual void Draw(sf::RenderWindow& window) override ;
+    virtual void CorrectDisplay(sf::RenderWindow& window) override ;
 
-
-public:
-    sf::RectangleShape playerBorder;
 
 
 private:

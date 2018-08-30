@@ -14,7 +14,7 @@ public:
 
     void showBlock( sf::RenderWindow &window);
 
-    void updateBlock(sf::Texture *one, sf::Texture *two, sf::Texture *three, sf::Texture *four);
+    void updateBlock(sf::Texture *one, sf::Texture *two, sf::Texture *three);//, sf::Texture *four);
     void setPosition(int x, int y);
 
 protected:

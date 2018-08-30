@@ -11,16 +11,19 @@ void Block::showBlock(sf::RenderWindow &window) {
     window.draw(this->terrain);
 }
 
-void Block::updateBlock(sf::Texture *one, sf::Texture *two, sf::Texture *three, sf::Texture *four) {
+void Block::updateBlock(sf::Texture *one, sf::Texture *two, sf::Texture *three){//, sf::Texture *four) {
     switch (type) {
         case 0:
             this->terrain.setTexture(*one);
+            this->terrain.setScale(0.5, 0.5);
             break;
         case 1:
             this->terrain.setTexture(*two);
+            this->terrain.setScale(0.5, 0.5);
             break;
         case 2:
             this->terrain.setTexture(*three);
+            this->terrain.setScale(0.5, 0.5);
             break;
             /*case 3:
                 this->terrain.setTexture(*four);

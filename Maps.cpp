@@ -13,16 +13,16 @@ Maps::Maps() {
     //this->four.loadFromFile("../Textures/ground_4.jpeg");
 
     for (int i = 0; i <numTextures ; ++i) {
-        for (int j = 0; j <numTextures ; ++j) {
-            this->blocks[k].updateBlock(&this->one, &this->two, &this->three, &this->four);
+        for (int j = 0; j <numTextures+4 ; ++j) {
+            this->blocks[k].updateBlock(&this->one, &this->two, &this->three);//, &this->four);
             this->blocks[k].setPosition(x,y);
 
-            x += 173;
+            x += 86;
             k++;
 
         }
         x=0;
-        y += 173;
+        y += 86;
         k++;
     }
 }
@@ -30,7 +30,7 @@ Maps::~Maps() {}
 void Maps::showMaps(sf::RenderWindow &window) {
     int k=0;
     for (int i = 0; i <numTextures ; ++i) {
-        for (int j = 0; j <numTextures ; ++j) {
+        for (int j = 0; j <numTextures+4 ; ++j) {
             this->blocks[k].showBlock(window);
 
 
