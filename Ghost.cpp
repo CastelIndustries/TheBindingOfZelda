@@ -15,3 +15,5 @@ void Ghost::Update(float deltaTime, sf::RenderWindow &window) {
 void Ghost::Draw(sf::RenderWindow &window) {
     MeleeCharacter::Draw(window);
 }
+
+Ghost::~Ghost() {}

@@ -15,3 +15,5 @@ void KungFuRabbit::Update(float deltaTime, sf::RenderWindow &window) {
 void KungFuRabbit::Draw(sf::RenderWindow &window) {
     MeleeCharacter::Draw(window);
 }
+
+KungFuRabbit::~KungFuRabbit() {}

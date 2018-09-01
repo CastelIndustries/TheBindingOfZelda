@@ -7,11 +7,11 @@
 
 #include "MeleeCharacter.h"
 
-class KungFuRabbit : MeleeCharacter {
-    KungFuRabbit(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(texture,
-                                                                                                                imageCount,
-                                                                                                                switchTime,
-                                                                                                                speed) {}
+class KungFuRabbit : public MeleeCharacter {
+
+public:
+
+    ~KungFuRabbit();
 
     virtual void Update(float deltaTime, sf::RenderWindow &window) override;
 
@@ -21,6 +21,10 @@ class KungFuRabbit : MeleeCharacter {
 
     void MeleeAttack() override {};                             //TO DO
 
+    KungFuRabbit(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(texture,
+                                                                                                                imageCount,
+                                                                                                                switchTime,
+                                                                                                                speed) {}
 };
 
 #endif //SFML_TESTS_LINK_KUNGFURABBIT_H

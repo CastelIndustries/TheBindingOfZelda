@@ -7,11 +7,10 @@
 
 #include "MeleeCharacter.h"
 
-class Ghost : MeleeCharacter {
-    Ghost(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(texture,
-                                                                                                         imageCount,
-                                                                                                         switchTime,
-                                                                                                         speed) {}
+class Ghost : public MeleeCharacter {
+public:
+
+    ~Ghost();
 
     virtual void Update(float deltaTime, sf::RenderWindow &window) override;
 
@@ -21,6 +20,10 @@ class Ghost : MeleeCharacter {
 
     void MeleeAttack() override {};                             //TO DO
 
+    Ghost(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(texture,
+                                                                                                         imageCount,
+                                                                                                         switchTime,
+                                                                                                         speed) {}
 };
 
 

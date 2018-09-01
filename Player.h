@@ -17,7 +17,6 @@ public:
                                                                                                            imageCount,
                                                                                                            switchTime,
                                                                                                            speed) {};
-
     ~Player();
 
     virtual void Update(float deltaTime, sf::RenderWindow &window) override;

@@ -7,6 +7,7 @@
 #include "Coin.h"
 #include "Maps.h"
 #include "Element.h"
+#include "RangedCharacterFactory.h"
 #include <ctime>
 
 int main() {
@@ -16,11 +17,12 @@ int main() {
     Maps map;
 
     //PLAYER
+    RangedCharacterFactory PlayerFactory;
     sf::Texture playerTexture;
     playerTexture.loadFromFile("../Textures/link4.png");
 
-    Player player(&playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
-
+    //Player player(&playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
+    auto player = PlayerFactory.Create("player", &playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
     //ELEMENTS
     std::vector<Element*> elements;
 
@@ -75,9 +77,9 @@ int main() {
 
 
         //PLAYER
-        player.Update(deltaTime, window);
-        player.Draw(window);
-        player.CorrectDisplay(window);
+        player->Update(deltaTime, window);
+        player->Draw(window);
+        player->CorrectDisplay(window);
         /*
         //PICKING COINS
         for(int i=0; i<nCoin; i++){

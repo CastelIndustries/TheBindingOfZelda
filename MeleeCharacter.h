@@ -14,20 +14,18 @@ public:
 
 protected:
 
-    MeleeCharacter() {};
 
     MeleeCharacter(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : Character(texture,
                                                                                                              imageCount,
                                                                                                              switchTime,
                                                                                                              speed) {}
-
     virtual void Update(float deltaTime, sf::RenderWindow &window) override;
 
     virtual void Draw(sf::RenderWindow &window) override;
 
     virtual void CorrectDisplay(sf::RenderWindow &window) override;
 
-    virtual void MeleeAttack() {};                           //TO DO
+    virtual void MeleeAttack() {};                           //TODO
 
 };
 
