@@ -4,14 +4,6 @@
 
 #include "RangedCharacter.h"
 
-void RangedCharacter::CorrectDisplay(sf::RenderWindow &window) {
-    Character::CorrectDisplay(window);
-}
-
-void RangedCharacter::Update(float deltaTime, sf::RenderWindow &window) {
-    Character::Update(deltaTime, window);
-}
-
-void RangedCharacter::Draw(sf::RenderWindow &window) {
-    Character::Draw(window);
+void RangedCharacter::Create(float deltatime, sf::RenderWindow &window) {
+    Character::Create(deltatime, window);
 }

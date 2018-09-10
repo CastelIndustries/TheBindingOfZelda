@@ -11,7 +11,6 @@
 
 class Player : public RangedCharacter {
 public:
-    //Player();
 
     Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : RangedCharacter(texture,
                                                                                                            imageCount,
@@ -19,13 +18,9 @@ public:
                                                                                                            speed) {};
     ~Player();
 
-    virtual void Update(float deltaTime, sf::RenderWindow &window) override;
-
-    virtual void Draw(sf::RenderWindow &window) override;
-
-    virtual void CorrectDisplay(sf::RenderWindow &window) override;
-
     void RangedAttack() override {};                            //TO DO
+
+    void Create(float deltatime, sf::RenderWindow &window) override;
 };
 
 

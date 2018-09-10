@@ -12,11 +12,8 @@ public:
 
     ~Ghost();
 
-    virtual void Update(float deltaTime, sf::RenderWindow &window) override;
 
-    virtual void Draw(sf::RenderWindow &window) override;
-
-    virtual void CorrectDisplay(sf::RenderWindow &window) override;
+    virtual void Create(float deltatime, sf::RenderWindow &window);
 
     void MeleeAttack() override {};                             //TO DO
 

@@ -16,13 +16,9 @@ public:
 
     ~Skeleton();
 
-    void Update(float deltaTime, sf::RenderWindow &window) override;
-
-    void Draw(sf::RenderWindow &window) override;
-
-    void CorrectDisplay(sf::RenderWindow &window) override;
-
     void RangedAttack() override {};                    //TO DO
+
+    void Create(float deltatime, sf::RenderWindow &window) override;
 };
 
 

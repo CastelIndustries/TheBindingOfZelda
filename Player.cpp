@@ -3,19 +3,10 @@
 //
 
 #include "Player.h"
-//Player::Player() {};
 
-void Player::Update(float deltaTime, sf::RenderWindow &window) {
-    RangedCharacter::Update(deltaTime, window);
-};
-
-void Player::Draw(sf::RenderWindow &window) {
-    RangedCharacter::Draw(window);
-};
-
-void Player::CorrectDisplay(sf::RenderWindow &window) {
-    RangedCharacter::CorrectDisplay(window);
-};
+void Player::Create(float deltatime, sf::RenderWindow &window) {
+    RangedCharacter::Create(deltatime, window);
+}
 
 Player::~Player() {};
 

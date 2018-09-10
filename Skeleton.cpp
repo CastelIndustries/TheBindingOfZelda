@@ -6,14 +6,6 @@
 
 Skeleton::~Skeleton() {};
 
-void Skeleton::Draw(sf::RenderWindow &window) {
-    RangedCharacter::Draw(window);
-}
-
-void Skeleton::CorrectDisplay(sf::RenderWindow &window) {
-    RangedCharacter::CorrectDisplay(window);
-}
-
-void Skeleton::Update(float deltaTime, sf::RenderWindow &window) {
-    RangedCharacter::CorrectDisplay(window);
+void Skeleton::Create(float deltatime, sf::RenderWindow &window) {
+    RangedCharacter::Create(deltatime, window);
 }

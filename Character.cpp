@@ -83,3 +83,8 @@ void Character::CorrectDisplay(sf::RenderWindow &window) {
     }
 }
 
+void Character::Create(float deltatime, sf::RenderWindow &window) {
+    this->Update(deltatime, window);
+    this->Draw(window);
+    this->CorrectDisplay(window);
+};

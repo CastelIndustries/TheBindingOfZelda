@@ -96,23 +96,13 @@ int main() {
 
 
         //PLAYER
-        player->Update(deltaTime, window);
-        player->Draw(window);
-        player->CorrectDisplay(window);
+
+        player->Create(deltaTime, window);
 
         //ENEMIES
-        rabbit->Update(deltaTime, window);
-        rabbit->Draw(window);
-        rabbit->CorrectDisplay(window);
-
-        skeleton->Update(deltaTime, window);
-        skeleton->Draw(window);
-        skeleton->CorrectDisplay(window);
-
-        ghost->Update(deltaTime, window);
-        ghost->Draw(window);
-        ghost->CorrectDisplay(window);
-
+        rabbit->Create(deltaTime, window);
+        skeleton->Create(deltaTime, window);
+        ghost->Create(deltaTime, window);
 
         /*
         //PICKING COINS

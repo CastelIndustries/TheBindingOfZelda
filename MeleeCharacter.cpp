@@ -4,14 +4,7 @@
 
 #include "MeleeCharacter.h"
 
-void MeleeCharacter::CorrectDisplay(sf::RenderWindow &window) {
-    Character::CorrectDisplay(window);
-}
 
-void MeleeCharacter::Update(float deltaTime, sf::RenderWindow &window) {
-    Character::Update(deltaTime, window);
-}
-
-void MeleeCharacter::Draw(sf::RenderWindow &window) {
-    Character::Draw(window);
+void MeleeCharacter::Create(float deltatime, sf::RenderWindow &window) {
+    Character::Create(deltatime, window);
 }

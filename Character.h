@@ -25,6 +25,8 @@ public:
 
     virtual void CorrectDisplay(sf::RenderWindow &window);
 
+    virtual void Create(float deltatime, sf::RenderWindow &window);
+
     Character(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed);
 
 protected:
