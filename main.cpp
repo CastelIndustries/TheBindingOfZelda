@@ -38,7 +38,7 @@ int main() {
     skeletonTexture.loadFromFile("../Textures/skeletonChar.png");
     ghostTexture.loadFromFile("../Textures/ghost.png");
 
-    auto rabbit = RabbitFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 100.0f);
+    auto rabbit = RabbitFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 50.0f);
     auto skeleton = SkeletonFactory.Create("Skeleton", &skeletonTexture, sf::Vector2u(9, 4), 0.1f, 150.0f);
     auto ghost = GhostFactory.Create("ghost", &ghostTexture, sf::Vector2u(3 , 4), 0.1f, 200.f);
 
@@ -64,12 +64,16 @@ int main() {
         }*/
 
     float deltaTime;
+
     sf::Clock clock;
     int count=0;
+    float time1;
 
     while (window.isOpen())
+
     {
         deltaTime = clock.restart().asSeconds();
+
 
         sf::Event evnt;
         while (window.pollEvent(evnt))
@@ -100,9 +104,9 @@ int main() {
         player->Create(deltaTime, window);
 
         //ENEMIES
-        rabbit->Create(deltaTime, window);
+        // rabbit->Create(deltaTime, window);
         skeleton->Create(deltaTime, window);
-        ghost->Create(deltaTime, window);
+        // ghost->Create(deltaTime, window);
 
         /*
         //PICKING COINS

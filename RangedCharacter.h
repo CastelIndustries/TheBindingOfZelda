@@ -10,7 +10,7 @@
 class RangedCharacter : public Character {
 
 public:
-
+    RangedCharacter() {};
     virtual    ~RangedCharacter() {};
 
 protected:
@@ -20,6 +20,8 @@ protected:
                                                                                                               speed) {}
 
     virtual void Create(float deltatime, sf::RenderWindow &window) override;
+
+    virtual void Update(float deltatime, sf::RenderWindow &window) override =0;
 
     virtual void RangedAttack() {};              // TODO
 

@@ -25,6 +25,8 @@ protected:
 
     virtual void Create(float deltatime, sf::RenderWindow &window) override;
 
+    virtual void Update(float deltatime, sf::RenderWindow &window) override =0;
+
 };
 
 
