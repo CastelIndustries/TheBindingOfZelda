@@ -15,6 +15,8 @@ public:
 
     void Update(int row, float deltaTime);
 
+    void StopUpdate(int row);
+
 
 public:
     const sf::Vector2u &getImageCount() const;

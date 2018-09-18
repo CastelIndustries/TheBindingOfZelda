@@ -20,10 +20,10 @@ int main() {
     //PLAYER
     RangedCharacterFactory PlayerFactory;
     sf::Texture playerTexture;
-    playerTexture.loadFromFile("../Textures/link4.png");
+    playerTexture.loadFromFile("../Textures/FRANCO DEFINITIVO.png");
 
     //Player player(&playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
-    auto player = PlayerFactory.Create("player", &playerTexture, sf::Vector2u(12, 8), 0.035f, 50.0f);
+    auto player = PlayerFactory.Create("player", &playerTexture, sf::Vector2u(3, 4), 0.10f, 200.0f);
 
     //ENEMIES
     MeleeCharacterFactory RabbitFactory;
@@ -104,9 +104,9 @@ int main() {
         player->Create(deltaTime, window);
 
         //ENEMIES
-        // rabbit->Create(deltaTime, window);
+        rabbit->Create(deltaTime, window);
         skeleton->Create(deltaTime, window);
-        // ghost->Create(deltaTime, window);
+        ghost->Create(deltaTime, window);
 
         /*
         //PICKING COINS

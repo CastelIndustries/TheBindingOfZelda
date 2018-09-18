@@ -19,9 +19,9 @@ protected:
                                                                                                               switchTime,
                                                                                                               speed) {}
 
-    virtual void Create(float deltatime, sf::RenderWindow &window) override;
+    virtual void Create(float deltaTime, sf::RenderWindow &window) override;
 
-    virtual void Update(float deltatime, sf::RenderWindow &window) override =0;
+    virtual void Update(float deltaTime, sf::RenderWindow &window) override =0;
 
     virtual void RangedAttack() {};              // TODO
 

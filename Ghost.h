@@ -13,7 +13,7 @@ public:
     ~Ghost();
 
 
-    virtual void Create(float deltatime, sf::RenderWindow &window);
+    virtual void Create(float deltaTime, sf::RenderWindow &window);
 
     virtual void Update(float deltatime, sf::RenderWindow &window) override;
 

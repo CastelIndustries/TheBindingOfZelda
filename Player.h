@@ -18,7 +18,7 @@ public:
                                                                                                            speed) {
             this->speed = speed;
             dash = speed;
-            row = 2;
+        row = 0;
             body.setSize(sf::Vector2f(120.0f, 210.0f));
             body.setPosition(336.0f, 336.0f);
             body.setTexture(texture);

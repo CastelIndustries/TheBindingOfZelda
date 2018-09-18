@@ -4,6 +4,6 @@
 
 #include "RangedCharacter.h"
 
-void RangedCharacter::Create(float deltatime, sf::RenderWindow &window) {
-    Character::Create(deltatime, window);
+void RangedCharacter::Create(float deltaTime, sf::RenderWindow &window) {
+    Character::Create(deltaTime, window);
 }
