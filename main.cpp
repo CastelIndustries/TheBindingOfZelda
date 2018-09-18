@@ -23,7 +23,7 @@ int main() {
     playerTexture.loadFromFile("../Textures/link4.png");
 
     //Player player(&playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
-    auto player = PlayerFactory.Create("player", &playerTexture, sf::Vector2u(12, 8), 0.035f, 50.0f);
+    auto player = PlayerFactory.Create("player", &playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
 
     //ENEMIES
     MeleeCharacterFactory RabbitFactory;
@@ -38,9 +38,9 @@ int main() {
     skeletonTexture.loadFromFile("../Textures/skeletonChar.png");
     ghostTexture.loadFromFile("../Textures/ghost.png");
 
-    auto rabbit = RabbitFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 100.0f);
+    auto rabbit = RabbitFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 150.0f);
     auto skeleton = SkeletonFactory.Create("Skeleton", &skeletonTexture, sf::Vector2u(9, 4), 0.1f, 150.0f);
-    auto ghost = GhostFactory.Create("ghost", &ghostTexture, sf::Vector2u(3 , 4), 0.1f, 200.f);
+    auto ghost = GhostFactory.Create("ghost", &ghostTexture, sf::Vector2u(3 , 4), 0.1f, 150.f);
 
     //ELEMENTS
     std::vector<Element*> elements;

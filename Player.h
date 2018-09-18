@@ -15,12 +15,15 @@ public:
     Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : RangedCharacter(texture,
                                                                                                            imageCount,
                                                                                                            switchTime,
-                                                                                                           speed) {};
+                                                                                                           speed) {
+        body.setPosition(336.0f, 336.0f);
+    };
     ~Player();
 
+    void Update(float deltaTime, sf::RenderWindow &window);
     void RangedAttack() override {};                            //TO DO
 
-    void Create(float deltatime, sf::RenderWindow &window) override;
+    void Create(float deltaTime, sf::RenderWindow &window) override;
 };
 
 

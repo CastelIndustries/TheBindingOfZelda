@@ -13,7 +13,9 @@ public:
     ~Ghost();
 
 
-    virtual void Create(float deltatime, sf::RenderWindow &window);
+    virtual void Create(float deltaTime, sf::RenderWindow &window);
+
+    void Update(float deltaTime, sf::RenderWindow &window);
 
     void MeleeAttack() override {};                             //TO DO
 

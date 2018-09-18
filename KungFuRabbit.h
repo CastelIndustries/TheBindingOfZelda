@@ -13,9 +13,11 @@ public:
 
     ~KungFuRabbit();
 
-    virtual void Create(float deltatime, sf::RenderWindow &window) override;
+    virtual void Create(float deltaTime, sf::RenderWindow &window) override;
 
-    void MeleeAttack() override {};                             //TO DO
+    void Update(float deltaTime, sf::RenderWindow &window);
+
+    void MeleeAttack() override {};                             //TODO
 
     KungFuRabbit(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(texture,
                                                                                                                 imageCount,

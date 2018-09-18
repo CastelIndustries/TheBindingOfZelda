@@ -10,53 +10,21 @@
 Character::Character(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : animation(texture,
                                                                                                                imageCount,
                                                                                                                switchTime) {
-
+    sf::RenderWindow window(sf::VideoMode(1211, 865), "Legend of Zelda", sf::Style::Close);
     this->speed = speed;
     dash = speed;
     row = 2;
     body.setSize(sf::Vector2f(120.0f, 210.0f));
-    body.setPosition(336.0f, 336.0f);
+    body.setPosition(rand()%(window.getSize().x- (int)body.getPosition().x), rand()%(window.getSize().y-(int)body.getPosition().y));
     body.setTexture(texture);
     playerBorder.setSize(sf::Vector2f(80.0f, 150.0f));
     playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
     playerBorder.setFillColor(sf::Color::Transparent);
+    clock.restart();
 };
 
 Character::~Character() {}
 
-void Character::Update(float deltaTime, sf::RenderWindow &window) {
-    sf::Vector2f movement(0.0f, 0.0f);
-
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {// && body.getPosition().x >= 0) {
-        movement.x -= speed * deltaTime;
-        row = 3;
-    }
-    if (sf::Keyboard::isKeyPressed(
-            sf::Keyboard::D)) {// && body.getPosition().x + body.getLocalBounds().width <= window.getSize().x) {
-        movement.x += speed * deltaTime;
-        row = 1;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {// && body.getPosition().y >=-40) {
-        movement.y -= speed * deltaTime;
-        row = 0;
-    }
-    if (sf::Keyboard::isKeyPressed(
-            sf::Keyboard::S)) {// && body.getPosition().y+ body.getLocalBounds().width <= window.getSize().y-60) {
-        movement.y += speed * deltaTime;
-        row = 2;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
-        speed = dash * 2;
-    else
-        speed = dash;
-
-    animation.Update(row, deltaTime);
-    body.setTextureRect(animation.uvRect);
-    body.move(movement);
-    playerBorder.move(movement);
-
-}
 
 void Character::Draw(sf::RenderWindow &window) {
     window.draw(body);
@@ -84,7 +52,6 @@ void Character::CorrectDisplay(sf::RenderWindow &window) {
 }
 
 void Character::Create(float deltatime, sf::RenderWindow &window) {
-    this->Update(deltatime, window);
     this->Draw(window);
     this->CorrectDisplay(window);
 };

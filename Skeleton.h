@@ -16,9 +16,11 @@ public:
 
     ~Skeleton();
 
-    void RangedAttack() override {};                    //TO DO
+    void Update(float deltaTime, sf::RenderWindow &window);
 
-    void Create(float deltatime, sf::RenderWindow &window) override;
+    void RangedAttack() override {};                    //TODO
+
+    void Create(float deltaTime, sf::RenderWindow &window) override;
 };
 
 
