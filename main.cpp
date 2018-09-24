@@ -20,10 +20,10 @@ int main() {
     //PLAYER
     RangedCharacterFactory PlayerFactory;
     sf::Texture playerTexture;
-    playerTexture.loadFromFile("../Textures/link4.png");
+    playerTexture.loadFromFile("../Textures/FRANCO DEFINITIVO.png");
 
     //Player player(&playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
-    auto player = PlayerFactory.Create("player", &playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
+    auto player = PlayerFactory.Create("player", &playerTexture, sf::Vector2u(3, 4), 0.10f, 200.0f);
 
     //ENEMIES
     MeleeCharacterFactory RabbitFactory;
@@ -38,9 +38,9 @@ int main() {
     skeletonTexture.loadFromFile("../Textures/skeletonChar.png");
     ghostTexture.loadFromFile("../Textures/ghost.png");
 
-    auto rabbit = RabbitFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 150.0f);
+    auto rabbit = RabbitFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 50.0f);
     auto skeleton = SkeletonFactory.Create("Skeleton", &skeletonTexture, sf::Vector2u(9, 4), 0.1f, 150.0f);
-    auto ghost = GhostFactory.Create("ghost", &ghostTexture, sf::Vector2u(3 , 4), 0.1f, 150.f);
+    auto ghost = GhostFactory.Create("ghost", &ghostTexture, sf::Vector2u(3 , 4), 0.1f, 200.f);
 
     //ELEMENTS
     std::vector<Element*> elements;
@@ -64,12 +64,16 @@ int main() {
         }*/
 
     float deltaTime;
+
     sf::Clock clock;
     int count=0;
+    float time1;
 
     while (window.isOpen())
+
     {
         deltaTime = clock.restart().asSeconds();
+
 
         sf::Event evnt;
         while (window.pollEvent(evnt))

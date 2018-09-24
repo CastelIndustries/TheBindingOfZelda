@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
-
+#include "time.h"
 
 class Character {
 
@@ -15,26 +15,30 @@ public:
 
     sf::RectangleShape playerBorder;
 
+    sf::RectangleShape body;
+
+    sf::Clock clock;
+
     Character();
 
     virtual  ~Character();
 
-    //virtual void Update(float deltaTime, sf::RenderWindow &window)=0;
+    virtual void Update(float deltaTime, sf::RenderWindow &window)=0;
 
     virtual void Draw(sf::RenderWindow &window);
 
-    virtual void CorrectDisplay(sf::RenderWindow &window);
+    virtual void CorrectDisplay(sf::RenderWindow &window)=0;
 
-    virtual void Create(float deltaTime, sf::RenderWindow &window);
+    virtual void Create(float deltatime, sf::RenderWindow &window);
 
     Character(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed);
 
-protected:
+
+//protected:
     float speed, dash;
-    sf::RectangleShape body;
+
     Animation animation;
     unsigned int row;
-    sf::Clock clock;
 
 };
 

@@ -35,6 +35,16 @@ void Animation::Update(int row, float deltaTime) {
     uvRect.width = abs(uvRect.width);
 }
 
+void Animation::StopUpdate(int row) {
+    currentImage.y = row;
+    currentImage.x = 1;
+    uvRect.top = currentImage.y * uvRect.height;
+    uvRect.left = currentImage.x * uvRect.width;
+    uvRect.width = abs(uvRect.width);
+}
+
+
+
 float Animation::getSwitchTime() const {
     return switchTime;
 }

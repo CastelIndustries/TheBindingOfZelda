@@ -2,17 +2,15 @@
 // Created by nicola on 8/30/18.
 //
 
-#include <iostream>
 #include "KungFuRabbit.h"
 
 void KungFuRabbit::Update(float deltaTime, sf::RenderWindow &window) {
+
     sf::Vector2f movement(0.0f, 0.0f);
-    int init;
-    if(clock.getElapsedTime().asSeconds() > 2) {
+    if (clock.getElapsedTime().asSeconds() > 3) {
         init = rand() % 4;
         clock.restart();
     }
-
 
     if (init == 0) {// && body.getPosition().x >= 0) {
         movement.x -= this->speed * deltaTime;
@@ -31,16 +29,39 @@ void KungFuRabbit::Update(float deltaTime, sf::RenderWindow &window) {
         row = 2;
     }
 
-
     animation.Update(row, deltaTime);
     body.setTextureRect(animation.uvRect);
     body.move(movement);
     playerBorder.move(movement);
 
+
 }
 
-void KungFuRabbit::Create(float deltaTime, sf::RenderWindow &window) {
-    MeleeCharacter::Create(deltaTime, window);
-    KungFuRabbit::Update(deltaTime, window);
+void KungFuRabbit::CorrectDisplay(sf::RenderWindow &window) {
+    if (body.getPosition().x <= 0) {
+        body.setPosition(0, body.getPosition().y);
+        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+    }
+    if (body.getPosition().x + body.getGlobalBounds().width >= window.getSize().x) {
+        body.setPosition(window.getSize().x - body.getSize().x, body.getPosition().y);
+        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+    }
+    if (body.getPosition().y <= 0) {
+        body.setPosition(body.getPosition().x, 0);
+        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+    }
+    if (body.getPosition().y + body.getGlobalBounds().height >= window.getSize().y) {
+        body.setPosition(body.getPosition().x, window.getSize().y - body.getSize().y);
+        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+    }
+}
+
+
+
+void KungFuRabbit::Create(float deltatime, sf::RenderWindow &window) {
+    KungFuRabbit::Update(deltatime, window);
+    MeleeCharacter::Draw(window);
+    KungFuRabbit::CorrectDisplay(window);
+
 }
 KungFuRabbit::~KungFuRabbit() {}
