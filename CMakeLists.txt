@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 #Define sources and executable
 set(EXECUTABLE_NAME "TheBindingOfZelda")
-add_executable(${EXECUTABLE_NAME} main.cpp Animation.cpp Animation.h Player.cpp Player.h Coin.cpp Coin.h Block.cpp Block.h Element.cpp Element.h Maps.cpp Maps.h Character.cpp Character.h Skeleton.cpp Skeleton.h RangedCharacter.cpp RangedCharacter.h MeleeCharacter.cpp MeleeCharacter.h Ghost.cpp Ghost.h KungFuRabbit.cpp KungFuRabbit.h CharacterFactory.cpp CharacterFactory.h RangedCharacterFactory.cpp RangedCharacterFactory.h MeleeCharacterFactory.cpp MeleeCharacterFactory.h)
+add_executable(${EXECUTABLE_NAME} main.cpp Animation.cpp Animation.h Player.cpp Player.h Coin.cpp Coin.h Block.cpp Block.h Element.cpp Element.h Maps.cpp Maps.h Character.cpp Character.h Skeleton.cpp Skeleton.h RangedCharacter.cpp RangedCharacter.h MeleeCharacter.cpp MeleeCharacter.h Ghost.cpp Ghost.h KungFuRabbit.cpp KungFuRabbit.h CharacterFactory.cpp CharacterFactory.h RangedCharacterFactory.cpp RangedCharacterFactory.h MeleeCharacterFactory.cpp MeleeCharacterFactory.h Collider.cpp Collider.h Platform.cpp Platform.h)
 
 #Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})

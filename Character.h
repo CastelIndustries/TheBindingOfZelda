@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
 #include "time.h"
+#include "Collider.h"
 
 class Character {
 
@@ -32,6 +33,10 @@ public:
     virtual void Create(float deltatime, sf::RenderWindow &window);
 
     Character(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed);
+
+    Collider GetCollider() {
+        return Collider(body);
+    }
 
 
 //protected:

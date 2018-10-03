@@ -10,20 +10,25 @@
 #include "RangedCharacterFactory.h"
 #include "MeleeCharacterFactory.h"
 #include <ctime>
-
+#include "Platform.h"
 int main() {
     //WINDOW
     sf::RenderWindow window(sf::VideoMode(1211, 865), "Legend of Zelda", sf::Style::Close);
     srand((unsigned) time(nullptr));
     Maps map;
 
-    //PLAYER
+    //PLAYERS
     RangedCharacterFactory PlayerFactory;
     sf::Texture playerTexture;
     playerTexture.loadFromFile("../Textures/FRANCO DEFINITIVO.png");
 
+    //PLATFORMS, for collisions
+    /* Platform platform1(nullptr,sf::Vector2f(300.0f,300.0f),sf::Vector2f(600.0f,400.0f));
+     Platform platform2(nullptr,sf::Vector2f(300.0f,300.0f),sf::Vector2f(400.0f,500.0f));*/
+
     //Player player(&playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
     auto player = PlayerFactory.Create("player", &playerTexture, sf::Vector2u(3, 4), 0.10f, 200.0f);
+
 
     //ENEMIES
     MeleeCharacterFactory RabbitFactory;
@@ -41,6 +46,12 @@ int main() {
     auto rabbit = RabbitFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 50.0f);
     auto skeleton = SkeletonFactory.Create("Skeleton", &skeletonTexture, sf::Vector2u(9, 4), 0.1f, 150.0f);
     auto ghost = GhostFactory.Create("ghost", &ghostTexture, sf::Vector2u(3 , 4), 0.1f, 200.f);
+
+    //Characters Vectors
+
+
+
+
 
     //ELEMENTS
     std::vector<Element*> elements;
@@ -103,10 +114,34 @@ int main() {
 
         player->Create(deltaTime, window);
 
+
         //ENEMIES
         rabbit->Create(deltaTime, window);
         skeleton->Create(deltaTime, window);
         ghost->Create(deltaTime, window);
+
+        //Collisions
+        //player Collision
+        player->GetCollider().CheckCollision(ghost->GetCollider(), 0.5f);
+        player->GetCollider().CheckCollision(rabbit->GetCollider(), 0.5f);
+        player->GetCollider().CheckCollision(skeleton->GetCollider(), 0.5f);
+
+        //ghost Collisions
+        ghost->GetCollider().CheckCollision(player->GetCollider(), 0.5f);
+        ghost->GetCollider().CheckCollision(rabbit->GetCollider(), 0.5f);
+        ghost->GetCollider().CheckCollision(skeleton->GetCollider(), 0.5f);
+
+        //skeleton Collisions
+        skeleton->GetCollider().CheckCollision(player->GetCollider(), 0.5f);
+        skeleton->GetCollider().CheckCollision(ghost->GetCollider(), 0.5f);
+        skeleton->GetCollider().CheckCollision(rabbit->GetCollider(), 0.5f);
+
+        //rabbit Collisions
+        rabbit->GetCollider().CheckCollision(player->GetCollider(), 0.5f);
+        rabbit->GetCollider().CheckCollision(ghost->GetCollider(), 0.5f);
+        rabbit->GetCollider().CheckCollision(skeleton->GetCollider(), 0.5f);
+
+        //Platforms, for collisions;
 
         /*
         //PICKING COINS
@@ -127,3 +162,5 @@ int main() {
 
     return 0;
 }
+
+
