@@ -10,12 +10,15 @@
 #include "RangedCharacterFactory.h"
 #include "MeleeCharacterFactory.h"
 #include <ctime>
-#include "Platform.h"
+
 int main() {
     //WINDOW
     sf::RenderWindow window(sf::VideoMode(1211, 865), "Legend of Zelda", sf::Style::Close);
     srand((unsigned) time(nullptr));
-    Maps map;
+    Maps map1;
+    Maps map2;
+    Maps map3;
+
 
     //PLAYERS
     RangedCharacterFactory PlayerFactory;
@@ -101,7 +104,7 @@ int main() {
         }
         //WINDOW
         window.clear();
-        map.showMaps(window);
+        map1.showMaps(window);
         //window.setView(view);
         //ELEMENTS
 
