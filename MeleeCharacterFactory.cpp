@@ -4,14 +4,19 @@
 
 #include "MeleeCharacterFactory.h"
 
-std::unique_ptr<Character> MeleeCharacterFactory::Create(std::string type, sf::Texture *texture,
+std::unique_ptr<Character> MeleeCharacterFactory::Create(type t, sf::Texture *texture,
                                                          sf::Vector2u imageCount, float switchTime, float speed) {
+    Character* character = NULL;
+    switch (t) {
 
-    if (type == "ghost") {
-        std::unique_ptr<Character> ghost(new Ghost(texture, imageCount, switchTime, speed));
-        return ghost;
-    } else {
-        std::unique_ptr<Character> rabbit(new KungFuRabbit(texture, imageCount, switchTime, speed));
-        return rabbit;
+        case type::GHOST :
+            character = new Ghost(texture, imageCount, switchTime, speed);
+            break;
+        case type::RABBIT :
+            character = new KungFuRabbit(texture, imageCount, switchTime, speed);
+            break;
+        default :break;
     }
+    std::unique_ptr<Character> c(character);
+    return c;
 }

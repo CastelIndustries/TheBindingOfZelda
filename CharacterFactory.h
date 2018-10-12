@@ -7,6 +7,8 @@
 
 #include "Character.h"
 
+enum class type {RABBIT,SKELETON,GHOST,PLAYER};
+
 class CharacterFactory {
 public:
     CharacterFactory() {};
@@ -14,7 +16,7 @@ public:
     virtual ~CharacterFactory() {};
 
     virtual std::unique_ptr<Character>
-    Create(std::string type, sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed)=0;
+    Create(type t, sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed)=0;
 };
 
 

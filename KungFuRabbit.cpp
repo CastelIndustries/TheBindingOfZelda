@@ -22,11 +22,11 @@ void KungFuRabbit::Update(float deltaTime, sf::RenderWindow &window) {
     }
     if (init == 2) {// && body.getPosition().y >=-40) {
         movement.y -= this->speed * deltaTime;
-        row = 0;
+        row = 2;
     }
     if (init == 3) {// && body.getPosition().y+ body.getLocalBounds().width <= window.getSize().y-60) {
         movement.y += this->speed * deltaTime;
-        row = 2;
+        row = 0;
     }
 
     animation.Update(row, deltaTime);
@@ -58,8 +58,8 @@ void KungFuRabbit::CorrectDisplay(sf::RenderWindow &window) {
 
 
 
-void KungFuRabbit::Create(float deltatime, sf::RenderWindow &window) {
-    KungFuRabbit::Update(deltatime, window);
+void KungFuRabbit::Create(float deltaTime, sf::RenderWindow &window) {
+    KungFuRabbit::Update(deltaTime, window);
     MeleeCharacter::Draw(window);
     KungFuRabbit::CorrectDisplay(window);
 

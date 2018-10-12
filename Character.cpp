@@ -22,8 +22,8 @@ void Character::Draw(sf::RenderWindow &window) {
 }
 
 
-void Character::Create(float deltatime, sf::RenderWindow &window) {
-    this->Update(deltatime, window);
+void Character::Create(float deltaTime, sf::RenderWindow &window) {
+    this->Update(deltaTime, window);
     this->Draw(window);
     this->CorrectDisplay(window);
 };

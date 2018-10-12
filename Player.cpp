@@ -4,51 +4,52 @@
 
 #include "Player.h"
 
+Player::~Player() {};
+
 void Player::Update(float deltaTime, sf::RenderWindow &window) {
     sf::Vector2f movement(0.0f, 0.0f);
 
-    bool stop = false;
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {// && body.getPosition().x >= 0) {
-        movement.x -= this->speed * deltaTime;
-        this->row = 2;
-    } else {
-
-        if (sf::Keyboard::isKeyPressed(
-                sf::Keyboard::D)) {// && body.getPosition().x + body.getLocalBounds().width <= window.getSize().x) {
-            movement.x += this->speed * deltaTime;
-            this->row = 3;
-        } else {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {// && body.getPosition().y >=-40) {
-                movement.y -= this->speed * deltaTime;
-                this->row = 1;
+        bool stop=false;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){// && body.getPosition().x >= 0) {
+            movement.x -= this->speed * deltaTime;
+            row = 2;
+        }else {
+            if (sf::Keyboard::isKeyPressed(
+                    sf::Keyboard::D)) {// && body.getPosition().x + body.getLocalBounds().width <= window.getSize().x) {
+                movement.x += this->speed * deltaTime;
+                this->row = 3;
             } else {
-                if (sf::Keyboard::isKeyPressed(
-                        sf::Keyboard::S)) {// && body.getPosition().y+ body.getLocalBounds().width <= window.getSize().y-60) {
-                    movement.y += this->speed * deltaTime;
-                    this->row = 0;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {// && body.getPosition().y >=-40) {
+                    movement.y -= this->speed * deltaTime;
+                    this->row = 1;
                 } else {
-                    stop = true;
+                    if (sf::Keyboard::isKeyPressed(
+                            sf::Keyboard::S)) {// && body.getPosition().y+ body.getLocalBounds().width <= window.getSize().y-60) {
+                        movement.y += this->speed * deltaTime;
+                        this->row = 0;
+                    } else {
+                        stop = true;
 
+                    }
                 }
             }
         }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+            this->speed = this->dash * 2;
+        else
+            this->speed = this->dash;
+
+        if (stop) {
+            this->animation.StopUpdate(this->row);
+        } else
+            this->animation.Update(this->row, deltaTime);
+
+        this->body.setTextureRect(this->animation.uvRect);
+        this->body.move(movement);
+        this->playerBorder.move(movement);
+
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
-        this->speed = this->dash * 2;
-    else
-        this->speed = this->dash;
 
-    if (stop) {
-        this->animation.StopUpdate(this->row);
-    } else
-        this->animation.Update(this->row, deltaTime);
-
-    this->body.setTextureRect(this->animation.uvRect);
-    this->body.move(movement);
-    this->playerBorder.move(movement);
-
-}
 
 void Player::CorrectDisplay(sf::RenderWindow &window) {
 
@@ -77,5 +78,5 @@ void Player::Create(float deltatime, sf::RenderWindow &window) {
     RangedCharacter::Draw(window);
     Player::CorrectDisplay(window);
 }
-Player::~Player() {};
+
 

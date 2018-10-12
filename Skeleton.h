@@ -20,8 +20,8 @@ public:
         body.setPosition(rand() % 1211, rand() % 865);
         body.setTexture(texture);
         playerBorder.setSize(sf::Vector2f(80.0f, 150.0f));
-        playerBorder.setPosition(rand() % 1211, rand() % 865);
-        playerBorder.setFillColor(sf::Color::Transparent);
+        playerBorder.setPosition(body.getPosition().x, body.getPosition().y);
+        playerBorder.setFillColor(sf::Color::Yellow);
     };
 
     ~Skeleton();
@@ -30,7 +30,7 @@ public:
 
     virtual void Update(float deltatime, sf::RenderWindow &window) override;
 
-    void Create(float deltatime, sf::RenderWindow &window) override;
+    virtual void Create(float deltatime, sf::RenderWindow &window) override;
 
     void CorrectDisplay(sf::RenderWindow &window) override;
 

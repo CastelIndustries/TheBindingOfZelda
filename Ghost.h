@@ -9,20 +9,6 @@
 
 class Ghost : public MeleeCharacter {
 public:
-
-    ~Ghost();
-
-
-    virtual void Create(float deltaTime, sf::RenderWindow &window);
-
-    virtual void Update(float deltatime, sf::RenderWindow &window) override;
-
-    void CorrectDisplay(sf::RenderWindow &window) override;
-
-    float init;
-
-    void MeleeAttack() override {};                             //TO DO
-
     Ghost(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(texture,
                                                                                                          imageCount,
                                                                                                          switchTime,
@@ -34,9 +20,25 @@ public:
         body.setPosition(rand() % 1211, rand() % 865);
         body.setTexture(texture);
         playerBorder.setSize(sf::Vector2f(80.0f, 150.0f));
-        playerBorder.setPosition(rand() % 1211, rand() % 865);
-        playerBorder.setFillColor(sf::Color::Transparent);
+        playerBorder.setPosition(body.getPosition().x, body.getPosition().y);
+        playerBorder.setFillColor(sf::Color::Yellow);
+        clock.restart();
     }
+
+    ~Ghost();
+
+
+    virtual void Create(float deltaTime, sf::RenderWindow &window) override;
+
+    virtual void Update(float deltaTime, sf::RenderWindow &window) override ;
+
+    void CorrectDisplay(sf::RenderWindow &window) override;
+
+    float init;
+
+    void MeleeAttack() override {};                             //TODO
+
+
 };
 
 

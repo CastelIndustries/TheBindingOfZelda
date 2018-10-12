@@ -5,6 +5,6 @@
 #include "MeleeCharacter.h"
 
 
-void MeleeCharacter::Create(float deltatime, sf::RenderWindow &window) {
-    Character::Create(deltatime, window);
+void MeleeCharacter::Create(float deltaTime, sf::RenderWindow &window) {
+    Character::Create(deltaTime, window);
 }

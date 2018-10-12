@@ -8,6 +8,7 @@
 
 
 #include "RangedCharacter.h"
+#include "Collider.h"
 
 class Player : public RangedCharacter {
 public:
@@ -18,23 +19,28 @@ public:
                                                                                                            speed) {
             this->speed = speed;
             dash = speed;
-        row = 0;
+            row = 0;
             body.setSize(sf::Vector2f(120.0f, 210.0f));
+            //body.setOrigin(body.getSize()/2.0f);
             body.setPosition(336.0f, 336.0f);
             body.setTexture(texture);
             playerBorder.setSize(sf::Vector2f(80.0f, 150.0f));
-            playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+            playerBorder.setPosition(body.getPosition().x+20, body.getPosition().y+20);
             playerBorder.setFillColor(sf::Color::Transparent);
     };
     ~Player();
 
     void RangedAttack() override {};                            //TO DO
 
-    void Create(float deltatime, sf::RenderWindow &window) override;
+    void Create(float deltaTime, sf::RenderWindow &window) override;
 
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
     void CorrectDisplay(sf::RenderWindow &window) override;
+
+    Collider getCollider(){
+        return Collider(body);
+    }
 };
 
 

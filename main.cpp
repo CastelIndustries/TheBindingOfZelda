@@ -4,16 +4,16 @@
 #include <vector>
 #include "Animation.h"
 #include "Player.h"
-#include "Coin.h"
 #include "Maps.h"
 #include "Element.h"
 #include "RangedCharacterFactory.h"
 #include "MeleeCharacterFactory.h"
 #include <ctime>
+#include "Platform.h"
 
 int main() {
     //WINDOW
-    sf::RenderWindow window(sf::VideoMode(1211, 865), "Legend of Zelda", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(1211, 865), "The Binding of Zelda", sf::Style::Close);
     srand((unsigned) time(nullptr));
     Maps map;
 
@@ -22,13 +22,16 @@ int main() {
     sf::Texture playerTexture;
     playerTexture.loadFromFile("../Textures/FRANCO DEFINITIVO.png");
 
-    //Player player(&playerTexture, sf::Vector2u(12, 8), 0.035f, 150.0f);
-    auto player = PlayerFactory.Create("player", &playerTexture, sf::Vector2u(3, 4), 0.10f, 200.0f);
+    //auto player = PlayerFactory.Create(type::PLAYER, &playerTexture, sf::Vector2u(3, 4), 0.1f, 200.0f);
+    Player player(&playerTexture, sf::Vector2u(3, 4), 0.1f, 200.0f);
+
 
     //ENEMIES
     MeleeCharacterFactory RabbitFactory;
     RangedCharacterFactory SkeletonFactory;
-    RangedCharacterFactory GhostFactory;
+    MeleeCharacterFactory GhostFactory;
+    Platform platform(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 500.0f));
+    Platform platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
 
     sf::Texture rabbitTexture;
     sf::Texture skeletonTexture;
@@ -38,9 +41,10 @@ int main() {
     skeletonTexture.loadFromFile("../Textures/skeletonChar.png");
     ghostTexture.loadFromFile("../Textures/ghost.png");
 
-    auto rabbit = RabbitFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 50.0f);
-    auto skeleton = SkeletonFactory.Create("Skeleton", &skeletonTexture, sf::Vector2u(9, 4), 0.1f, 150.0f);
-    auto ghost = GhostFactory.Create("ghost", &ghostTexture, sf::Vector2u(3 , 4), 0.1f, 200.f);
+    //auto rabbit = RabbitFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f);
+    //auto skeleton = SkeletonFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(9, 4), 0.1f, 200.0f);
+    //auto ghost = GhostFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3 , 4), 0.1f, 200.f);
+
 
     //ELEMENTS
     std::vector<Element*> elements;
@@ -50,18 +54,11 @@ int main() {
     elements.push_back(new Element(175, 130, "../Textures/skeleton 2b.png", 0.3, 0.3));
     elements.push_back(new Element(175, 130, "../Textures/skeleton 3b.png", 0.3, 0.3));
 
+    //if(player.playerBorder.getGlobalBounds().intersects(coins[i]->coinBorder.getGlobalBounds())){
+   /* if(player->playerBorder.getGlobalBounds().intersects(rabbit->playerBorder.getGlobalBounds())){
 
-        /*(int i=0; i<elements.size(); i++){
-            for (int j = 0; j <elements.size(); ++j) {
-                if(elements[i]->elementBorder.getGlobalBounds().intersects(elements[j]->elementBorder.getGlobalBounds())) {
-                    elements[i]->elementBorder.setPosition(
-                            rand() % (window.getSize().x - (int) elements[i]->elementBorder.getPosition().x),
-                            rand() % (window.getSize().y - (int) elements[i]->elementBorder.getPosition().y));
+    }*/
 
-                }
-
-            }
-        }*/
 
     float deltaTime;
 
@@ -87,11 +84,14 @@ int main() {
            }
 
 
+
+
+
         }
         //WINDOW
         window.clear();
         map.showMaps(window);
-        //window.setView(view);
+
         //ELEMENTS
 
         for(auto element:elements){
@@ -100,27 +100,23 @@ int main() {
 
 
         //PLAYER
-
-        player->Create(deltaTime, window);
+        player.Create(deltaTime, window);
 
         //ENEMIES
-        rabbit->Create(deltaTime, window);
-        skeleton->Create(deltaTime, window);
-        ghost->Create(deltaTime, window);
+        platform.getCollider().checkCollision(player.getCollider(), 0.0f);
+        platform1.getCollider().checkCollision(player.getCollider(), 0.0f);
 
-        /*
-        //PICKING COINS
-        for(int i=0; i<nCoin; i++){
-            if(player.playerBorder.getGlobalBounds().intersects(coins[i]->coinBorder.getGlobalBounds())){
-                coins.erase(coins.begin() + i);
-                nCoin--;
-                count++;
-                coinSound.play();
-            }
-        }
-        pickedCoins.setString("COINS : "+ std::to_string(count));
-        window.draw(pickedCoins);
-*/
+        platform.Draw(window);
+        platform1.Draw(window);
+
+
+        //rabbit->Create(deltaTime, window);
+        //ghost->Create(deltaTime, window);
+        //skeleton->Create(deltaTime, window);
+        //rabbit->getCollider().checkCollision(player->getCollider(), 1.0f);
+        //skeleton->getCollider().checkCollision(player->getCollider(), 1.0f);
+        //ghost->getCollider().checkCollision(player->getCollider(), 1.0f);
+
 
         window.display();
     }

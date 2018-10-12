@@ -16,7 +16,7 @@ public:
     ~RangedCharacterFactory() {};
 
     std::unique_ptr<Character>
-    Create(std::string type, sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) override;
+    Create(type t, sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) override;
 };
 
 
