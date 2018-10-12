@@ -9,7 +9,7 @@
 #include "RangedCharacterFactory.h"
 #include "MeleeCharacterFactory.h"
 #include <ctime>
-#include "Platform.h"
+
 
 int main() {
     //WINDOW
@@ -30,8 +30,7 @@ int main() {
     MeleeCharacterFactory RabbitFactory;
     RangedCharacterFactory SkeletonFactory;
     MeleeCharacterFactory GhostFactory;
-    Platform platform(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 500.0f));
-    Platform platform1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
+
 
     sf::Texture rabbitTexture;
     sf::Texture skeletonTexture;
@@ -103,11 +102,6 @@ int main() {
         player.Create(deltaTime, window);
 
         //ENEMIES
-        platform.getCollider().checkCollision(player.getCollider(), 0.0f);
-        platform1.getCollider().checkCollision(player.getCollider(), 0.0f);
-
-        platform.Draw(window);
-        platform1.Draw(window);
 
 
         //rabbit->Create(deltaTime, window);

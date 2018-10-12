@@ -8,7 +8,7 @@
 
 
 #include "RangedCharacter.h"
-#include "Collider.h"
+
 
 class Player : public RangedCharacter {
 public:
@@ -38,9 +38,7 @@ public:
 
     void CorrectDisplay(sf::RenderWindow &window) override;
 
-    Collider getCollider(){
-        return Collider(body);
-    }
+
 };
 
 

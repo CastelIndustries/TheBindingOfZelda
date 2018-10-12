@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
 #include "time.h"
-#include "Collider.h"
+
 
 class Character {
 
