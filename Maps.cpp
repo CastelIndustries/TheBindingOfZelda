@@ -10,7 +10,7 @@ Maps::Maps() {
     this->one.loadFromFile("../Textures/tiles 1b.png");
     this->two.loadFromFile("../Textures/tiles 2b.png");
     this->three.loadFromFile("../Textures/tiles 3b.png");
-    //this->four.loadFromFile("../Textures/ground_4.jpeg");
+
 
     for (int i = 0; i <numTextures ; ++i) {
         for (int j = 0; j <numTextures+4 ; ++j) {
@@ -32,7 +32,6 @@ void Maps::showMaps(sf::RenderWindow &window) {
     for (int i = 0; i <numTextures ; ++i) {
         for (int j = 0; j <numTextures+4 ; ++j) {
             this->blocks[k].showBlock(window);
-
 
             k++;
         }

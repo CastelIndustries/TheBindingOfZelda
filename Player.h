@@ -8,8 +8,7 @@
 
 
 #include "RangedCharacter.h"
-
-
+#include "Collider.h"
 class Player : public RangedCharacter {
 public:
 
@@ -25,7 +24,7 @@ public:
             body.setPosition(336.0f, 336.0f);
             body.setTexture(texture);
             playerBorder.setSize(sf::Vector2f(80.0f, 150.0f));
-            playerBorder.setPosition(body.getPosition().x+20, body.getPosition().y+20);
+            playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
             playerBorder.setFillColor(sf::Color::Transparent);
     };
     ~Player();
@@ -37,8 +36,6 @@ public:
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
     void CorrectDisplay(sf::RenderWindow &window) override;
-
-
 };
 
 
