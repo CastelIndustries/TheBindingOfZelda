@@ -13,7 +13,8 @@ class Maps {
 public:
     Maps();
     ~Maps();
-    void showMaps(sf::RenderWindow &window);
+
+    void showMaps(sf::RenderWindow &window, int translation_X);
 
 protected:
     sf::Texture one;
