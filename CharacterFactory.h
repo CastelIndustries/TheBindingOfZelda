@@ -14,7 +14,7 @@ public:
     virtual ~CharacterFactory() {};
 
     virtual std::unique_ptr<Character>
-    Create(std::string type, sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed)=0;
+    Create(std::string type, sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed);
 };
 
 

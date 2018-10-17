@@ -27,11 +27,12 @@ Maps::Maps() {
     }
 }
 Maps::~Maps() {}
-void Maps::showMaps(sf::RenderWindow &window) {
+
+void Maps::showMaps(sf::RenderWindow &window, int translation_X) {
     int k=0;
     for (int i = 0; i <numTextures ; ++i) {
         for (int j = 0; j <numTextures+4 ; ++j) {
-            this->blocks[k].showBlock(window);
+            this->blocks[k + translation_X].showBlock(window);
 
             k++;
         }

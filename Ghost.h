@@ -35,7 +35,7 @@ public:
         body.setTexture(texture);
         playerBorder.setSize(sf::Vector2f(80.0f, 150.0f));
         playerBorder.setPosition(body.getPosition());
-        playerBorder.setFillColor(sf::Color::Yellow);
+        playerBorder.setFillColor(sf::Color::Transparent);
     }
 };
 

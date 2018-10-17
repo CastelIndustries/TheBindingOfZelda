@@ -52,12 +52,12 @@ void Player::Update(float deltaTime, sf::RenderWindow &window) {
 
 void Player::CorrectDisplay(sf::RenderWindow &window) {
 
-    if (body.getPosition().x <= 0) {
+    if (body.getPosition().x <= 0 && body.getPosition().y >= 200.0f) {
         body.setPosition(0, body.getPosition().y);
         playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
 
     }
-    if (body.getPosition().x + body.getGlobalBounds().width >= window.getSize().x) {
+    if (body.getPosition().x + body.getGlobalBounds().width >= window.getSize().x && body.getPosition().y >= 200.0f) {
         body.setPosition(window.getSize().x - body.getSize().x, body.getPosition().y);
         playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
     }

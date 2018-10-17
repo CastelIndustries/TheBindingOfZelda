@@ -7,21 +7,20 @@
 #include "Coin.h"
 #include "Maps.h"
 #include "Element.h"
-#include "RangedCharacterFactory.h"
-#include "MeleeCharacterFactory.h"
+#include "CharacterFactory.h"
 #include <ctime>
 
 int main() {
     //WINDOW
-    sf::RenderWindow window(sf::VideoMode(1211, 865), "Legend of Zelda", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(1211, 865), "Legend of Zelda", sf::Style::Close | sf::Style::Resize);
     srand((unsigned) time(nullptr));
     Maps map1;
     Maps map2;
     Maps map3;
-
+    sf::View view(sf::Vector2f(336.0f, 336.0f), sf::Vector2f(1211, 865));
 
     //PLAYERS
-    RangedCharacterFactory PlayerFactory;
+    CharacterFactory PlayerFactory;
     sf::Texture playerTexture;
     playerTexture.loadFromFile("../Textures/FRANCO DEFINITIVO.png");
 
@@ -34,24 +33,19 @@ int main() {
 
 
     //ENEMIES
-    MeleeCharacterFactory RabbitFactory;
-    RangedCharacterFactory SkeletonFactory;
-    RangedCharacterFactory GhostFactory;
+    CharacterFactory EnemiesFactory;
 
     sf::Texture rabbitTexture;
     sf::Texture skeletonTexture;
     sf::Texture ghostTexture;
 
     rabbitTexture.loadFromFile("../Textures/rabbit.png");
-    skeletonTexture.loadFromFile("../Textures/skeletonChar.png");
+    skeletonTexture.loadFromFile("../Textures/skeleton.png");
     ghostTexture.loadFromFile("../Textures/ghost.png");
 
-    auto rabbit = RabbitFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 50.0f);
-    auto skeleton = SkeletonFactory.Create("Skeleton", &skeletonTexture, sf::Vector2u(9, 4), 0.1f, 150.0f);
-    auto ghost = GhostFactory.Create("ghost", &ghostTexture, sf::Vector2u(3 , 4), 0.1f, 200.f);
-
-    //Characters Vectors
-
+    auto rabbit = EnemiesFactory.Create("KungFu Rabbit", &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 50.0f);
+    auto skeleton = EnemiesFactory.Create("Skeleton", &skeletonTexture, sf::Vector2u(9, 4), 0.1f, 150.0f);
+    auto ghost = EnemiesFactory.Create("ghost", &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f);
 
 
 
@@ -83,7 +77,7 @@ int main() {
     int count=0;
     float time1;
 
-    while (window.isOpen())
+    while (window.isOpen())    //Characters Vectors
 
     {
         deltaTime = clock.restart().asSeconds();
@@ -104,7 +98,15 @@ int main() {
         }
         //WINDOW
         window.clear();
-        map1.showMaps(window);
+        view.setCenter(player->body.getPosition());
+
+        window.setView(view);
+
+        map1.showMaps(window, 0);
+        // map2.showMaps(window, window.getSize().x );
+
+
+
         //window.setView(view);
         //ELEMENTS
 
