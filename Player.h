@@ -23,13 +23,11 @@ public:
             //body.setOrigin(body.getSize()/2.0f);
             body.setPosition(336.0f, 336.0f);
             body.setTexture(texture);
-            playerBorder.setSize(sf::Vector2f(80.0f, 150.0f));
-            playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
-            playerBorder.setFillColor(sf::Color::Transparent);
+
     };
     ~Player();
 
-    void RangedAttack() override {};                            //TO DO
+    void RangedAttack() override {}                       //TO DO
 
     void Create(float deltaTime, sf::RenderWindow &window) override;
 

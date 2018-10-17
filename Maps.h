@@ -11,10 +11,10 @@
 
 class Maps {
 public:
-    Maps();
+    Maps(int origin);
     ~Maps();
 
-    void showMaps(sf::RenderWindow &window, int translation_X);
+    void showMaps(sf::RenderWindow &window);
 
 protected:
     sf::Texture one;
@@ -22,7 +22,7 @@ protected:
     sf::Texture three;
     //sf::Texture four;
     Block blocks[200];
-    static const int numTextures=10;
+    static const int numTiles=10;
 
 
 };

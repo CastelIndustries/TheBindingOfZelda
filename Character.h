@@ -15,8 +15,6 @@ class Character {
 
 public:
 
-    sf::RectangleShape playerBorder;
-
     sf::RectangleShape body;
 
     sf::Clock clock;

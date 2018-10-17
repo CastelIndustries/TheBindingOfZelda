@@ -8,20 +8,20 @@
 #include "Ghost.h"
 #include "KungFuRabbit.h"
 
-std::unique_ptr<Character> CharacterFactory::Create(std::string type, sf::Texture *texture, sf::Vector2u imageCount,
+std::unique_ptr<Character> CharacterFactory::Create(type t, sf::Texture *texture, sf::Vector2u imageCount,
                                                     float switchTime, float speed) {
 
-    if (type == "player") {
+    if (t == type::PLAYER) {
         std::unique_ptr<Character> player(new Player(texture, imageCount, switchTime, speed));
         return player;
     }
 
-    if (type == "skeleton") {
+    if (t == type::SKELETON) {
         std::unique_ptr<Character> skeleton(new Skeleton(texture, imageCount, switchTime, speed));
         return skeleton;
     }
 
-    if (type == "ghost") {
+    if (t == type::GHOST) {
         std::unique_ptr<Character> ghost(new Ghost(texture, imageCount, switchTime, speed));
         return ghost;
     } else {

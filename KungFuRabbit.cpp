@@ -32,7 +32,7 @@ void KungFuRabbit::Update(float deltaTime, sf::RenderWindow &window) {
     animation.Update(row, deltaTime);
     body.setTextureRect(animation.uvRect);
     body.move(movement);
-    playerBorder.move(movement);
+
 
 
 }
@@ -40,19 +40,19 @@ void KungFuRabbit::Update(float deltaTime, sf::RenderWindow &window) {
 void KungFuRabbit::CorrectDisplay(sf::RenderWindow &window) {
     if (body.getPosition().x <= 0) {
         body.setPosition(0, body.getPosition().y);
-        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+
     }
     if (body.getPosition().x + body.getGlobalBounds().width >= window.getSize().x) {
         body.setPosition(window.getSize().x - body.getSize().x, body.getPosition().y);
-        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+
     }
     if (body.getPosition().y <= 0) {
         body.setPosition(body.getPosition().x, 0);
-        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+
     }
     if (body.getPosition().y + body.getGlobalBounds().height >= window.getSize().y) {
         body.setPosition(body.getPosition().x, window.getSize().y - body.getSize().y);
-        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+
     }
 }
 

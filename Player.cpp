@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "Collider.h"
 
 Player::~Player() {};
 
@@ -46,35 +47,38 @@ void Player::Update(float deltaTime, sf::RenderWindow &window) {
 
         this->body.setTextureRect(this->animation.uvRect);
         this->body.move(movement);
-        this->playerBorder.move(movement);
+
 
     }
 
 
 void Player::CorrectDisplay(sf::RenderWindow &window) {
 
-    if (body.getPosition().x <= 0 && body.getPosition().y >= 200.0f) {
+    /*if (body.getPosition().x <= 0 && body.getPosition().y >= 200.0f) {
         body.setPosition(0, body.getPosition().y);
-        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+
 
     }
     if (body.getPosition().x + body.getGlobalBounds().width >= window.getSize().x && body.getPosition().y >= 200.0f) {
         body.setPosition(window.getSize().x - body.getSize().x, body.getPosition().y);
-        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+
     }
     if (body.getPosition().y <= 0) {
         body.setPosition(body.getPosition().x, 0);
-        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
+
     }
     if (body.getPosition().y + body.getGlobalBounds().height >= window.getSize().y) {
         body.setPosition(body.getPosition().x, window.getSize().y - body.getSize().y);
-        playerBorder.setPosition(body.getPosition().x + 20, body.getPosition().y + 20);
 
-    }
+
+    }*/
+
+
+
 }
 
-void Player::Create(float deltatime, sf::RenderWindow &window) {
-    Player::Update(deltatime, window);
+void Player::Create(float deltaTime, sf::RenderWindow &window) {
+    Player::Update(deltaTime, window);
     RangedCharacter::Draw(window);
     Player::CorrectDisplay(window);
 }

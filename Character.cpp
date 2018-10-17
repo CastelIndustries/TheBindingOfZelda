@@ -18,7 +18,6 @@ Character::~Character() {}
 
 void Character::Draw(sf::RenderWindow &window) {
     window.draw(body);
-    window.draw(playerBorder);
 }
 
 
