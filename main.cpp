@@ -14,7 +14,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(1211, 865), "The Binding of Zelda", sf::Style::Close);
     srand((unsigned) time(nullptr));
     Maps map1(0);
-    Maps map2(window.getSize().x+100);
+    Maps map2(window.getSize().x+100); //mappa
     //Maps map3;
     sf::View view(sf::Vector2f(336.0f, 336.0f), sf::Vector2f(1211, 865));
 
