@@ -1,17 +1,19 @@
 //
-// Created by nicola on 9/29/18.
+// Created by frangio on 9/29/18.
 //
 
+#include <iostream>
 #include "Collider.h"
 
 
-Collider::Collider(sf::RectangleShape &body) : body(body) {};
+Collider::Collider(sf::RectangleShape &body) : body(body) {
+};
 
 bool Collider::CheckCollision(Collider other, float push) {
 
-    sf::Vector2f OtherPosition = other.Getposition();
+    sf::Vector2f OtherPosition = other.GetPosition();
     sf::Vector2f OtherHalfSize = other.GetHalfSize();
-    sf::Vector2f ThisPosition = this->Getposition();
+    sf::Vector2f ThisPosition = this->GetPosition();
     sf::Vector2f ThisHalfSize = this->GetHalfSize();
 
     float deltaX = abs(OtherPosition.x - ThisPosition.x);
@@ -49,6 +51,7 @@ bool Collider::CheckCollision(Collider other, float push) {
                 other.Move(0.0f, IntersectY * (1 - push));
 
             }
+
 
         }
         return true;

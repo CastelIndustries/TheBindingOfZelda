@@ -3,7 +3,6 @@
 //
 
 #include "Maps.h"
-#include "Maps.h"
 #include <SFML/Graphics.hpp>
 Maps::Maps(int origin) {
     int k=0,x=origin,y=0;

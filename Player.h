@@ -23,6 +23,7 @@ public:
             //body.setOrigin(body.getSize()/2.0f);
             body.setPosition(336.0f, 336.0f);
             body.setTexture(texture);
+            //body.setFillColor(sf::Color::White);
 
     };
     ~Player();

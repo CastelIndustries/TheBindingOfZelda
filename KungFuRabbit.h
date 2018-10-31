@@ -35,6 +35,7 @@ public:
             body.setSize(sf::Vector2f(120.0f, 210.0f));
             body.setPosition(rand() % 1211, rand() % 865);
             body.setTexture(texture);
+            //body.setFillColor(sf::Color::White);
             clock.restart();
     }
 };

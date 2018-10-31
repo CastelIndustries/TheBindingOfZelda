@@ -4,6 +4,7 @@
 
 #include "Player.h"
 #include "Collider.h"
+#include <list>
 
 Player::~Player() {};
 
@@ -54,6 +55,8 @@ void Player::Update(float deltaTime, sf::RenderWindow &window) {
 
 void Player::CorrectDisplay(sf::RenderWindow &window) {
 
+
+
     /*if (body.getPosition().x <= 0 && body.getPosition().y >= 200.0f) {
         body.setPosition(0, body.getPosition().y);
 
@@ -72,9 +75,6 @@ void Player::CorrectDisplay(sf::RenderWindow &window) {
 
 
     }*/
-
-
-
 }
 
 void Player::Create(float deltaTime, sf::RenderWindow &window) {

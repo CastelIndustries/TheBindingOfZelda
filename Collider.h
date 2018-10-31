@@ -1,5 +1,5 @@
 //
-// Created by nicola on 9/29/18.
+// Created by frangio on 9/29/18.
 //
 
 #ifndef SFML_TESTS_LINK_COLLIDER_H
@@ -22,7 +22,7 @@ public:
 
     bool CheckCollision(Collider other, float push);
 
-    sf::Vector2f Getposition() { return body.getPosition(); };
+    sf::Vector2f GetPosition() { return body.getPosition(); };
 
     sf::Vector2f GetHalfSize() { return body.getSize() / 2.0f; };
 
