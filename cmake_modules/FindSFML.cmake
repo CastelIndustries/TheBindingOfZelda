@@ -52,7 +52,7 @@
 # example:
 #   find_package(SFML 2 COMPONENTS system window graphics audio REQUIRED)
 #   include_directories(${SFML_INCLUDE_DIR})
-#   add_executable(myapp ...)
+#   add_executable(myapp ...REQUIRED)
 #   target_link_libraries(myapp ${SFML_LIBRARIES})
 
 # define the SFML_STATIC macro if static build was chosen

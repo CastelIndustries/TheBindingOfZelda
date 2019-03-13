@@ -28,14 +28,21 @@ public:
     };
     ~Player();
 
-    void RangedAttack() override {}                       //TO DO
+    void RangedAttack() override;
 
     void Create(float deltaTime, sf::RenderWindow &window) override;
 
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
     void CorrectDisplay(sf::RenderWindow &window) override;
+
+    sf::Clock BulletClock;
+
+    const sf::Time ShootDelay=sf::seconds(.4f);
+
+
 };
 
 
 #endif //SFML_TESTS_PLAYER_H
+

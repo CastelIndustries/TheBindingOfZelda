@@ -83,4 +83,36 @@ void Player::Create(float deltaTime, sf::RenderWindow &window) {
     Player::CorrectDisplay(window);
 }
 
+void Player::RangedAttack() {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::J) && BulletClock.getElapsedTime()>=ShootDelay){
+
+         dirRanAtt=0;
+        isFiring= true;
+        BulletClock.restart();
+
+    }else {
+        if (sf::Keyboard::isKeyPressed(
+                sf::Keyboard::I) && BulletClock.getElapsedTime()>=ShootDelay) {
+            dirRanAtt=1;
+            isFiring= true;
+            BulletClock.restart();
+        } else {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && BulletClock.getElapsedTime()>=ShootDelay) {
+                dirRanAtt=2;
+                isFiring= true;
+                BulletClock.restart();
+            } else {
+                if (sf::Keyboard::isKeyPressed(
+                        sf::Keyboard::K) && BulletClock.getElapsedTime()>=ShootDelay) {
+                    dirRanAtt=3;
+                    isFiring= true;
+                    BulletClock.restart();
+                }
+            }
+        }
+    }
+
+}
+
+
 

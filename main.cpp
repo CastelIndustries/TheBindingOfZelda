@@ -25,6 +25,7 @@ int main() {
     CharacterFactory PlayerFactory;
     sf::Texture playerTexture;
     playerTexture.loadFromFile("../Textures/FRANCO DEFINITIVO.png");
+    std::vector<Bullet> BulletVecPlayer;
 
     //auto player = PlayerFactory.Create(type::PLAYER, &playerTexture, sf::Vector2u(3, 4), 0.1f, 200.0f);
 
@@ -54,6 +55,7 @@ int main() {
     characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.2f, 200.0f));
     characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
     auto player = characterList.begin()->get();
+
 
 
 
@@ -134,8 +136,30 @@ int main() {
 
         for(auto& character : characterList){
             character->Create(deltaTime, window);
-            for(auto& otherCharacter : characterList){
+
+            for(auto& otherCharacter : characterList){                                          //Collision with other characters
                 character->GetCollider().CheckCollision(otherCharacter->GetCollider(), 0.5f);
+                for(int i=0; i<BulletVecPlayer.size();i++){                                     //Collision with bullets
+                    if(BulletVecPlayer[i].CheckCollision(character->body) && character.get()!= player){
+                         BulletVecPlayer[i]=BulletVecPlayer.back();
+                         BulletVecPlayer.pop_back();
+                    }
+                }
+            }
+
+            //PLAYER'S SHOOTING
+            player->RangedAttack();
+            if(player->isFiring){
+                Bullet newBullet(sf::Vector2f(50,5),player->dirRanAtt);
+                newBullet.setPos(sf::Vector2f(player->body.getPosition().x + player->body.getSize().x/2,player->body.getPosition().y + player->body.getSize().y/2));
+                BulletVecPlayer.push_back(newBullet);
+                player->isFiring=false;
+            }
+
+            for(int i =0;i<BulletVecPlayer.size();i++){
+                BulletVecPlayer[i].Draw(window);
+                BulletVecPlayer[i].fire(3.f);
+
             }
 
         }

@@ -9,7 +9,9 @@
 #include "Animation.h"
 #include "time.h"
 #include "Collider.h"
-
+#include "vector"
+#include "Bullet.h"
+#include "iostream"
 
 class Character {
 
@@ -31,12 +33,17 @@ public:
 
     virtual void Create(float deltaTime, sf::RenderWindow &window);
 
+    virtual void RangedAttack();
+
     Character(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed);
 
     Collider GetCollider() {
         return Collider(body);
     }
 
+    bool isFiring= false;
+
+    int dirRanAtt;
 
 
 //protected:

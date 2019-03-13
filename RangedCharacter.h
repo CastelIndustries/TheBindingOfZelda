@@ -6,6 +6,7 @@
 #define SFML_TESTS_LINK_RANGEDCHARACTER_H
 
 #include "Character.h"
+#include "Bullet.h"
 
 class RangedCharacter : public Character {
 
@@ -23,7 +24,7 @@ protected:
 
     void Update(float deltaTime, sf::RenderWindow &window) override =0;
 
-    virtual void RangedAttack() {};              // TODO
+    virtual void RangedAttack ()override ;
 
 };
 

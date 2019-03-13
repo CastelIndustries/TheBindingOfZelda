@@ -7,3 +7,6 @@
 void RangedCharacter::Create(float deltaTime, sf::RenderWindow &window) {
     Character::Create(deltaTime, window);
 }
+void RangedCharacter::RangedAttack() {
+    Character::RangedAttack();
+}

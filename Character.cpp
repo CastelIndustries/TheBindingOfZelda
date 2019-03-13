@@ -20,6 +20,7 @@ void Character::Draw(sf::RenderWindow &window) {
     window.draw(body);
 }
 
+void Character::RangedAttack() {}
 
 void Character::Create(float deltaTime, sf::RenderWindow &window) {
     this->Update(deltaTime, window);
