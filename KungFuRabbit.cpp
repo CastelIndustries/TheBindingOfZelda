@@ -3,6 +3,7 @@
 //
 
 #include "KungFuRabbit.h"
+#include "Tile.h"
 
 void KungFuRabbit::Update(float deltaTime, sf::RenderWindow &window) {
 
@@ -38,7 +39,7 @@ void KungFuRabbit::Update(float deltaTime, sf::RenderWindow &window) {
 }
 
 void KungFuRabbit::CorrectDisplay(sf::RenderWindow &window) {
-    if (body.getPosition().x <= 0) {
+    /*if (body.getPosition().x <= 0) {
         body.setPosition(0, body.getPosition().y);
 
     }
@@ -53,7 +54,9 @@ void KungFuRabbit::CorrectDisplay(sf::RenderWindow &window) {
     if (body.getPosition().y + body.getGlobalBounds().height >= window.getSize().y) {
         body.setPosition(body.getPosition().x, window.getSize().y - body.getSize().y);
 
-    }
+    }*/
+
+
 }
 
 
@@ -61,7 +64,7 @@ void KungFuRabbit::CorrectDisplay(sf::RenderWindow &window) {
 void KungFuRabbit::Create(float deltaTime, sf::RenderWindow &window) {
     KungFuRabbit::Update(deltaTime, window);
     MeleeCharacter::Draw(window);
-    KungFuRabbit::CorrectDisplay(window);
+    //KungFuRabbit::CorrectDisplay(window);
 
 }
 KungFuRabbit::~KungFuRabbit() {}

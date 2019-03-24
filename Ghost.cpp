@@ -58,5 +58,5 @@ void Ghost::CorrectDisplay(sf::RenderWindow &window) {
 void Ghost::Create(float deltaTime, sf::RenderWindow &window) {
     Ghost::Update(deltaTime, window);
     MeleeCharacter::Draw(window);
-    Ghost::CorrectDisplay(window);
+    //Ghost::CorrectDisplay(window);
 }

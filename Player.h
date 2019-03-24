@@ -21,7 +21,7 @@ public:
             row = 0;
             body.setSize(sf::Vector2f(120.0f, 210.0f));
             //body.setOrigin(body.getSize()/2.0f);
-            body.setPosition(336.0f, 336.0f);
+            body.setPosition(500.0f, 500.0f);
             body.setTexture(texture);
             //body.setFillColor(sf::Color::White);
 

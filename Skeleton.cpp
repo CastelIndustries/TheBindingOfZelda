@@ -68,6 +68,6 @@ void Skeleton::CorrectDisplay(sf::RenderWindow &window) {
 void Skeleton::Create(float deltaTime, sf::RenderWindow &window) {
     Skeleton::Update(deltaTime, window);
     RangedCharacter::Draw(window);
-    Skeleton::CorrectDisplay(window);
+    //Skeleton::CorrectDisplay(window);
 }
 
