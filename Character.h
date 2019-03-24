@@ -12,8 +12,9 @@
 #include "vector"
 #include "Bullet.h"
 #include "iostream"
+#include "Subject.h"
 
-class Character {
+class Character : public Subject  {
 
 public:
 
@@ -44,6 +45,8 @@ public:
     bool isFiring= false;
 
     int dirRanAtt;
+    int hp=100;
+    int kills;
 
 
 //protected:

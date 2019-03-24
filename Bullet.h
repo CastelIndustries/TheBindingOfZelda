@@ -39,9 +39,10 @@ public:
 private:
     sf::RectangleShape bullet;
     int BulletDir;
+
 public:
     const sf::RectangleShape &getBullet() const;
-
+    int damage;
     void setBullet(const sf::RectangleShape &bullet);
 
 };
