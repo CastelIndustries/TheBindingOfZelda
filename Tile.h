@@ -11,11 +11,12 @@
 
 class Tile {
 public:
-    explicit Tile(sf::Vector2f(position), bool w=true){
-        tile.setSize(sf::Vector2f(175,175));
+    explicit Tile(sf::Vector2f(position), bool w=true, bool in=true){
+        tile.setSize(tileSize);
         tile.setFillColor(sf::Color::Transparent);
         tile.setPosition(position);
         walkable=w;
+        inMap=in;
     };
 
     void drawSingleTile(sf::RenderWindow &window){
@@ -29,10 +30,16 @@ public:
     bool getWalk(){
         return walkable;
     }
+    bool getInMap(){
+        return inMap;
+    }
 
     sf::RectangleShape tile;
+    sf::Vector2f tileSize = sf::Vector2f(175.0f, 175.0f);
 private:
     bool walkable;
+    bool inMap;
+
 };
 
 

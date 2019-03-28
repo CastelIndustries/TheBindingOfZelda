@@ -5,6 +5,7 @@
 #ifndef SFML_TESTS_LINK_SKELETON_H
 #define SFML_TESTS_LINK_SKELETON_H
 
+#include <random>
 #include "RangedCharacter.h"
 
 class Skeleton : public RangedCharacter {
@@ -13,11 +14,15 @@ public:
                                                                                                              imageCount,
                                                                                                              switchTime,
                                                                                                              speed) {
+        std::uniform_int_distribution<int> distrX(2963, 8280);
+        std::uniform_int_distribution<int> distrY(1757, 4336);
+        std::random_device generator;
+        std::mt19937 eng(generator());
         this->speed = speed;
         dash = speed;
         row = 2;
         body.setSize(sf::Vector2f(120.0f, 210.0f));
-        body.setPosition(rand() % 4844, rand() % 3460);
+        body.setPosition(distrX(eng), distrY(eng));
         body.setTexture(texture);
         //body.setFillColor(sf::Color::White);
     };

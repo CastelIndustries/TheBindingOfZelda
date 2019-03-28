@@ -4,12 +4,15 @@
 
 #include <fstream>
 #include <sstream>
+#include <random>
 #include "TileMap.h"
 
-bool TileMap::load(const std::string &tilesetFile, sf::Vector2u tileSize, unsigned int width, unsigned int height, sf::RenderWindow &window) {
+bool TileMap::load(const std::string &tilesetFile, unsigned int width, unsigned int height, sf::RenderWindow &window, bool newLevel) {
     // load the tilesetFile texture
     if (!tileset.loadFromFile(tilesetFile))
         return false;
+    if(newLevel)
+        colTiles.clear();
 
     // resize the vertex array to fit the level size
     vertices.setPrimitiveType(sf::Quads);
@@ -19,19 +22,19 @@ bool TileMap::load(const std::string &tilesetFile, sf::Vector2u tileSize, unsign
     for (unsigned int i = 0; i < width; ++i) {
         for (unsigned int j = 0; j < height; ++j) {
             // get the current tile number
-            int tileNumber = colMap[j][i];
+            int tileNumber = map[j][i];
+
 
             switch(tileNumber) {
 
                 case 0 :
-                    tileNumber = rand() % 3;
+                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), false));
+                    break;
+                case 1:
                     colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y)));
                     break;
                 case 3 :
-                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), false));
-                    break;
-                case 4:
-                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), false));
+                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), false, false));
                     break;
                 default:
                     break;
@@ -74,12 +77,24 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 }
 
-void TileMap::checkCollision(std::list<std::unique_ptr<Character>> &characterList) {
+void TileMap::checkCollision(std::list<std::unique_ptr<Character>> &characterList, Character* player) {
 
-    for (auto& character : characterList) {
-        for (auto& tiles_to_draw : colTiles) {       //Collision characters-tiles
-            if(!tiles_to_draw->getWalk())
+    std::random_device generator;
+    std::mt19937 eng(generator());
+    std::uniform_int_distribution<int> distrX(2963, 8280);
+    std::uniform_int_distribution<int> distrY(1757, 4336);
+
+
+    for (auto &character : characterList) {
+        for (auto &tiles_to_draw : colTiles) {       //Collision characters-tiles
+
+            if (!tiles_to_draw->getWalk()) {
                 character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f);
+            }
+                if (!tiles_to_draw->getInMap() && character.get() != player &&
+                    character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f))
+                    character->body.setPosition(distrX(eng), distrY(eng));
+
 
         }
     }
@@ -89,7 +104,7 @@ void TileMap::LoadColMap(const char*filename){
 
     std::ifstream openFile(filename);
     std::vector<int> tempMap;
-    colMap.clear();
+    this->map.clear();
 
     if(openFile.is_open()){
         while(!openFile.eof()){
@@ -99,15 +114,15 @@ void TileMap::LoadColMap(const char*filename){
 
             while(std::getline(stream, value, ' ')){
                 if(value.length()>0){
-                    int a = 4;
-                    if(value == "0" || value == "3") {
+                    int a = 2;
+                    if(value == "0" || value == "1" || value == "2") {
                         a = atoi(value.c_str());
                     }
                     tempMap.push_back(a);
                 }
 
             }
-            colMap.push_back(tempMap);
+            this->map.push_back(tempMap);
             tempMap.clear();
         }
     }

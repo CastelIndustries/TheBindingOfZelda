@@ -9,7 +9,8 @@
 
 #include "RangedCharacter.h"
 #include "Collider.h"
-class Player : public RangedCharacter {
+#include "Subject.h"
+class Player : public RangedCharacter   {
 public:
 
     Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : RangedCharacter(texture,
@@ -21,9 +22,10 @@ public:
             row = 0;
             body.setSize(sf::Vector2f(120.0f, 210.0f));
             //body.setOrigin(body.getSize()/2.0f);
-            body.setPosition(500.0f, 500.0f);
+            body.setPosition(2800.0f, 1700.0f);
             body.setTexture(texture);
             //body.setFillColor(sf::Color::White);
+            kills=0;
 
     };
     ~Player();
@@ -36,9 +38,17 @@ public:
 
     void CorrectDisplay(sf::RenderWindow &window) override;
 
-    sf::Clock BulletClock;
+    void RegisterObserver (Observer* observer) override;
 
-    const sf::Time ShootDelay=sf::seconds(.4f);
+    void RemoveObserver (Observer* observer) override;
+
+    void NotifyObservers (TileMap &map, sf::RenderWindow &window) override;
+
+
+
+
+
+    bool reward;
 
 
 };

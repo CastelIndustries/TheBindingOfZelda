@@ -7,9 +7,11 @@ Bullet::Bullet(sf::Vector2f size, int dir) {
     bullet.setSize(size);
     bullet.setFillColor(sf::Color::Green);
     BulletDir=dir;
+    damage=25;
 }
 void Bullet::fire(float speed) {
     if (BulletDir==0){
+
         bullet.move(-speed,0);
     }else{
         if(BulletDir==1){

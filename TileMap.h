@@ -16,10 +16,10 @@
 class TileMap : public sf::Drawable, public sf::Transformable
 {
 public:
-    bool load(const std::string& tilesetFile, sf::Vector2u tileSize, unsigned int width, unsigned int height, sf::RenderWindow &window);
+    bool load(const std::string& tilesetFile, unsigned int width, unsigned int height, sf::RenderWindow &window, bool newLevel = false);
 
 
-    void checkCollision(std::list<std::unique_ptr<Character>> &characterList);
+    void checkCollision(std::list<std::unique_ptr<Character>> &characterList, Character* player);
 
     void drawColTile(sf::RenderWindow &window){
         for(auto tiles:colTiles) {
@@ -34,6 +34,8 @@ public:
 
     void LoadColMap(const char*filename);
 
+    std::vector<std::vector<int>> map;
+
 private:
 
     void draw(sf::RenderTarget& target, sf::RenderStates states)  const ;
@@ -41,7 +43,8 @@ private:
     sf::VertexArray vertices;
     sf::Texture tileset;
     std::vector<Tile*> colTiles;
-    std::vector<std::vector<int>> colMap;
+    sf::Vector2u tileSize = sf::Vector2u(175, 175);
+
 
 };
 

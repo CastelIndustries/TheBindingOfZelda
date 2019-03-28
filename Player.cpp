@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Collider.h"
 #include <list>
+#include "iostream"
 
 Player::~Player() {};
 
@@ -114,5 +115,22 @@ void Player::RangedAttack() {
 
 }
 
+void Player::RegisterObserver(Observer *observer) {
+    observers.push_back(observer);
+}
 
+void Player::RemoveObserver(Observer *observer) {
+    observers.remove(observer);
+}
+
+void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
+
+    if (kills == 3)
+        for (auto itr:observers) {
+            itr->update();
+            itr->update(map, window);
+            kills=0;
+        }
+
+}
 
