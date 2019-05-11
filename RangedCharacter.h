@@ -22,9 +22,21 @@ protected:
 
     void Create(float deltaTime, sf::RenderWindow &window) override;
 
-    void Update(float deltaTime, sf::RenderWindow &window) override =0;
+    void Update(float deltaTime, sf::RenderWindow &window) override;
 
     virtual void RangedAttack ()override ;
+
+    virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
+
+    float init;
+
+    float range = 100.0f;
+
+    bool Check = false;
+
+
+
+
 
 };
 

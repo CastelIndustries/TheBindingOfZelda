@@ -34,6 +34,8 @@ public:
 
     virtual void RangedAttack();
 
+    virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) = 0;
+
     Character(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed);
 
     Collider GetCollider() {
@@ -50,12 +52,12 @@ public:
     bool roomCompletedText;
     bool doorNewLevel;
     sf::Vector2f defaultPos;
-
-
+    std::vector<Bullet> BulletVec;
     const sf::Time ShootDelay=sf::seconds(.4f);
+    bool look=false;
 
 
-//protected:
+protected:
     float speed, dash;
 
     Animation animation;

@@ -21,7 +21,6 @@ public:
             dash = speed;
             row = 0;
             body.setSize(sf::Vector2f(120.0f, 210.0f));
-            //body.setOrigin(body.getSize()/2.0f);
             body.setPosition(3000.0f, 1800.0f);
             defaultPos = body.getPosition();
             body.setTexture(texture);

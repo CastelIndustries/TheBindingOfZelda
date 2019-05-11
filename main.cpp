@@ -44,9 +44,9 @@ int main() {
     std::list<std::unique_ptr<Character>> characterList;
 
     characterList.push_back(characterFactory.Create(type::PLAYER, &playerTexture, sf::Vector2u(3, 4), 0.1f, 300.0f));
-    characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
-    characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.2f, 200.0f));
-    characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
+    //characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
+    characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.1f, 200.0f));
+    //characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
 
     auto player = characterList.begin()->get();                             //calling first element of the list PLAYER to understand better
 
@@ -185,13 +185,17 @@ int main() {
 
                 for (int i = 0; i < BulletVecPlayer.size(); i++) {
                     BulletVecPlayer[i].Draw(window);
-                    BulletVecPlayer[i].fire(10.f);
+                    BulletVecPlayer[i].fire(20.f);
                 }
 
                 //CHARACTERS
                 bool deathCharacter = false;
                 for (auto &character : characterList) {
                     character->Create(deltaTime, window);
+                    if(character.get() != player){
+                        character->ArtificialIntelligence(*player, 0.2f, window);
+                    }
+
                     map.checkCollision(characterList, player);
 
                     for (auto &otherCharacter : characterList) {                    //Collision with other characters
@@ -229,7 +233,21 @@ int main() {
 
 
 
-                    character->NotifyObservers(map, window);                        //Notify observers for eventual updating
+                    character->NotifyObservers(map, window);
+
+                    if (character->isFiring) {
+                        Bullet newBullet(sf::Vector2f(30, 30), character->dirRanAtt);
+                        newBullet.setPos(sf::Vector2f(character->body.getPosition().x + player->body.getSize().x / 2,
+                                                      character->body.getPosition().y + player->body.getSize().y / 2));
+                        character->BulletVec.push_back(newBullet);
+                        character->isFiring = false;
+                    }
+
+                    for (int i = 0; i < character->BulletVec.size(); i++) {
+                        character->BulletVec[i].Draw(window);
+                        character->BulletVec[i].fire(10.f);
+                    }
+//Notify observers for eventual updating
                 }
             }
         }

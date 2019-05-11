@@ -6,7 +6,7 @@
 
 Skeleton::~Skeleton() {};
 
-void Skeleton::Update(float deltaTime, sf::RenderWindow &window) {
+/*void Skeleton::Update(float deltaTime, sf::RenderWindow &window) {
     bool stop = false;
 
     sf::Vector2f movement(0.0f, 0.0f);
@@ -44,10 +44,10 @@ void Skeleton::Update(float deltaTime, sf::RenderWindow &window) {
     body.move(movement);
 
 
-}
+}*/
 
 void Skeleton::Create(float deltaTime, sf::RenderWindow &window) {
-    Skeleton::Update(deltaTime, window);
+    //RangedCharacter::Update(deltaTime, window);
     RangedCharacter::Draw(window);
 }
 
