@@ -18,8 +18,6 @@ public:
 
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
-    void CorrectDisplay(sf::RenderWindow &window) override;
-
     float init;
 
 

@@ -8,183 +8,236 @@
 #include <sstream>
 #include "Animation.h"
 #include "Player.h"
-#include "Maps.h"
 #include "Element.h"
-#include "Wall.h"
 #include "CharacterFactory.h"
 #include "TileMap.h"
 #include "ObserverReward.h"
-
 #include "HUD.h"
+#include "Menu.h"
 
-
+#include <SFML/Graphics.hpp>
 
 
 
 int main() {
-    //WINDOW
-    sf::RenderWindow window(sf::VideoMode(1211, 865), "The Binding of Zelda", sf::Style::Close);
+
     srand((unsigned) time(nullptr));
 
+    //WINDOW
+    sf::RenderWindow window(sf::VideoMode(1211, 865), "The Binding of Zelda", sf::Style::Close);
 
-
-    //PLAYERS
-    CharacterFactory PlayerFactory;
-    sf::Texture playerTexture;
-    playerTexture.loadFromFile("../Textures/FRANCO DEFINITIVO.png");
-    std::vector<Bullet> BulletVecPlayer;
-
-    //ENEMIES
+    //CHARACTERS
     CharacterFactory characterFactory;
 
+    //textures
+    sf::Texture playerTexture;
     sf::Texture rabbitTexture;
     sf::Texture skeletonTexture;
     sf::Texture ghostTexture;
 
+    playerTexture.loadFromFile("../Textures/FRANCO DEFINITIVO.png");
     rabbitTexture.loadFromFile("../Textures/rabbit.png");
     skeletonTexture.loadFromFile("../Textures/skeleton.png");
     ghostTexture.loadFromFile("../Textures/ghost.png");
 
+    //list
     std::list<std::unique_ptr<Character>> characterList;
 
     characterList.push_back(characterFactory.Create(type::PLAYER, &playerTexture, sf::Vector2u(3, 4), 0.1f, 300.0f));
     characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
     characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.2f, 200.0f));
     characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
-    auto player = characterList.begin()->get();
-    ObserverReward CheckRoom;
-    player->RegisterObserver(&CheckRoom);
 
+    auto player = characterList.begin()->get();                             //calling first element of the list PLAYER to understand better
+
+    //OBSERVER
+    ObserverReward CheckRoom;
+
+    for(auto &characterObs : characterList){                                //Register every character to observer
+        characterObs->RegisterObserver(&CheckRoom);
+    }
+
+    //VIEW
     sf::View view(player->body.getPosition(), sf::Vector2f(1211, 865));
     view.zoom(4.0f);
+
+    //MENU
+    Menu menu(window.getSize().x, window.getSize().y);
+
+    //HUD
+    HUD hud;
     sf::View viewHUD(player->body.getPosition(), sf::Vector2f(1211, 865));
 
-
-
-
-
     //ELEMENTS
-
-    HUD hud;
-
-    std::vector<Element*> elements;
+    std::vector<Element*> elements;                                         //Vector of elements
 
     elements.push_back(new Element(175, 175, "../Textures/tesoro-b.png", 0.3, 0.3));
     elements.push_back(new Element(175, 130, "../Textures/skeleton 1b.png", 0.3, 0.3));
     elements.push_back(new Element(175, 130, "../Textures/skeleton 2b.png", 0.3, 0.3));
     elements.push_back(new Element(175, 130, "../Textures/skeleton 3b.png", 0.3, 0.3));
 
-    float deltaTime;
+    std::vector<Bullet> BulletVecPlayer;                                   //Vector for the bullets
 
-    sf::Clock clock;
-
-    // create the tilemap from the level definition
-    TileMap map;
+    //MAP
+    TileMap map(71, 36, sf::Vector2u(175, 175));
 
     map.LoadColMap("../Textures/Map.txt");
-    if (!map.load("../Textures/tileset3.png", 71, 36, window))
+
+    if (!map.load("../Textures/tileset3.png", window))
         return -1;
 
-    while (window.isOpen())
 
-    {
+    //OTHER VARIABLES
+    sf::Clock clock;
+    float deltaTime;
+    bool inMenu=true;
+    int caseMenu=0;
+
+    //WINDOW OPEN
+    while (window.isOpen()) {
         deltaTime = clock.restart().asSeconds();
 
-
         sf::Event evnt;
-        while (window.pollEvent(evnt))
-        {
+        while (window.pollEvent(evnt)) {
 
-            switch (evnt.type)
-            {
+            switch (evnt.type) {
                 case sf::Event::Closed:
                     window.close();
                     break;
 
-           }
+                case sf::Event::KeyReleased:
+                    if(inMenu) {                                               //CONTROLS IN MENU
+                        switch (evnt.key.code) {
+                            case sf::Keyboard::Up:
+                                menu.moveUp();
+                                break;
 
+                            case sf::Keyboard::Down:
+                                menu.moveDown();
+                                break;
 
-        }
-        //WINDOW
-        window.clear();
+                            case sf::Keyboard::Return:
+                                switch (menu.GetPressedItem()) {
+                                    case 0:
+                                        if(menu.clock.getElapsedTime().asSeconds() > 5) {           //TIME FOR INSTRUCTIONS BEFORE GAME STARTS
+                                            menu.clock.restart();
+                                            caseMenu = 1;
+                                            inMenu = false;
+                                            break;
+                                        }
+                                        else
+                                            break;
+                                    case 1:
+                                        inMenu = false;
+                                        window.close();
+                                        break;
+                                }
 
-        view.setCenter(player->body.getPosition());
-
-        window.setView(view);
-
-        window.draw(map);
-        map.drawColTile(window);
-
-        viewHUD.setCenter(player->body.getPosition());
-        viewHUD.setViewport(sf::FloatRect(1.0f, 1.0f, 1.0f, 1.0f));
-        hud.renderHUD(viewHUD, window, player);
-
-        //ELEMENTS
-
-        for(auto element:elements){
-            element->Draw(window);
-        }
-
-
-
-        //CHARACTERS
-
-
-
-        bool deathCharacter = false;
-        for(auto& character : characterList){
-            character->Create(deltaTime, window);
-            map.checkCollision(characterList, player);
-
-
-            for(auto& otherCharacter : characterList){//Collision with other characters
-
-                character->GetCollider().CheckCollision(otherCharacter->GetCollider(), 0.5f);
-                for(int i=0; i<BulletVecPlayer.size();i++){                                     //Collision with bullets
-                    if(BulletVecPlayer[i].CheckCollision(character->body) && character.get()!= player){
-                         BulletVecPlayer[i]=BulletVecPlayer.back();
-                         BulletVecPlayer.pop_back();
-                         character->hp-=BulletVecPlayer[i].damage;
+                                break;
+                        }
                     }
-                    if (character->hp==0) {
-                        player->kills++;
-                        characterList.remove(character);
-                        auto tmp_ptr = character.release();
-                        delete tmp_ptr;
-                        deathCharacter=true;
+                    else
                         break;
-                    }
-                    }
 
-
-                if(deathCharacter)
                     break;
-
-
             }
-            if(deathCharacter)
-                break;
+        }
+        window.clear();
+        //MENU
+        menu.draw(window);
+        //PLAY SELECTED
+        if(caseMenu==1) {
+            window.clear();
+            //INSTRUCTIONS
+            if (menu.instructions(window)) {
+                //GAME STARTS
+                window.clear();
 
-            //PLAYER'S SHOOTING
-            player->RangedAttack();
-            if(player->isFiring){
-                Bullet newBullet(sf::Vector2f(30,30),player->dirRanAtt);
-                newBullet.setPos(sf::Vector2f(player->body.getPosition().x + player->body.getSize().x/2,player->body.getPosition().y + player->body.getSize().y/2));
-                BulletVecPlayer.push_back(newBullet);
-                player->isFiring=false;
+                //MAP
+                window.draw(map);
+                map.drawColTile(window);
+
+                //VIEW FOR MAP
+                view.setCenter(player->body.getPosition());
+                window.setView(view);
+
+                //HUD
+                hud.renderHUD(viewHUD, window, player);
+
+                //VIEW FOR HUD
+                viewHUD.setCenter(player->body.getPosition());
+                viewHUD.setViewport(sf::FloatRect(1.0f, 1.0f, 1.0f, 1.0f));
+
+                //ELEMENTS
+                for (auto element:elements) {
+                    element->Draw(window);
+                }
+
+                //PLAYER'S ATTACK
+                player->RangedAttack();
+                if (player->isFiring) {
+                    Bullet newBullet(sf::Vector2f(30, 30), player->dirRanAtt);
+                    newBullet.setPos(sf::Vector2f(player->body.getPosition().x + player->body.getSize().x / 2,
+                                                  player->body.getPosition().y + player->body.getSize().y / 2));
+                    BulletVecPlayer.push_back(newBullet);
+                    player->isFiring = false;
+                }
+
+                for (int i = 0; i < BulletVecPlayer.size(); i++) {
+                    BulletVecPlayer[i].Draw(window);
+                    BulletVecPlayer[i].fire(10.f);
+                }
+
+                //CHARACTERS
+                bool deathCharacter = false;
+                for (auto &character : characterList) {
+                    character->Create(deltaTime, window);
+                    map.checkCollision(characterList, player);
+
+                    for (auto &otherCharacter : characterList) {                    //Collision with other characters
+
+                        character->GetCollider().CheckCollision(otherCharacter->GetCollider(), 0.5f);
+
+                        for (int i = 0; i < BulletVecPlayer.size(); i++) {                                                  //Collision with bullets
+                            if (BulletVecPlayer[i].CheckCollision(character->body) && character.get() != player) {
+                                BulletVecPlayer[i] = BulletVecPlayer.back();
+                                BulletVecPlayer.pop_back();
+                                character->hp -= BulletVecPlayer[i].damage;
+                            }
+                            for(auto tiles:map.colTiles){
+                                if(BulletVecPlayer[i].CheckCollision(tiles->tile) && !tiles->getWalk()){
+                                    BulletVecPlayer[i] = BulletVecPlayer.back();                                            //Collision bullet-walls
+                                    BulletVecPlayer.pop_back();
+                                }
+                            }
+                            if (character->hp == 0) {                                                                       //Dead character
+                                player->kills++;
+                                player->l_kills++;
+                                characterList.remove(character);
+                                auto tmp_ptr = character.release();
+                                delete tmp_ptr;
+                                deathCharacter = true;
+                                break;
+                            }
+                        }
+
+                        if (deathCharacter)
+                            break;
+                    }
+                    if (deathCharacter)
+                        break;
+
+
+
+                    character->NotifyObservers(map, window);                        //Notify observers for eventual updating
+                }
             }
-
-            for(int i =0;i<BulletVecPlayer.size();i++){
-                BulletVecPlayer[i].Draw(window);
-                BulletVecPlayer[i].fire(4.f);
-
-            }
-
-            player->NotifyObservers(map, window);
         }
 
         window.display();
     }
+
+
     player->RemoveObserver(&CheckRoom);
     return 0;
 }

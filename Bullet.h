@@ -6,6 +6,7 @@
 #define SFML_TESTS_LINK_BULLET_H
 
 #include <SFML/Graphics.hpp>
+#include "Collider.h"
 
 
 class Bullet{
@@ -35,6 +36,10 @@ public:
     void Draw(sf::RenderWindow &window);
 
     bool CheckCollision(sf::RectangleShape& character);
+
+    Collider GetCollider() {
+        return Collider(bullet);
+    }
 
 private:
     sf::RectangleShape bullet;

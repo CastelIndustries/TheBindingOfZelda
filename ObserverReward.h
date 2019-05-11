@@ -7,17 +7,15 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "Observer.h"
-
+#include <list>
 
 class ObserverReward: public Observer {
 public:
 
     ObserverReward(){};
 
-void update() override;
+void newLevel(TileMap &map, sf::RenderWindow &window) override;
 void update(TileMap &map, sf::RenderWindow &window) override;
-
-
 
 };
 

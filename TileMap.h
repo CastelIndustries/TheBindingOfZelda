@@ -11,13 +11,20 @@
 #include "Collider.h"
 #include "Character.h"
 #include <list>
+#include <random>
 
 
 class TileMap : public sf::Drawable, public sf::Transformable
 {
 public:
-    bool load(const std::string& tilesetFile, unsigned int width, unsigned int height, sf::RenderWindow &window, bool newLevel = false);
+    TileMap(unsigned int w, unsigned int h, sf::Vector2u tS){
 
+        width = w;
+        height = h;
+        tileSize = tS;
+    }
+
+    bool load(const std::string& tilesetFile, sf::RenderWindow &window, bool newLevel = false);
 
     void checkCollision(std::list<std::unique_ptr<Character>> &characterList, Character* player);
 
@@ -27,14 +34,15 @@ public:
         }
     }
 
-    sf::RectangleShape getTile() const{
-        for(auto tiles:colTiles)
-            tiles->tile;
-    }
-
     void LoadColMap(const char*filename);
 
+    ~TileMap(){}
+
     std::vector<std::vector<int>> map;
+
+    unsigned  int width;
+    unsigned  int height;
+    std::vector<Tile*> colTiles;
 
 private:
 
@@ -42,8 +50,11 @@ private:
 
     sf::VertexArray vertices;
     sf::Texture tileset;
-    std::vector<Tile*> colTiles;
+
     sf::Vector2u tileSize = sf::Vector2u(175, 175);
+
+
+
 
 
 };

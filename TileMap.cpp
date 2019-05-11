@@ -7,8 +7,11 @@
 #include <random>
 #include "TileMap.h"
 
-bool TileMap::load(const std::string &tilesetFile, unsigned int width, unsigned int height, sf::RenderWindow &window, bool newLevel) {
+bool TileMap::load(const std::string &tilesetFile, sf::RenderWindow &window, bool newLevel) {
     // load the tilesetFile texture
+
+
+
     if (!tileset.loadFromFile(tilesetFile))
         return false;
     if(newLevel)
@@ -28,13 +31,19 @@ bool TileMap::load(const std::string &tilesetFile, unsigned int width, unsigned 
             switch(tileNumber) {
 
                 case 0 :
-                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), false));
+                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), false));              //MURO
                     break;
                 case 1:
-                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y)));
+                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y)));                     //PAVIMENTO INTERNO
                     break;
-                case 3 :
-                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), false, false));
+                case 2 :
+                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), false, false));       //PAVIMENTO ESTERNO
+                    break;
+                case 3:
+                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), false));              //PORTA CHIUSA
+                    break;
+                case 4:
+                    colTiles.push_back(new Tile(sf::Vector2f(i * tileSize.x, j * tileSize.y), true, true, true));   //PORTA APERTA
                     break;
                 default:
                     break;
@@ -63,7 +72,33 @@ bool TileMap::load(const std::string &tilesetFile, unsigned int width, unsigned 
         }
     }
     return true;
+
 }
+
+void TileMap::checkCollision(std::list<std::unique_ptr<Character>> &characterList, Character* player){
+    std::random_device generator;
+    std::mt19937 eng(generator());
+    std::uniform_int_distribution<int> distrX(2963, 8280);
+    std::uniform_int_distribution<int> distrY(1757, 4336);
+    for (auto &character : characterList) {
+        for (auto &tiles_to_draw : colTiles) {       //Collision characters-tiles
+
+            if (!tiles_to_draw->getWalk()) {
+                character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f);
+            }
+            if (!tiles_to_draw->getInMap() && character.get() != player &&
+                character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f)) {
+                character->body.setPosition(distrX(eng), distrY(eng));
+            }
+            if(tiles_to_draw->getOpen() && character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 1.0f)){
+                character->doorNewLevel = true;
+            }
+
+
+        }
+    }
+}
+
 
 void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     // apply the transform
@@ -75,29 +110,6 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     // draw the vertex array
     target.draw(vertices, states);
 
-}
-
-void TileMap::checkCollision(std::list<std::unique_ptr<Character>> &characterList, Character* player) {
-
-    std::random_device generator;
-    std::mt19937 eng(generator());
-    std::uniform_int_distribution<int> distrX(2963, 8280);
-    std::uniform_int_distribution<int> distrY(1757, 4336);
-
-
-    for (auto &character : characterList) {
-        for (auto &tiles_to_draw : colTiles) {       //Collision characters-tiles
-
-            if (!tiles_to_draw->getWalk()) {
-                character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f);
-            }
-                if (!tiles_to_draw->getInMap() && character.get() != player &&
-                    character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f))
-                    character->body.setPosition(distrX(eng), distrY(eng));
-
-
-        }
-    }
 }
 
 void TileMap::LoadColMap(const char*filename){
@@ -115,7 +127,7 @@ void TileMap::LoadColMap(const char*filename){
             while(std::getline(stream, value, ' ')){
                 if(value.length()>0){
                     int a = 2;
-                    if(value == "0" || value == "1" || value == "2") {
+                    if(value == "0" || value == "1" || value == "2" || value == "3" || value =="4") {
                         a = atoi(value.c_str());
                     }
                     tempMap.push_back(a);

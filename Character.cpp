@@ -25,5 +25,4 @@ void Character::RangedAttack() {}
 void Character::Create(float deltaTime, sf::RenderWindow &window) {
     this->Update(deltaTime, window);
     this->Draw(window);
-    this->CorrectDisplay(window);
 };

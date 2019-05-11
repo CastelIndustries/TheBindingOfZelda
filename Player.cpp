@@ -6,6 +6,7 @@
 #include "Collider.h"
 #include <list>
 #include "iostream"
+#include "TileMap.h"
 
 Player::~Player() {};
 
@@ -49,43 +50,16 @@ void Player::Update(float deltaTime, sf::RenderWindow &window) {
 
         this->body.setTextureRect(this->animation.uvRect);
         this->body.move(movement);
-
-
-    }
-
-
-void Player::CorrectDisplay(sf::RenderWindow &window) {
-
-
-
-    /*if (body.getPosition().x <= 0 && body.getPosition().y >= 200.0f) {
-        body.setPosition(0, body.getPosition().y);
-
-
-    }
-    if (body.getPosition().x + body.getGlobalBounds().width >= window.getSize().x && body.getPosition().y >= 200.0f) {
-        body.setPosition(window.getSize().x - body.getSize().x, body.getPosition().y);
-
-    }
-    if (body.getPosition().y <= 0) {
-        body.setPosition(body.getPosition().x, 0);
-
-    }
-    if (body.getPosition().y + body.getGlobalBounds().height >= window.getSize().y) {
-        body.setPosition(body.getPosition().x, window.getSize().y - body.getSize().y);
-
-
-    }*/
 }
+
 
 void Player::Create(float deltaTime, sf::RenderWindow &window) {
     Player::Update(deltaTime, window);
     RangedCharacter::Draw(window);
-    Player::CorrectDisplay(window);
 }
 
 void Player::RangedAttack() {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::J) && BulletClock.getElapsedTime()>=ShootDelay){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && BulletClock.getElapsedTime()>=ShootDelay){
 
          dirRanAtt=0;
         isFiring= true;
@@ -93,18 +67,18 @@ void Player::RangedAttack() {
 
     }else {
         if (sf::Keyboard::isKeyPressed(
-                sf::Keyboard::I) && BulletClock.getElapsedTime()>=ShootDelay) {
+                sf::Keyboard::Up) && BulletClock.getElapsedTime()>=ShootDelay) {
             dirRanAtt=1;
             isFiring= true;
             BulletClock.restart();
         } else {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::L) && BulletClock.getElapsedTime()>=ShootDelay) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && BulletClock.getElapsedTime()>=ShootDelay) {
                 dirRanAtt=2;
                 isFiring= true;
                 BulletClock.restart();
             } else {
                 if (sf::Keyboard::isKeyPressed(
-                        sf::Keyboard::K) && BulletClock.getElapsedTime()>=ShootDelay) {
+                        sf::Keyboard::Down) && BulletClock.getElapsedTime()>=ShootDelay) {
                     dirRanAtt=3;
                     isFiring= true;
                     BulletClock.restart();
@@ -125,12 +99,26 @@ void Player::RemoveObserver(Observer *observer) {
 
 void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
 
-    if (kills == 3)
+    if (kills == 3) {
+        roomCompletedText = true;
         for (auto itr:observers) {
-            itr->update();
             itr->update(map, window);
-            kills=0;
+            kills = 0;
         }
+
+    }
+    if(doorNewLevel) {
+        for (auto itr:observers) {
+            itr->newLevel(map, window);
+            body.setPosition(defaultPos);
+            doorNewLevel = false;
+            roomCompletedText = false;
+            l_kills=0;
+        }
+
+    }
+
+
 
 }
 

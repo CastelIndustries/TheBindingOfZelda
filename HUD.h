@@ -9,9 +9,13 @@
 #include <iostream>
 #include "Player.h"
 
+#define NUM_HUD_TEXTS 2
+
 
 class HUD {
 public:
+
+
 
     HUD(){
         heartTexture.loadFromFile("../Textures/Heart.png");
@@ -25,52 +29,37 @@ public:
         if(!font.loadFromFile("../Textures/font.ttf")){
             std::cout<<"Error! Could not load the file font.ttf" << std::endl;
         }
-        kills.setFont(font);
-        kills.setScale(4.0, 4.0);
-
-        //TEST
-        posXtest.setFont(font);
-        posYtest.setFont(font);
-
+        hudTexts[killText].setFont(font);
+        hudTexts[killText].setScale(4.0, 4.0);
+        hudTexts[1].setFont(font);
+        hudTexts[1].setScale(2.0, 2.0);
     }
 
     void renderHUD(sf::View &viewHUD, sf::RenderWindow &window, Character* player){
-        float posX = viewHUD.getCenter().x + viewHUD.getSize().x * 1.7f;
-        float posY = viewHUD.getCenter().y - viewHUD.getSize().y * 1.8f;
+        float posX = viewHUD.getCenter().x;
+        float posY = viewHUD.getCenter().y;
 
         for(auto h:hearts){
             for(int i=0; i<hearts.size(); i++) {
-                h.setPosition(viewHUD.getCenter().x + viewHUD.getSize().x * 1.7f - i*(heartTexture.getSize().x)*h.getScale().x, viewHUD.getCenter().y - viewHUD.getSize().y * 1.8f);
+                h.setPosition(posX + viewHUD.getSize().x * 1.7f - i*(heartTexture.getSize().x)*h.getScale().x, posY - viewHUD.getSize().y * 1.8f);
                 window.draw(h);
             }
         }
 
-        kills.setPosition(posX-580 , posY+300);
-        kills.setString("Kills:"+ std::to_string(player->kills));
-        posXtest.setString("posX: " + std::to_string(player->body.getPosition().x));
-        posXtest.setPosition(posX-580 , posY+500);
-        posYtest.setString("posy: " + std::to_string(player->body.getPosition().y));
-        posYtest.setPosition(posX-580 , posY+700);
+        hudTexts[killText].setPosition(posX + viewHUD.getSize().x * 1.7f -580 , posY - viewHUD.getSize().y * 1.7f +300);
+        hudTexts[killText].setString("Kills:"+ std::to_string(player->l_kills));
+        hudTexts[1].setOrigin(hudTexts[1].getGlobalBounds().width /4 , hudTexts[1].getGlobalBounds().height / 4);
+        //hudTexts[1].setPosition(window.getSize().x /2.0f , 50 );
+        hudTexts[1].setPosition(posX, posY - viewHUD.getSize().y * 1.8f);
+        hudTexts[1].setString("Enter the door for the next level");
 
 
 
-        window.draw(kills);
-        window.draw(posXtest);
-        window.draw(posYtest);
-
-        /*for(int i=0; i<nCoin; i++){
-            if(player.playerBorder.getGlobalBounds().intersects(coins[i]->coinBorder.getGlobalBounds())){
-                coins.erase(coins.begin() + i);
-                nCoin--;
-                count++;
-                coinSound.play();
-            }
-        }
-        pickedCoins.setString("COINS : "+ std::to_string(count));
-        window.draw(pickedCoins);*/
-
-
+        if(player->roomCompletedText)
+            window.draw(hudTexts[1]);
+        window.draw(hudTexts[killText]);
     }
+
 
 
 
@@ -79,19 +68,9 @@ private:
     std::vector<sf::Sprite> hearts;
     sf::Sprite heart;
     sf::Texture heartTexture;
-    sf::Text kills;
+    sf::Text hudTexts[NUM_HUD_TEXTS];
     sf::Font font;
-
-
-
-    //TEST
-    sf::Text posXtest;
-
-    sf::Text posYtest;
-
-
-
-
+    int killText=0;
 };
 
 
