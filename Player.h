@@ -26,6 +26,7 @@ public:
             body.setTexture(texture);
             //body.setFillColor(sf::Color::White);
             kills=0;
+        totalKills = 0;
 
     };
     ~Player();

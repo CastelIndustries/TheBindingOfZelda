@@ -27,7 +27,7 @@ public:
         }
     }
 
-    sf::RectangleShape getTile() const{
+    Tile getTile() const {
         for(auto tiles:colTiles)
             tiles->tile;
     }

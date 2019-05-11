@@ -9,6 +9,7 @@
 
 bool TileMap::load(const std::string &tilesetFile, unsigned int width, unsigned int height, sf::RenderWindow &window, bool newLevel) {
     // load the tilesetFile texture
+    window.clear();
     if (!tileset.loadFromFile(tilesetFile))
         return false;
     if(newLevel)
@@ -91,11 +92,10 @@ void TileMap::checkCollision(std::list<std::unique_ptr<Character>> &characterLis
             if (!tiles_to_draw->getWalk()) {
                 character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f);
             }
-                if (!tiles_to_draw->getInMap() && character.get() != player &&
-                    character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f))
-                    character->body.setPosition(distrX(eng), distrY(eng));
-
-
+            if (!tiles_to_draw->getInMap() && character.get() != player &&
+                character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f)) {
+                character->body.setPosition(distrX(eng), distrY(eng));
+            }
         }
     }
 }

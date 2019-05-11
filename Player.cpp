@@ -125,9 +125,9 @@ void Player::RemoveObserver(Observer *observer) {
 
 void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
 
+
     if (kills == 3)
         for (auto itr:observers) {
-            itr->update();
             itr->update(map, window);
             kills=0;
         }

@@ -9,7 +9,7 @@
 #include <list>
 class Subject{
 protected:
-     ~Subject(){};
+    virtual ~Subject() {};
 
 public:
     virtual  void RegisterObserver(Observer* observer){};

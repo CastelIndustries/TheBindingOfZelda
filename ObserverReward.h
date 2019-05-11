@@ -9,14 +9,14 @@
 #include "Observer.h"
 
 
-class ObserverReward: public Observer {
+class ObserverReward : public Observer {
 public:
 
-    ObserverReward(){};
+    ObserverReward() {};
 
-void update() override;
-void update(TileMap &map, sf::RenderWindow &window) override;
+    void update() override;
 
+    void update(TileMap &map, sf::RenderWindow &window) override;
 
 
 };

@@ -31,13 +31,11 @@ public:
 
     void RangedAttack() override {};                    //TO DO
 
-    virtual void Update(float deltatime, sf::RenderWindow &window) override;
+    //virtual void Update(float deltatime, sf::RenderWindow &window) override{};
 
     virtual void Create(float deltatime, sf::RenderWindow &window) override;
 
-    void CorrectDisplay(sf::RenderWindow &window) override;
-
-    float init;
+    void CorrectDisplay(sf::RenderWindow &window) override {};
 };
 
 

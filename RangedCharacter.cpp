@@ -55,7 +55,7 @@ void RangedCharacter::RangedAttack() {
 void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) {
 
     sf::Vector2f movement(0.0f, 0.0f);
-    if (body.getPosition().x <= player.body.getPosition().x + player.body.getSize().x + range &&
+    if (body.getPosition().x + range <= player.body.getPosition().x &&
         body.getPosition().y + (body.getSize().y) / 2 <= player.body.getPosition().y + (player.body.getSize().y) &&
         body.getPosition().y + (body.getSize().y) / 2 >= player.body.getPosition().y && BulletClock.getElapsedTime() >=
                                                                                         ShootDelay /*&& body.getPosition().x + body.getLocalBounds().width <= window.getSize().x*/) {
@@ -71,7 +71,8 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         animation.Update(row, deltaTime);
         body.setTextureRect(animation.uvRect);
         body.move(movement);
-    } else if (body.getPosition().x + body.getSize().x + range >= player.body.getPosition().x &&
+        Check = true;
+    } else if (body.getPosition().x >= player.body.getPosition().x + range &&
                body.getPosition().y + (body.getSize().y) / 2 <= player.body.getPosition().y + player.body.getSize().y &&
                body.getPosition().y + (body.getSize().y) / 2 >= player.body.getPosition().y &&
                BulletClock.getElapsedTime() >= ShootDelay /*&& body.getPosition().x >= this->speed * deltaTime*/) {
@@ -87,11 +88,13 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         animation.Update(row, deltaTime);
         body.setTextureRect(animation.uvRect);
         body.move(movement);
-    } else if (body.getPosition().y <= player.body.getPosition().y + player.body.getSize().y + range &&
+        Check = true;
+    } else if (
+            body.getPosition().y + body.getSize().y + range <= player.body.getPosition().y + player.body.getSize().y &&
                body.getPosition().x + body.getSize().x / 2 <= player.body.getPosition().x + player.body.getSize().x &&
                body.getPosition().x + (body.getSize().x) / 2 >= player.body.getPosition().x &&
-               BulletClock.getElapsedTime() >=
-               ShootDelay  /*&& body.getPosition().y + body.getLocalBounds().width <= window.getSize().y - 60 */) {
+            BulletClock.getElapsedTime() >=
+            ShootDelay) {
 
         isFiring = true;
         dirRanAtt = 3;
@@ -104,6 +107,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         animation.Update(row, deltaTime);
         body.setTextureRect(animation.uvRect);
         body.move(movement);
+        Check = true;
     } else if (body.getPosition().y <= player.body.getPosition().y + player.body.getSize().y + range &&
                body.getPosition().x + (body.getSize().x) / 2 <= player.body.getPosition().x + player.body.getSize().x &&
                body.getPosition().x + (body.getSize().x) / 2 >= player.body.getPosition().x &&
@@ -120,8 +124,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         animation.Update(row, deltaTime);
         body.setTextureRect(animation.uvRect);
         body.move(movement);
-    } else {
-        this->Update(deltaTime, window);
+        Check = true;
     }
 
 

@@ -6,7 +6,7 @@
 
 Skeleton::~Skeleton() {};
 
-void Skeleton::Update(float deltaTime, sf::RenderWindow &window) {
+/*void Skeleton::Update(float deltaTime, sf::RenderWindow &window) {
     bool stop = false;
 
     sf::Vector2f movement(0.0f, 0.0f);
@@ -33,41 +33,24 @@ void Skeleton::Update(float deltaTime, sf::RenderWindow &window) {
         row = 0;
     }
 
+}*/
+/*if (stop) {
+    this->animation.StopUpdate(this->row);
+} else
+    this->animation.Update(this->row, deltaTime);
 
-    if (stop) {
-        this->animation.StopUpdate(this->row);
-    } else
-        this->animation.Update(this->row, deltaTime);
-
-    animation.Update(row, deltaTime);
-    body.setTextureRect(animation.uvRect);
-    body.move(movement);
+animation.Update(row, deltaTime);
+body.setTextureRect(animation.uvRect);
+body.move(movement);
 
 
-}
-
-void Skeleton::CorrectDisplay(sf::RenderWindow &window) {
-    if (body.getPosition().x <= 0) {
-        body.setPosition(0, body.getPosition().y);
-
-    }
-    if (body.getPosition().x + body.getGlobalBounds().width >= window.getSize().x) {
-        body.setPosition(window.getSize().x - body.getSize().x, body.getPosition().y);
-
-    }
-    if (body.getPosition().y <= 0) {
-        body.setPosition(body.getPosition().x, 0);
-
-    }
-    if (body.getPosition().y + body.getGlobalBounds().height >= window.getSize().y) {
-        body.setPosition(body.getPosition().x, window.getSize().y - body.getSize().y);
-
-    }
-}
+}*/
 
 void Skeleton::Create(float deltaTime, sf::RenderWindow &window) {
-    Skeleton::Update(deltaTime, window);
+    if (!Check) {
+        RangedCharacter::Update(deltaTime, window);
+    }
     RangedCharacter::Draw(window);
-    //Skeleton::CorrectDisplay(window);
+    Check = false;
 }
 
