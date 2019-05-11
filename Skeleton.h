@@ -31,7 +31,7 @@ public:
 
     void RangedAttack() override {};                    //TO DO
 
-    virtual void Update(float deltatime, sf::RenderWindow &window) override{};
+    //virtual void Update(float deltatime, sf::RenderWindow &window) override{};
 
     virtual void Create(float deltatime, sf::RenderWindow &window) override;
 
@@ -43,9 +43,6 @@ public:
 
     float init;
 };
-
-
-
 
 
 #endif //SFML_TESTS_LINK_SKELETON_H

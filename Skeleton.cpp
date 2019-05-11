@@ -15,20 +15,20 @@ Skeleton::~Skeleton() {};
         clock.restart();
     }
 
-    if (init == 0){
+    if (init == 0 && body.getPosition().x >= this->speed * deltaTime) {
         movement.x -= this->speed * deltaTime;
 
         row = 2;
     }
-    if (init == 1){
+    if (init == 1 && body.getPosition().x + body.getLocalBounds().width <= window.getSize().x) {
         movement.x += this->speed * deltaTime;
         row = 3;
     }
-    if (init == 2){
+    if (init == 2 && body.getPosition().y >= -40) {
         movement.y -= this->speed * deltaTime;
         row = 1;
     }
-    if (init == 3){
+    if (init == 3 && body.getPosition().y + body.getLocalBounds().width <= window.getSize().y - 60) {
         movement.y += this->speed * deltaTime;
         row = 0;
     }
@@ -47,8 +47,10 @@ Skeleton::~Skeleton() {};
 }*/
 
 void Skeleton::Create(float deltaTime, sf::RenderWindow &window) {
-    //RangedCharacter::Update(deltaTime, window);
+    if(!Check)
+        RangedCharacter::Update(deltaTime, window);
     RangedCharacter::Draw(window);
+    Check=false;
 }
 
 void Skeleton::RegisterObserver(Observer *observer) {
