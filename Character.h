@@ -36,6 +36,8 @@ public:
 
     virtual void RangedAttack();
 
+    virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) = 0;
+
     Character(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed);
 
     Collider GetCollider() {
@@ -47,8 +49,9 @@ public:
     int dirRanAtt;
     int hp=100;
     int kills;
+    int totalKills;
     sf::Clock BulletClock;
-
+    std::vector<Bullet> BulletVec;
     const sf::Time ShootDelay=sf::seconds(.4f);
 
 

@@ -27,6 +27,8 @@ protected:
 
     virtual void Update(float deltaTime, sf::RenderWindow &window) override =0;
 
+    virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override {};
+
 };
 
 
