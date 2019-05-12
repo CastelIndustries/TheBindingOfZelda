@@ -14,13 +14,13 @@
 #include "ObserverReward.h"
 
 #include "HUD.h"
-#include "Menu.h"
+
 
 int main() {
     //WINDOW AND MENU
     sf::RenderWindow window(sf::VideoMode(1211, 865), "The Binding of Zelda", sf::Style::Close);
     srand((unsigned) time(nullptr));
-    Menu menu(window.getSize().x, window.getSize().y);
+
 
 
 
