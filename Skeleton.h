@@ -35,7 +35,13 @@ public:
 
     virtual void Create(float deltatime, sf::RenderWindow &window) override;
 
-    void CorrectDisplay(sf::RenderWindow &window) override {};
+    void RegisterObserver (Observer* observer) override;
+
+    void RemoveObserver (Observer* observer) override;
+
+    void NotifyObservers (TileMap &map, sf::RenderWindow &window) override;
+
+    float init;
 };
 
 

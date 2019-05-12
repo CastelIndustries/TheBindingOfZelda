@@ -9,7 +9,7 @@
 #include "Animation.h"
 #include "time.h"
 #include "Collider.h"
-#include "vector"
+#include <vector>
 #include "Bullet.h"
 #include "iostream"
 #include "Subject.h"
@@ -30,8 +30,6 @@ public:
 
     virtual void Draw(sf::RenderWindow &window);
 
-    virtual void CorrectDisplay(sf::RenderWindow &window)=0;
-
     virtual void Create(float deltaTime, sf::RenderWindow &window);
 
     virtual void RangedAttack();
@@ -49,13 +47,17 @@ public:
     int dirRanAtt;
     int hp=100;
     int kills;
-    int totalKills;
+    int l_kills;
     sf::Clock BulletClock;
+    bool roomCompletedText;
+    bool doorNewLevel;
+    sf::Vector2f defaultPos;
     std::vector<Bullet> BulletVec;
     const sf::Time ShootDelay=sf::seconds(.4f);
+    bool look=false;
 
 
-//protected:
+protected:
     float speed, dash;
 
     Animation animation;

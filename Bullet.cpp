@@ -31,7 +31,7 @@ void Bullet::fire(float speed) {
 bool Bullet::CheckCollision(sf::RectangleShape &character) {
 
     //Collision if shooting right
-   /* if (getRight() < character.getPosition().x + character.getSize().x && getRight() > character.getPosition().x) {
+    if (getRight() < character.getPosition().x + character.getSize().x && getRight() > character.getPosition().x) {
         if (getBottom() < character.getPosition().y + character.getSize().y &&
             getBottom() > character.getPosition().y) {
             if (getTop() < character.getPosition().y && getTop() > character.getPosition().y + character.getSize().y) {
@@ -39,7 +39,7 @@ bool Bullet::CheckCollision(sf::RectangleShape &character) {
             }
         }
     }
-*/
+
     //Collision if shooting left
     if (getLeft() > character.getPosition().x && getLeft() < character.getPosition().x + character.getSize().x) {
         if (getBottom() < character.getPosition().y + character.getPosition().y &&

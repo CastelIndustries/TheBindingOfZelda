@@ -47,7 +47,7 @@ bool Collider::CheckCollision(Collider other, float push) {
 
             } else {
 
-                Move(0.0f, -IntersectY *(1 - push));
+                Move(0.0f, -IntersectY *(1.0f - push));
                 other.Move(0.0f, IntersectY * push );
 
             }

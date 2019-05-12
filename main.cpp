@@ -14,7 +14,7 @@
 #include "ObserverReward.h"
 
 #include "HUD.h"
-
+#include "Menu.h"
 
 int main() {
     //WINDOW AND MENU

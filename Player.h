@@ -21,12 +21,14 @@ public:
             dash = speed;
             row = 0;
             body.setSize(sf::Vector2f(120.0f, 210.0f));
-            //body.setOrigin(body.getSize()/2.0f);
-            body.setPosition(2800.0f, 1700.0f);
+            body.setPosition(3000.0f, 1800.0f);
+            defaultPos = body.getPosition();
             body.setTexture(texture);
             //body.setFillColor(sf::Color::White);
             kills=0;
-        totalKills = 0;
+            l_kills=0;
+            roomCompletedText = false;
+            doorNewLevel = false;
 
     };
     ~Player();
@@ -37,20 +39,11 @@ public:
 
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
-    void CorrectDisplay(sf::RenderWindow &window) override;
-
     void RegisterObserver (Observer* observer) override;
 
     void RemoveObserver (Observer* observer) override;
 
     void NotifyObservers (TileMap &map, sf::RenderWindow &window) override;
-
-
-
-
-
-    bool reward;
-
 
 };
 

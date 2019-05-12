@@ -9,9 +9,13 @@
 #include <iostream>
 #include "Player.h"
 
+#define NUM_HUD_TEXTS 2
+
 
 class HUD {
 public:
+
+
 
     HUD(){
         heartTexture.loadFromFile("../Textures/Heart.png");
@@ -25,38 +29,21 @@ public:
         if(!font.loadFromFile("../Textures/font.ttf")){
             std::cout<<"Error! Could not load the file font.ttf" << std::endl;
         }
-        kills.setFont(font);
-        kills.setScale(4.0, 4.0);
-
-        //TEST
-        posXtest.setFont(font);
-        posYtest.setFont(font);
-
+        hudTexts[killText].setFont(font);
+        hudTexts[killText].setScale(4.0, 4.0);
+        hudTexts[1].setFont(font);
+        hudTexts[1].setScale(2.0, 2.0);
     }
 
-    void renderHUD(sf::View &viewHUD, sf::RenderWindow &window, Character *player);
-
-
-
-
+    void renderHUD(sf::View &viewHUD, sf::RenderWindow &window, Character* player);
 
 private:
     std::vector<sf::Sprite> hearts;
     sf::Sprite heart;
     sf::Texture heartTexture;
-    sf::Text kills;
+    sf::Text hudTexts[NUM_HUD_TEXTS];
     sf::Font font;
-
-
-
-    //TEST
-    sf::Text posXtest;
-
-    sf::Text posYtest;
-
-
-
-
+    int killText=0;
 };
 
 

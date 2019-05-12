@@ -3,21 +3,26 @@
 //
 
 #include "HUD.h"
+void HUD::renderHUD(sf::View &viewHUD, sf::RenderWindow &window, Character* player){
+    float posX = viewHUD.getCenter().x;
+    float posY = viewHUD.getCenter().y;
 
-void HUD::renderHUD(sf::View &viewHUD, sf::RenderWindow &window, Character *player) {
-    float posX = viewHUD.getCenter().x + viewHUD.getSize().x * 1.7f;
-    float posY = viewHUD.getCenter().y - viewHUD.getSize().y * 1.8f;
-
-    for (auto h:hearts) {
-        for (int i = 0; i < hearts.size(); i++) {
-            h.setPosition(viewHUD.getCenter().x + viewHUD.getSize().x * 1.7f -
-                          i * (heartTexture.getSize().x) * h.getScale().x,
-                          viewHUD.getCenter().y - viewHUD.getSize().y * 1.8f);
+    for(auto h:hearts){
+        for(int i=0; i<hearts.size(); i++) {
+            h.setPosition(posX + viewHUD.getSize().x * 1.7f - i*(heartTexture.getSize().x)*h.getScale().x, posY - viewHUD.getSize().y * 1.8f);
             window.draw(h);
         }
     }
 
-    kills.setPosition(posX - 580, posY + 300);
-    kills.setString("Kills:" + std::to_string(player->totalKills));
-    window.draw(kills);
+    hudTexts[killText].setPosition(posX + viewHUD.getSize().x * 1.7f -580 , posY - viewHUD.getSize().y * 1.7f +300);
+    hudTexts[killText].setString("Kills:"+ std::to_string(player->l_kills));
+    hudTexts[1].setOrigin(hudTexts[1].getGlobalBounds().width /4 , hudTexts[1].getGlobalBounds().height / 4);
+    hudTexts[1].setPosition(posX, posY - viewHUD.getSize().y * 1.8f);
+    hudTexts[1].setString("Enter the door for the next level");
+
+
+
+    if(player->roomCompletedText)
+        window.draw(hudTexts[1]);
+    window.draw(hudTexts[killText]);
 }

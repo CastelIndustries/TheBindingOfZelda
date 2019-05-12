@@ -78,7 +78,7 @@ find_path(SFML_INCLUDE_DIR SFML/Config.hpp
           PATH_SUFFIXES include
           PATHS ${FIND_SFML_PATHS})
 
-# check the version number
+# look the version number
 set(SFML_VERSION_OK TRUE)
 if(SFML_FIND_VERSION AND SFML_INCLUDE_DIR)
     # extract the major and minor version numbers from SFML/Config.hpp
@@ -254,7 +254,7 @@ if(SFML_STATIC_LIBRARIES)
     list(FIND SFML_FIND_COMPONENTS "system" FIND_SFML_SYSTEM_COMPONENT)
     if(NOT ${FIND_SFML_SYSTEM_COMPONENT} EQUAL -1)
 
-        # update the list -- these are only system libraries, no need to find them
+        # newLevel the list -- these are only system libraries, no need to find them
         if(FIND_SFML_OS_LINUX OR FIND_SFML_OS_FREEBSD OR FIND_SFML_OS_MACOSX)
             set(SFML_SYSTEM_DEPENDENCIES "pthread")
         endif()
@@ -271,7 +271,7 @@ if(SFML_STATIC_LIBRARIES)
     list(FIND SFML_FIND_COMPONENTS "network" FIND_SFML_NETWORK_COMPONENT)
     if(NOT ${FIND_SFML_NETWORK_COMPONENT} EQUAL -1)
 
-        # update the list -- these are only system libraries, no need to find them
+        # newLevel the list -- these are only system libraries, no need to find them
         if(FIND_SFML_OS_WINDOWS)
             set(SFML_NETWORK_DEPENDENCIES "ws2_32")
         endif()
@@ -292,7 +292,7 @@ if(SFML_STATIC_LIBRARIES)
             find_sfml_dependency(UDEV_LIBRARIES "UDev" udev libudev)
         endif()
 
-        # update the list
+        # newLevel the list
         if(FIND_SFML_OS_WINDOWS)
             set(SFML_WINDOW_DEPENDENCIES ${SFML_WINDOW_DEPENDENCIES} "opengl32" "winmm" "gdi32")
         elseif(FIND_SFML_OS_LINUX)
@@ -313,7 +313,7 @@ if(SFML_STATIC_LIBRARIES)
         find_sfml_dependency(FREETYPE_LIBRARY "FreeType" freetype)
         find_sfml_dependency(JPEG_LIBRARY "libjpeg" jpeg)
 
-        # update the list
+        # newLevel the list
         set(SFML_GRAPHICS_DEPENDENCIES ${FREETYPE_LIBRARY} ${JPEG_LIBRARY})
         set(SFML_DEPENDENCIES ${SFML_GRAPHICS_DEPENDENCIES} ${SFML_DEPENDENCIES})
     endif()
@@ -330,7 +330,7 @@ if(SFML_STATIC_LIBRARIES)
         find_sfml_dependency(VORBISENC_LIBRARY "VorbisEnc" vorbisenc)
         find_sfml_dependency(FLAC_LIBRARY "FLAC" FLAC)
 
-        # update the list
+        # newLevel the list
         set(SFML_AUDIO_DEPENDENCIES ${OPENAL_LIBRARY} ${FLAC_LIBRARY} ${VORBISENC_LIBRARY} ${VORBISFILE_LIBRARY} ${VORBIS_LIBRARY} ${OGG_LIBRARY})
         set(SFML_DEPENDENCIES ${SFML_DEPENDENCIES} ${SFML_AUDIO_DEPENDENCIES})
     endif()

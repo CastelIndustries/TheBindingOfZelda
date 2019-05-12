@@ -33,24 +33,34 @@ Skeleton::~Skeleton() {};
         row = 0;
     }
 
-}*/
-/*if (stop) {
-    this->animation.StopUpdate(this->row);
-} else
-    this->animation.Update(this->row, deltaTime);
 
-animation.Update(row, deltaTime);
-body.setTextureRect(animation.uvRect);
-body.move(movement);
+    if (stop) {
+        this->animation.StopUpdate(this->row);
+    } else
+        this->animation.Update(this->row, deltaTime);
+
+    animation.Update(row, deltaTime);
+    body.setTextureRect(animation.uvRect);
+    body.move(movement);
 
 
 }*/
 
 void Skeleton::Create(float deltaTime, sf::RenderWindow &window) {
-    if (!Check) {
+    if(!Check)
         RangedCharacter::Update(deltaTime, window);
-    }
     RangedCharacter::Draw(window);
-    Check = false;
+    Check=false;
+}
+
+void Skeleton::RegisterObserver(Observer *observer) {
+    observers.push_back(observer);
+}
+
+void Skeleton::RemoveObserver(Observer *observer) {
+    observers.remove(observer);
+}
+
+void Skeleton::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
 }
 

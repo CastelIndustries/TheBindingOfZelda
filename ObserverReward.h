@@ -14,10 +14,8 @@ public:
 
     ObserverReward() {};
 
-    void update() override;
-
-    void update(TileMap &map, sf::RenderWindow &window) override;
-
+void newLevel(TileMap &map, sf::RenderWindow &window) override;
+void update(TileMap &map, sf::RenderWindow &window) override;
 
 };
 

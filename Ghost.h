@@ -18,8 +18,6 @@ public:
 
     virtual void Update(float deltatime, sf::RenderWindow &window) override;
 
-    void CorrectDisplay(sf::RenderWindow &window) override;
-
     float init;
 
     void MeleeAttack() override {};                            //TODO
