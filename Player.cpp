@@ -120,6 +120,7 @@ void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
     if(doorNewLevel) {
         for (auto itr:observers) {
             itr->newLevel(map, window);
+            NewLevel = true;
             body.setPosition(defaultPos);
             doorNewLevel = false;
             roomCompletedText = false;

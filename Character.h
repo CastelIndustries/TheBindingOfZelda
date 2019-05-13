@@ -55,6 +55,7 @@ public:
     std::vector<Bullet> BulletVec;
     sf::Time ShootDelay;
     bool look=false;
+    bool NewLevel = false;
 
 
 protected:

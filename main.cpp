@@ -14,6 +14,7 @@
 #include "ObserverReward.h"
 #include "HUD.h"
 #include "Menu.h"
+#include <random>
 
 #include <SFML/Graphics.hpp>
 
@@ -44,9 +45,9 @@ int main() {
     std::list<std::unique_ptr<Character>> characterList;
 
     characterList.push_back(characterFactory.Create(type::PLAYER, &playerTexture, sf::Vector2u(3, 4), 0.1f, 300.0f));
-    //characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
+    characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
     characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.2f, 300.0f));
-    //characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
+    characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
 
     auto player = characterList.begin()->get();                             //calling first element of the list PLAYER to understand better
 
@@ -93,6 +94,8 @@ int main() {
     bool inMenu=true;
     int caseMenu=0;
     bool deathPlayer = false;
+    int NumEnemies = 3;
+
 
     //WINDOW OPEN
     while (window.isOpen()) {
@@ -174,6 +177,29 @@ int main() {
                     element->Draw(window);
                 }
 
+                if (player->NewLevel) {
+                    for (int i = 0; i < NumEnemies; i++) {
+                        int j = rand() % 3;
+                        switch (j) {
+                            case 0:
+                                characterList.push_back(
+                                        characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f,
+                                                                200.0f));
+                            case 1:
+                                characterList.push_back(
+                                        characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4),
+                                                                0.2f, 300.0f));
+                            case 2:
+                                characterList.push_back(
+                                        characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f,
+                                                                200.f));
+                        }
+
+                    }
+                    player->NewLevel = false;
+                    NumEnemies += 2;
+                }
+
                 //PLAYER'S ATTACK
                 player->RangedAttack();
 
@@ -211,7 +237,7 @@ int main() {
 
                     for (int i = 0; i < character->BulletVec.size(); i++) {
                         character->BulletVec[i].Draw(window);
-                        character->BulletVec[i].fire(15.f);
+                        character->BulletVec[i].fire(30.f);
                     }
 
 
