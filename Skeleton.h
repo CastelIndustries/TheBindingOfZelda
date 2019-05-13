@@ -24,7 +24,7 @@ public:
         body.setSize(sf::Vector2f(120.0f, 210.0f));
         body.setPosition(distrX(eng), distrY(eng));
         body.setTexture(texture);
-        //body.setFillColor(sf::Color::White);
+        this->ShootDelay = sf::seconds(2.0f);
     };
 
     ~Skeleton();

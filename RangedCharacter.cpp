@@ -18,19 +18,19 @@ void RangedCharacter::Update(float deltaTime, sf::RenderWindow &window) {
     if (init == 0) {
         movement.x -= this->speed * deltaTime;
 
-        //row = 2;
+        row = 2;
     }
     if (init == 1) {
         movement.x += this->speed * deltaTime;
-        //row = 3;
+        row = 3;
     }
     if (init == 2) {
         movement.y -= this->speed * deltaTime;
-        //row = 1;
+        row = 1;
     }
     if (init == 3) {
         movement.y += this->speed * deltaTime;
-        //row = 0;
+        row = 0;
     }
 
 
@@ -54,10 +54,11 @@ void RangedCharacter::RangedAttack() {
 
 void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) {
 
+
     sf::Vector2f movement(0.0f, 0.0f);
     if (body.getPosition().x + range <= player.body.getPosition().x &&
         body.getPosition().y + (body.getSize().y) / 2 <= player.body.getPosition().y + (player.body.getSize().y) &&
-        body.getPosition().y + (body.getSize().y) / 2 >= player.body.getPosition().y){// && BulletClock.getElapsedTime() >= ShootDelay) {
+        body.getPosition().y + (body.getSize().y) / 2 >= player.body.getPosition().y){
 
         if(BulletClock.getElapsedTime() >= ShootDelay) {
             isFiring = true;
@@ -68,13 +69,10 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
 
         row = 3;
         movement.x += speed * deltaTime;
-        animation.Update(row, deltaTime);
-        body.setTextureRect(animation.uvRect);
-        body.move(movement);
         Check = true;
     } else if (body.getPosition().x >= player.body.getPosition().x + range &&
                body.getPosition().y + (body.getSize().y) / 2 <= player.body.getPosition().y + player.body.getSize().y &&
-               body.getPosition().y + (body.getSize().y) / 2 >= player.body.getPosition().y){// && BulletClock.getElapsedTime() >= ShootDelay) {
+               body.getPosition().y + (body.getSize().y) / 2 >= player.body.getPosition().y){
 
 
         if(BulletClock.getElapsedTime() >= ShootDelay) {
@@ -84,14 +82,11 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         dirRanAtt = 0;
         row = 2;
         movement.x -= speed * deltaTime;
-        animation.Update(row, deltaTime);
-        body.setTextureRect(animation.uvRect);
-        body.move(movement);
         Check = true;
     } else if (
             body.getPosition().y + body.getSize().y + range <= player.body.getPosition().y + player.body.getSize().y &&
                body.getPosition().x + body.getSize().x / 2 <= player.body.getPosition().x + player.body.getSize().x &&
-               body.getPosition().x + (body.getSize().x) / 2 >= player.body.getPosition().x){// && BulletClock.getElapsedTime() >=ShootDelay) {
+               body.getPosition().x + (body.getSize().x) / 2 >= player.body.getPosition().x){
 
         if(BulletClock.getElapsedTime() >= ShootDelay) {
             isFiring = true;
@@ -100,30 +95,24 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         dirRanAtt = 3;
         row = 0;
         movement.y += speed * deltaTime;
-        animation.Update(row, deltaTime);
-        body.setTextureRect(animation.uvRect);
-        body.move(movement);
-
-
         Check = true;
-    } else if (body.getPosition().y <= player.body.getPosition().y + player.body.getSize().y + range &&
+    } else if (body.getPosition().y >= player.body.getPosition().y + range &&
                body.getPosition().x + (body.getSize().x) / 2 <= player.body.getPosition().x + player.body.getSize().x &&
-               body.getPosition().x + (body.getSize().x) / 2 >= player.body.getPosition().x){//  && BulletClock.getElapsedTime() >= ShootDelay) {
-
+               body.getPosition().x + (body.getSize().x) / 2 >= player.body.getPosition().x){
 
         if(BulletClock.getElapsedTime() >= ShootDelay) {
             isFiring = true;
             BulletClock.restart();
         }
         dirRanAtt = 1;
-
         row = 1;
         movement.y -= speed * deltaTime;
-        animation.Update(row, deltaTime);
-        body.setTextureRect(animation.uvRect);
-        body.move(movement);
         Check = true;
     }
+
+    animation.Update(row, deltaTime);
+    body.setTextureRect(animation.uvRect);
+    body.move(movement);
 
 
 

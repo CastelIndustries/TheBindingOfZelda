@@ -48,6 +48,10 @@ Menu::Menu(float width, float height)
     texts[2].setOrigin(texts[2].getGlobalBounds().width, texts[2].getGlobalBounds().height);
     texts[2].setPosition(sf::Vector2f(width / 2, height / 2));
 
+    texts[3].setFont(font);
+    texts[3].setString("YOU DIED");
+    texts[3].setOrigin(texts[3].getGlobalBounds().width/2, texts[0].getGlobalBounds().height/2);
+    texts[3].setPosition(sf::Vector2f(width/2, height / 2));
 
     clock.restart();
 }
@@ -61,9 +65,9 @@ void Menu::draw(sf::RenderWindow &window)
 {
     window.draw(texts[0]);
 
-    if(clock.getElapsedTime().asSeconds() > 5) {
+    if(clock.getElapsedTime().asSeconds() > 1) {
         window.clear();
-        for (int i = 0; i < MAX_NUMBER_OF_ITEMS -1; i++) {
+        for (int i = 0; i < MAX_NUMBER_OF_ITEMS -2; i++) {
             window.draw(menu[i]);
         }
 
@@ -85,7 +89,7 @@ void Menu::moveUp()
 
 void Menu::moveDown()
 {
-    if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS - 1 )
+    if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS - 2 )
     {
         menu[selectedItemIndex].setFillColor(sf::Color::White);
         selectedItemIndex++;
@@ -97,10 +101,22 @@ bool Menu::instructions(sf::RenderWindow &window) {
 
     window.clear();
     window.draw(texts[2]);
-    if(clock.getElapsedTime().asSeconds() > 5)
+    if(clock.getElapsedTime().asSeconds() > 1)
         return true;
     else
         return false;
 
+}
+
+bool Menu::dead(sf::RenderWindow &window)
+{
+    clock.restart();
+    window.clear();
+    std::cout<<"sei  morto"<<std::endl;
+    window.draw(texts[3]);
+    if(clock.getElapsedTime().asSeconds() > 30)
+        return true;
+    else
+        return false;
 }
 

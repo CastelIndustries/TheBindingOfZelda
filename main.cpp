@@ -6,6 +6,7 @@
 #include <list>
 #include <ctime>
 #include <sstream>
+#include <stdlib.h>
 #include "Animation.h"
 #include "Player.h"
 #include "Element.h"
@@ -45,7 +46,7 @@ int main() {
 
     characterList.push_back(characterFactory.Create(type::PLAYER, &playerTexture, sf::Vector2u(3, 4), 0.1f, 300.0f));
     //characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
-    characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.1f, 200.0f));
+    characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.2f, 300.0f));
     //characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
 
     auto player = characterList.begin()->get();                             //calling first element of the list PLAYER to understand better
@@ -76,7 +77,7 @@ int main() {
     elements.push_back(new Element(175, 130, "../Textures/skeleton 2b.png", 0.3, 0.3));
     elements.push_back(new Element(175, 130, "../Textures/skeleton 3b.png", 0.3, 0.3));
 
-    std::vector<Bullet> BulletVecPlayer;                                   //Vector for the bullets
+    //std::vector<Bullet> BulletVecPlayer;                                   //Vector for the bullets
 
     //MAP
     TileMap map(71, 36, sf::Vector2u(175, 175));
@@ -92,6 +93,7 @@ int main() {
     float deltaTime;
     bool inMenu=true;
     int caseMenu=0;
+    bool deathPlayer = false;
 
     //WINDOW OPEN
     while (window.isOpen()) {
@@ -106,7 +108,7 @@ int main() {
                     break;
 
                 case sf::Event::KeyReleased:
-                    if(inMenu) {                                               //CONTROLS IN MENU
+                    if(inMenu) {                                                            //CONTROLS IN MENU
                         switch (evnt.key.code) {
                             case sf::Keyboard::Up:
                                 menu.moveUp();
@@ -119,7 +121,7 @@ int main() {
                             case sf::Keyboard::Return:
                                 switch (menu.GetPressedItem()) {
                                     case 0:
-                                        if(menu.clock.getElapsedTime().asSeconds() > 5) {           //TIME FOR INSTRUCTIONS BEFORE GAME STARTS
+                                        if(menu.clock.getElapsedTime().asSeconds() > 1) {           //TIME FOR INSTRUCTIONS BEFORE GAME STARTS
                                             menu.clock.restart();
                                             caseMenu = 1;
                                             inMenu = false;
@@ -175,82 +177,111 @@ int main() {
 
                 //PLAYER'S ATTACK
                 player->RangedAttack();
-                if (player->isFiring) {
-                    Bullet newBullet(sf::Vector2f(30, 30), player->dirRanAtt);
-                    newBullet.setPos(sf::Vector2f(player->body.getPosition().x + player->body.getSize().x / 2,
-                                                  player->body.getPosition().y + player->body.getSize().y / 2));
-                    BulletVecPlayer.push_back(newBullet);
-                    player->isFiring = false;
-                }
-
-                for (int i = 0; i < BulletVecPlayer.size(); i++) {
-                    BulletVecPlayer[i].Draw(window);
-                    BulletVecPlayer[i].fire(20.f);
-                }
 
                 //CHARACTERS
                 bool deathCharacter = false;
+
                 for (auto &character : characterList) {
+
                     character->Create(deltaTime, window);
-                    if(character.get() != player){
-                        character->ArtificialIntelligence(*player, 0.2f, window);
-                    }
 
                     map.checkCollision(characterList, player);
 
                     for (auto &otherCharacter : characterList) {                    //Collision with other characters
 
                         character->GetCollider().CheckCollision(otherCharacter->GetCollider(), 0.5f);
-
-                        for (int i = 0; i < BulletVecPlayer.size(); i++) {                                                  //Collision with bullets
-                            if (BulletVecPlayer[i].CheckCollision(character->body) && character.get() != player) {
-                                BulletVecPlayer[i] = BulletVecPlayer.back();
-                                BulletVecPlayer.pop_back();
-                                character->hp -= BulletVecPlayer[i].damage;
-                            }
-                            for(auto tiles:map.colTiles){
-                                if(BulletVecPlayer[i].CheckCollision(tiles->tile) && !tiles->getWalk()){
-                                    BulletVecPlayer[i] = BulletVecPlayer.back();                                            //Collision bullet-walls
-                                    BulletVecPlayer.pop_back();
-                                }
-                            }
-                            if (character->hp == 0) {                                                                       //Dead character
-                                player->kills++;
-                                player->l_kills++;
-                                characterList.remove(character);
-                                auto tmp_ptr = character.release();
-                                delete tmp_ptr;
-                                deathCharacter = true;
-                                break;
-                            }
-                        }
-
-                        if (deathCharacter)
-                            break;
                     }
-                    if (deathCharacter)
-                        break;
 
-
-
-                    character->NotifyObservers(map, window);
+                    if(character.get() != player){
+                        character->ArtificialIntelligence(*player, deltaTime, window);
+                    }
 
                     if (character->isFiring) {
                         Bullet newBullet(sf::Vector2f(30, 30), character->dirRanAtt);
-                        newBullet.setPos(sf::Vector2f(character->body.getPosition().x + player->body.getSize().x / 2,
-                                                      character->body.getPosition().y + player->body.getSize().y / 2));
+                        if(character.get() == player)
+                            newBullet.setSize(sf::Vector2f(30, 30));
+                        else
+                            newBullet.setSize(sf::Vector2f(80, 80));
+
+                        newBullet.setPos(sf::Vector2f(character->body.getPosition().x + character->body.getSize().x / 2,
+                                                      character->body.getPosition().y + character->body.getSize().y / 2));
+
                         character->BulletVec.push_back(newBullet);
                         character->isFiring = false;
                     }
 
                     for (int i = 0; i < character->BulletVec.size(); i++) {
                         character->BulletVec[i].Draw(window);
-                        character->BulletVec[i].fire(10.f);
+                        character->BulletVec[i].fire(15.f);
                     }
-//Notify observers for eventual updating
+
+
+                    for (int i = 0; i < player->BulletVec.size(); i++) {                                                     //Collision with bullets
+                        if (player->BulletVec[i].CheckCollision(character->body) && character.get() != player) {
+                            player->BulletVec[i] = player->BulletVec.back();
+                            player->BulletVec.pop_back();
+                            character->hp -= player->BulletVec[i].damage;
+
+                        }
+                        for (auto tiles:map.colTiles) {
+                            if (player->BulletVec[i].CheckCollision(tiles->tile) && !tiles->getWalk()) {
+                                player->BulletVec[i] = player->BulletVec.back();                                          //Collision bullet-walls
+                                player->BulletVec.pop_back();
+                            }
+                        }
+                        if (character->hp == 0) {                                                                                                //Dead character
+                            player->kills++;
+                            player->l_kills++;
+                            characterList.remove(character);
+                            auto tmp_ptr = character.release();
+                            delete tmp_ptr;
+                            deathCharacter = true;
+                            break;
+                        }
+
+                    }
+
+                    if (deathCharacter)
+                        break;
+
+                    if(character.get() != player) {
+                        for (int i = 0; i < character->BulletVec.size(); i++) {                                                     //Collision with bullets
+                            if (character->BulletVec[i].CheckCollision(player->body)) {
+                                character->BulletVec[i] = character->BulletVec.back();
+                                character->BulletVec.pop_back();
+                                player->hp -= character->BulletVec[i].damage;
+
+                            }
+                            for (auto tiles:map.colTiles) {
+                                if (character->BulletVec[i].CheckCollision(tiles->tile) && !tiles->getWalk()) {
+                                    character->BulletVec[i] = character->BulletVec.back();                                          //Collision bullet-walls
+                                    character->BulletVec.pop_back();
+                                }
+                            }
+                            if (player->hp == 0) {                                                                                                //Dead character
+                                deathPlayer = true;
+                                break;
+                            }
+                        }
+                    }
+
+
+                    if (deathPlayer)
+                        break;
+
+
+                    character->NotifyObservers(map, window);                        //Notify observers for eventual updating
+                }
+                if (deathPlayer) {
+                    if(menu.dead(window))
+                        window.close();
+                    break;
                 }
             }
+
+
         }
+
 
         window.display();
     }
@@ -259,5 +290,3 @@ int main() {
     player->RemoveObserver(&CheckRoom);
     return 0;
 }
-
-

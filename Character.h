@@ -53,7 +53,7 @@ public:
     bool doorNewLevel;
     sf::Vector2f defaultPos;
     std::vector<Bullet> BulletVec;
-    const sf::Time ShootDelay=sf::seconds(.4f);
+    sf::Time ShootDelay;
     bool look=false;
 
 

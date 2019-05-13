@@ -8,7 +8,7 @@
 #include "SFML/Graphics.hpp"
 
 
-#define MAX_NUMBER_OF_ITEMS 3
+#define MAX_NUMBER_OF_ITEMS 4
 
 class Menu
 {
@@ -20,6 +20,7 @@ public:
     void moveUp();
     void moveDown();
     bool instructions(sf::RenderWindow &window);
+    bool dead(sf::RenderWindow &window);
     int GetPressedItem() { return selectedItemIndex; }
     sf::Clock clock;
 
