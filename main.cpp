@@ -45,9 +45,9 @@ int main() {
     std::list<std::unique_ptr<Character>> characterList;
 
     characterList.push_back(characterFactory.Create(type::PLAYER, &playerTexture, sf::Vector2u(3, 4), 0.1f, 300.0f));
-    //characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
+    characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
     characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.2f, 300.0f));
-    //characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
+    characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
 
     auto player = characterList.begin()->get();                             //calling first element of the list PLAYER to understand better
 
@@ -175,8 +175,16 @@ int main() {
                     element->Draw(window);
                 }
 
+                if(player->newCharacter){
+                    characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
+                    characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.2f, 300.0f));
+                    characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
+                    player->newCharacter = false;
+                }
+
                 //PLAYER'S ATTACK
                 player->RangedAttack();
+                
 
                 //CHARACTERS
                 bool deathCharacter = false;
@@ -184,6 +192,7 @@ int main() {
                 for (auto &character : characterList) {
 
                     character->Create(deltaTime, window);
+
 
                     map.checkCollision(characterList, player);
 

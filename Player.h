@@ -44,7 +44,6 @@ public:
     void RemoveObserver (Observer* observer) override;
 
     void NotifyObservers (TileMap &map, sf::RenderWindow &window) override;
-
 };
 
 

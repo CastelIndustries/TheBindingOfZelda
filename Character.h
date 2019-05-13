@@ -54,7 +54,7 @@ public:
     sf::Vector2f defaultPos;
     std::vector<Bullet> BulletVec;
     sf::Time ShootDelay;
-    bool look=false;
+    bool newCharacter = false;
 
 
 protected:
