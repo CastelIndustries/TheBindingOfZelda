@@ -45,6 +45,10 @@ public:
 
     void NotifyObservers (TileMap &map, sf::RenderWindow &window) override;
 
+    void Punch(Character &character);
+
+    bool punching = false;
+
 };
 
 

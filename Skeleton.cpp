@@ -47,7 +47,7 @@ Skeleton::~Skeleton() {};
 }*/
 
 void Skeleton::Create(float deltaTime, sf::RenderWindow &window) {
-    if(!Check)
+    //  if(!Check)
         RangedCharacter::Update(deltaTime, window);
     RangedCharacter::Draw(window);
     Check=false;

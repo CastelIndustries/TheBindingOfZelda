@@ -31,6 +31,25 @@ void RangedCharacter::Update(float deltaTime, sf::RenderWindow &window) {
     if (init == 3) {
         movement.y += this->speed * deltaTime;
         row = 0;
+        if (!Check)
+            row = 2;
+    }
+    if (init == 1) {
+        movement.x += this->speed * deltaTime;
+        if (!Check)
+            row = 3;
+
+    }
+    if (init == 2) {
+        movement.y -= this->speed * deltaTime;
+        if (!Check)
+            row = 1;
+    }
+    if (init == 3) {
+        movement.y += this->speed * deltaTime;
+        if (!Check)
+            row = 0;
+
     }
 
 
