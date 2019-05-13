@@ -24,11 +24,11 @@ public:
             body.setPosition(3000.0f, 1800.0f);
             defaultPos = body.getPosition();
             body.setTexture(texture);
-            //body.setFillColor(sf::Color::White);
             kills=0;
             l_kills=0;
             roomCompletedText = false;
             doorNewLevel = false;
+            this->ShootDelay = sf::seconds(0.4f);
 
     };
     ~Player();

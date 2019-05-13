@@ -32,6 +32,9 @@ public:
     void fire(float speed);
 
     void setPos(sf::Vector2f NewPos);
+    void setSize(sf::Vector2f newSize){
+        bullet.setSize(newSize);
+    }
 
     void Draw(sf::RenderWindow &window);
 

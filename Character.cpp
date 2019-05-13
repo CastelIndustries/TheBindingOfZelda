@@ -11,6 +11,7 @@ Character::Character(sf::Texture *texture, sf::Vector2u imageCount, float switch
                                                                                                                imageCount,
                                                                                                                switchTime) {
 
+
 };
 
 Character::~Character() {}
