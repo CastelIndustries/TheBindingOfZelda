@@ -184,7 +184,7 @@ int main() {
 
                 //PLAYER'S ATTACK
                 player->RangedAttack();
-                
+
 
                 //CHARACTERS
                 bool deathCharacter = false;
