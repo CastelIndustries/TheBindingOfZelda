@@ -12,7 +12,7 @@
 class Bullet{
 
 public:
-    Bullet(sf::Vector2f size, int dir);
+    Bullet(std::string filename, sf::Vector2f size, int dir);
 
     float getRight() {
         return bullet.getPosition().x + bullet.getSize().x;
@@ -44,14 +44,17 @@ public:
         return Collider(bullet);
     }
 
-private:
-    sf::RectangleShape bullet;
-    int BulletDir;
-
-public:
     const sf::RectangleShape &getBullet() const;
     int damage;
     void setBullet(const sf::RectangleShape &bullet);
+
+
+private:
+    sf::Texture bulletTexture;
+    sf::RectangleShape bullet;
+    int BulletDir;
+
+
 
 };
 

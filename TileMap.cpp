@@ -75,27 +75,38 @@ bool TileMap::load(const std::string &tilesetFile, sf::RenderWindow &window, boo
 
 }
 
-void TileMap::checkCollision(std::list<std::unique_ptr<Character>> &characterList, Character* player){
+void TileMap::checkCollision(std::list<std::unique_ptr<Character>> &characterList, Character* player) {
     std::random_device generator;
     std::mt19937 eng(generator());
     std::uniform_int_distribution<int> distrX(2963, 8280);
     std::uniform_int_distribution<int> distrY(1757, 4336);
     for (auto &character : characterList) {
-        for (auto &tiles_to_draw : colTiles) {       //Collision characters-tiles
+        for (auto &tiles_to_draw : colTiles) {                                                       //Collision characters-tiles
 
             if (!tiles_to_draw->getWalk()) {
                 character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f);
             }
-            if (!tiles_to_draw->getInMap() && character.get() != player &&
+            if (!tiles_to_draw->getInMap() &&
                 character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f)) {
                 character->body.setPosition(distrX(eng), distrY(eng));
-            }
-            if(tiles_to_draw->getOpen() && character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 1.0f)){
-                character->doorNewLevel = true;
             }
 
 
         }
+    }
+
+    for (auto &tiles_to_draw : colTiles){                                                        //Collision player-tiles
+
+        if (!tiles_to_draw->getWalk()) {
+            player->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f);
+        }
+        if (!tiles_to_draw->getInMap() && player->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f)) {
+            player->body.setPosition(distrX(eng), distrY(eng));
+        }
+        if (tiles_to_draw->getOpen() && player->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 1.0f)) {
+            player->doorNewLevel = true;
+        }
+
     }
 }
 
@@ -112,11 +123,29 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 }
 
-void TileMap::LoadColMap(const char*filename){
+void TileMap::LoadColMap(){
+    preInit = init;
+    bool done = false;
+    std::ifstream openFile;
 
-    std::ifstream openFile(filename);
+    while(!done) {
+        init = rand() % 3;
+        if (init == 0 && preInit != 0) {
+            openFile.open("../Textures/Map.txt");
+            done = true;
+        }
+        if (init == 1 && preInit != 1) {
+            openFile.open("../Textures/Map1.txt");
+            done = true;
+        }
+        if (init == 2 && preInit != 2) {
+            openFile.open("../Textures/Map2.txt");
+            done = true;
+        }
+    }
+
     std::vector<int> tempMap;
-    this->map.clear();
+    map.clear();
 
     if(openFile.is_open()){
         while(!openFile.eof()){
@@ -134,7 +163,7 @@ void TileMap::LoadColMap(const char*filename){
                 }
 
             }
-            this->map.push_back(tempMap);
+            map.push_back(tempMap);
             tempMap.clear();
         }
     }

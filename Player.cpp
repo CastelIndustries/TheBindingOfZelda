@@ -16,7 +16,7 @@ void Player::Update(float deltaTime, sf::RenderWindow &window) {
         bool stop=false;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){// && body.getPosition().x >= 0) {
             movement.x -= this->speed * deltaTime;
-            row = 2;
+            this->row = 2;
         }else {
             if (sf::Keyboard::isKeyPressed(
                     sf::Keyboard::D)) {// && body.getPosition().x + body.getLocalBounds().width <= window.getSize().x) {
@@ -43,7 +43,17 @@ void Player::Update(float deltaTime, sf::RenderWindow &window) {
         else
             this->speed = this->dash;
 
-        if (stop) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        row=4;
+        punching = true;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        row=5;
+        punching = true;
+    }
+
+
+    if (stop) {
             this->animation.StopUpdate(this->row);
         } else
             this->animation.Update(this->row, deltaTime);
@@ -103,8 +113,12 @@ void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
         roomCompletedText = true;
         for (auto itr:observers) {
             itr->update(map, window);
+
             kills = 0;
         }
+
+
+
 
     }
     if(doorNewLevel) {
@@ -122,4 +136,14 @@ void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
 
 
 }
+
+void Player::Punch(std::unique_ptr<Character> &character) {
+    if (punching && character->GetCollider().CheckCollision(this->GetCollider(), 0.0f)) {
+        character->hp -= 50;
+    }
+}
+
+
+
+
 

@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-Character::Character(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : animation(texture,
+Character::Character(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : animation(filename,
                                                                                                                imageCount,
                                                                                                                switchTime) {
 

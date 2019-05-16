@@ -8,8 +8,8 @@
 #include "CharacterFactory.h"
 
 void ObserverReward::newLevel(TileMap &map, sf::RenderWindow &window) {
-    
-    map.LoadColMap("../Textures/Map1.txt");
+
+    map.LoadColMap();
     map.load("../Textures/tileset3.png", window, true);
 
 
@@ -29,5 +29,10 @@ void ObserverReward::update(TileMap &map, sf::RenderWindow &window) {
     map.load("../Textures/tileset3.png", window, true);
 
 
+
+}
+
+void ObserverReward::key(Element* &key, sf::RenderWindow &window) {
+        key->Draw(window);
 
 }

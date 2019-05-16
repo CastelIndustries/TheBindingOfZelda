@@ -8,8 +8,8 @@
 #include <list>
 
 class TileMap;
-class Character;
-class CharacterFactory;
+class Element;
+
 
 class Observer{
 protected:
@@ -19,6 +19,7 @@ protected:
 public:
     virtual void newLevel(TileMap &map, sf::RenderWindow &window)=0;
     virtual void update(TileMap &map, sf::RenderWindow &window) = 0;
+    virtual void key(Element* &element, sf::RenderWindow &window)=0;
 
 
 };

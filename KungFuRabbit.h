@@ -24,7 +24,7 @@ public:
 
     void MeleeAttack() override {};                             //TO DO
 
-    KungFuRabbit(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(texture,
+    KungFuRabbit(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(filename,
                                                                                                                 imageCount,
                                                                                                                 switchTime,
                                                                                                                 speed) {
@@ -37,10 +37,14 @@ public:
             row = 2;
             body.setSize(sf::Vector2f(120.0f, 210.0f));
             body.setPosition(distrX(eng), distrY(eng));
-            body.setTexture(texture);
+            rabbitTexture.loadFromFile(filename);
+            body.setTexture(&rabbitTexture);
             //body.setFillColor(sf::Color::White);
             clock.restart();
     }
+
+private:
+    sf::Texture rabbitTexture;
 };
 
 #endif //SFML_TESTS_LINK_KUNGFURABBIT_H

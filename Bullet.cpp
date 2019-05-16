@@ -2,12 +2,17 @@
 // Created by nicola on 06/03/19.
 //
 
+#include <iostream>
 #include "Bullet.h"
-Bullet::Bullet(sf::Vector2f size, int dir) {
+Bullet::Bullet(std::string filename, sf::Vector2f size, int dir) {
     bullet.setSize(size);
-    bullet.setFillColor(sf::Color::Green);
+    bullet.setOrigin(bullet.getGlobalBounds().width /2, bullet.getGlobalBounds().height/2);
+    if(!bulletTexture.loadFromFile(filename))
+        std::cout<< filename + " not loaded" << std::endl;
+    bullet.setTexture(&bulletTexture);
+    bullet.setFillColor(sf::Color::Red);
     BulletDir=dir;
-    damage=25;
+    damage=100;
 }
 void Bullet::fire(float speed) {
     if (BulletDir==0){

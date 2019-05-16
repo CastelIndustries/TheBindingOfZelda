@@ -17,21 +17,25 @@ void RangedCharacter::Update(float deltaTime, sf::RenderWindow &window) {
 
     if (init == 0) {
         movement.x -= this->speed * deltaTime;
-
-        row = 2;
+        if(!Check)
+            row = 2;
     }
     if (init == 1) {
         movement.x += this->speed * deltaTime;
-        row = 3;
+        if(!Check)
+            row = 3;
     }
     if (init == 2) {
         movement.y -= this->speed * deltaTime;
-        row = 1;
+        if(!Check)
+            row = 1;
     }
     if (init == 3) {
         movement.y += this->speed * deltaTime;
-        row = 0;
+        if (!Check)
+            row = 0;
     }
+
 
 
     if (stop) {
@@ -68,7 +72,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         dirRanAtt = 2;
 
         row = 3;
-        movement.x += speed * deltaTime;
+        movement.x += this->speed * deltaTime;
         Check = true;
     } else if (body.getPosition().x >= player.body.getPosition().x + range &&
                body.getPosition().y + (body.getSize().y) / 2 <= player.body.getPosition().y + player.body.getSize().y &&
@@ -81,7 +85,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         }
         dirRanAtt = 0;
         row = 2;
-        movement.x -= speed * deltaTime;
+        movement.x -= this->speed * deltaTime;
         Check = true;
     } else if (
             body.getPosition().y + body.getSize().y + range <= player.body.getPosition().y + player.body.getSize().y &&
@@ -94,7 +98,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         }
         dirRanAtt = 3;
         row = 0;
-        movement.y += speed * deltaTime;
+        movement.y += this->speed * deltaTime;
         Check = true;
     } else if (body.getPosition().y >= player.body.getPosition().y + range &&
                body.getPosition().x + (body.getSize().x) / 2 <= player.body.getPosition().x + player.body.getSize().x &&
@@ -106,7 +110,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         }
         dirRanAtt = 1;
         row = 1;
-        movement.y -= speed * deltaTime;
+        movement.y -= this->speed * deltaTime;
         Check = true;
     }
 

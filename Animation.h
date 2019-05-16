@@ -10,7 +10,7 @@
 
 class Animation {
 public:
-    Animation(sf::Texture *texture, sf::Vector2u imageCount, float switchTime);
+    Animation(std::string filename, sf::Vector2u imageCount, float switchTime);
     ~Animation();
 
     void Update(int row, float deltaTime);
@@ -32,6 +32,8 @@ public:
 private:
     sf::Vector2u imageCount;
     sf::Vector2u currentImage;
+
+    sf::Texture texture;
 
     float totalTime;
     float switchTime;

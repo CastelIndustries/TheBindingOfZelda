@@ -8,24 +8,24 @@
 #include "Ghost.h"
 #include "KungFuRabbit.h"
 
-std::unique_ptr<Character> CharacterFactory::Create(type t, sf::Texture *texture, sf::Vector2u imageCount,
+std::unique_ptr<Character> CharacterFactory::Create(type t, std::string filename, sf::Vector2u imageCount,
                                                     float switchTime, float speed) {
 
     if (t == type::PLAYER) {
-        std::unique_ptr<Character> player(new Player(texture, imageCount, switchTime, speed));
+        std::unique_ptr<Player> player(new Player(filename, imageCount, switchTime, speed));
         return player;
     }
 
     if (t == type::SKELETON) {
-        std::unique_ptr<Character> skeleton(new Skeleton(texture, imageCount, switchTime, speed));
+        std::unique_ptr<Skeleton> skeleton(new Skeleton(filename, imageCount, switchTime, speed));
         return skeleton;
     }
 
     if (t == type::GHOST) {
-        std::unique_ptr<Character> ghost(new Ghost(texture, imageCount, switchTime, speed));
+        std::unique_ptr<Ghost> ghost(new Ghost(filename, imageCount, switchTime, speed));
         return ghost;
     } else {
-        std::unique_ptr<Character> rabbit(new KungFuRabbit(texture, imageCount, switchTime, speed));
+        std::unique_ptr<KungFuRabbit> rabbit(new KungFuRabbit(filename, imageCount, switchTime, speed));
         return rabbit;
     }
 }

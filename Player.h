@@ -10,10 +10,11 @@
 #include "RangedCharacter.h"
 #include "Collider.h"
 #include "Subject.h"
+#include "Element.h"
 class Player : public RangedCharacter   {
 public:
 
-    Player(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : RangedCharacter(texture,
+    Player(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : RangedCharacter(filename,
                                                                                                            imageCount,
                                                                                                            switchTime,
                                                                                                            speed) {
@@ -23,9 +24,8 @@ public:
             body.setSize(sf::Vector2f(120.0f, 210.0f));
             body.setPosition(3000.0f, 1800.0f);
             defaultPos = body.getPosition();
-            body.setTexture(texture);
-            kills=0;
-            l_kills=0;
+            playerTexture.loadFromFile(filename);
+            body.setTexture(&playerTexture);
             roomCompletedText = false;
             doorNewLevel = false;
             this->ShootDelay = sf::seconds(0.4f);
@@ -44,6 +44,15 @@ public:
     void RemoveObserver (Observer* observer) override;
 
     void NotifyObservers (TileMap &map, sf::RenderWindow &window) override;
+
+    void Punch(std::unique_ptr<Character> &character);
+
+private:
+    bool punching = false;
+    sf::Texture playerTexture;
+
+
+
 };
 
 

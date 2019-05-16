@@ -15,7 +15,7 @@ public:
     virtual    ~RangedCharacter() {};
 
 protected:
-    RangedCharacter(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : Character(texture,
+    RangedCharacter(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : Character(filename,
                                                                                                               imageCount,
                                                                                                               switchTime,
                                                                                                               speed) {}

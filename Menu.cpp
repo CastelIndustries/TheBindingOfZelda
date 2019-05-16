@@ -48,11 +48,6 @@ Menu::Menu(float width, float height)
     texts[2].setOrigin(texts[2].getGlobalBounds().width, texts[2].getGlobalBounds().height);
     texts[2].setPosition(sf::Vector2f(width / 2, height / 2));
 
-    texts[3].setFont(font);
-    texts[3].setString("YOU DIED");
-    texts[3].setOrigin(texts[3].getGlobalBounds().width/2, texts[0].getGlobalBounds().height/2);
-    texts[3].setPosition(sf::Vector2f(width/2, height / 2));
-
     clock.restart();
 }
 

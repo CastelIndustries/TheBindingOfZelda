@@ -18,6 +18,8 @@ public:
         walkable=w;
         inMap=in;
         open=o;
+
+
     };
 
     void drawSingleTile(sf::RenderWindow &window){
@@ -46,6 +48,7 @@ private:
     bool walkable;
     bool inMap;
     bool open;
+
 
 
 

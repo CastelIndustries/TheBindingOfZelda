@@ -10,6 +10,7 @@
 #include "Tile.h"
 #include "Collider.h"
 #include "Character.h"
+#include "Player.h"
 #include <list>
 #include <random>
 
@@ -34,7 +35,7 @@ public:
         }
     }
 
-    void LoadColMap(const char*filename);
+    void LoadColMap();
 
     ~TileMap(){}
 
@@ -50,6 +51,8 @@ private:
 
     sf::VertexArray vertices;
     sf::Texture tileset;
+    int init;
+    int preInit;
 
     sf::Vector2u tileSize = sf::Vector2u(175, 175);
 

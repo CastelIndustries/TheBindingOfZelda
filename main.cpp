@@ -15,6 +15,8 @@
 #include "ObserverReward.h"
 #include "HUD.h"
 #include "Menu.h"
+#include <random>
+#include "GameOver.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -30,24 +32,13 @@ int main() {
     //CHARACTERS
     CharacterFactory characterFactory;
 
-    //textures
-    sf::Texture playerTexture;
-    sf::Texture rabbitTexture;
-    sf::Texture skeletonTexture;
-    sf::Texture ghostTexture;
-
-    playerTexture.loadFromFile("../Textures/FRANCO DEFINITIVO.png");
-    rabbitTexture.loadFromFile("../Textures/rabbit.png");
-    skeletonTexture.loadFromFile("../Textures/skeleton.png");
-    ghostTexture.loadFromFile("../Textures/ghost.png");
-
     //list
     std::list<std::unique_ptr<Character>> characterList;
 
-    characterList.push_back(characterFactory.Create(type::PLAYER, &playerTexture, sf::Vector2u(3, 4), 0.1f, 300.0f));
-    characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
-    characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.2f, 300.0f));
-    characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
+    characterList.push_back(characterFactory.Create(type::PLAYER, "../Textures/FRANCO DEFINITIVO1.png", sf::Vector2u(3, 6), 0.1f, 600.0f));
+    characterList.push_back(characterFactory.Create(type::RABBIT, "../Textures/rabbit.png", sf::Vector2u(6, 4), 0.1f, 200.0f));
+    characterList.push_back(characterFactory.Create(type::SKELETON, "../Textures/skeleton.png", sf::Vector2u(3, 4), 0.5f, 200.0f));
+    characterList.push_back(characterFactory.Create(type::GHOST, "../Textures/ghost.png", sf::Vector2u(3, 4), 0.1f, 200.f));
 
     auto player = characterList.begin()->get();                             //calling first element of the list PLAYER to understand better
 
@@ -64,6 +55,7 @@ int main() {
 
     //MENU
     Menu menu(window.getSize().x, window.getSize().y);
+    //GameOver over(window.getSize().x, window.getSize().y);
 
     //HUD
     HUD hud;
@@ -72,17 +64,22 @@ int main() {
     //ELEMENTS
     std::vector<Element*> elements;                                         //Vector of elements
 
-    elements.push_back(new Element(175, 175, "../Textures/tesoro-b.png", 0.3, 0.3));
-    elements.push_back(new Element(175, 130, "../Textures/skeleton 1b.png", 0.3, 0.3));
-    elements.push_back(new Element(175, 130, "../Textures/skeleton 2b.png", 0.3, 0.3));
-    elements.push_back(new Element(175, 130, "../Textures/skeleton 3b.png", 0.3, 0.3));
+    //elements.push_back(new Element(538, 175, "../Textures/chiave.png", 0.5, 0.5));
+    elements.push_back(new Element(175, 175, "../Textures/tesoro-b.png", 0.5, 0.5));
+    elements.push_back(new Element(175, 130, "../Textures/skeleton 1b.png", 0.5, 0.5));
+    elements.push_back(new Element(175, 130, "../Textures/skeleton 2b.png", 0.5, 0.5));
+    elements.push_back(new Element(175, 130, "../Textures/skeleton 3b.png", 0.5, 0.5));
+    //auto key = elements[0];
+    //key->SetPosition();
+
+
 
     //std::vector<Bullet> BulletVecPlayer;                                   //Vector for the bullets
 
     //MAP
     TileMap map(71, 36, sf::Vector2u(175, 175));
 
-    map.LoadColMap("../Textures/Map.txt");
+    map.LoadColMap();
 
     if (!map.load("../Textures/tileset3.png", window))
         return -1;
@@ -94,6 +91,8 @@ int main() {
     bool inMenu=true;
     int caseMenu=0;
     bool deathPlayer = false;
+    int NumEnemies = 3;
+
 
     //WINDOW OPEN
     while (window.isOpen()) {
@@ -161,38 +160,59 @@ int main() {
 
                 //VIEW FOR MAP
                 view.setCenter(player->body.getPosition());
+                viewHUD.setCenter(player->body.getPosition());
+
+                viewHUD.setViewport(sf::FloatRect(1.0f, 1.0f, 1.0f, 1.0f));
                 window.setView(view);
 
                 //HUD
-                hud.renderHUD(viewHUD, window, player);
+
 
                 //VIEW FOR HUD
-                viewHUD.setCenter(player->body.getPosition());
-                viewHUD.setViewport(sf::FloatRect(1.0f, 1.0f, 1.0f, 1.0f));
+
 
                 //ELEMENTS
                 for (auto element:elements) {
-                    element->Draw(window);
+                   //if(element != key)
+                   element->Draw(window);
                 }
 
-                if(player->newCharacter){
-                    characterList.push_back(characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f, 200.0f));
-                    characterList.push_back(characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4), 0.2f, 300.0f));
-                    characterList.push_back(characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f, 200.f));
+                if (player->newCharacter) {
+                    for (int i = 0; i < NumEnemies; i++) {
+                        int j = rand() % 3;
+                        switch (j) {
+                            case 0:
+                                characterList.push_back(
+                                        characterFactory.Create(type::RABBIT, "../Textures/rabbit.png", sf::Vector2u(6, 4), 0.1f,
+                                                                200.0f));
+                                break;
+                            case 1:
+                                characterList.push_back(
+                                        characterFactory.Create(type::SKELETON, "../Textures/skeleton.png", sf::Vector2u(3, 4),
+                                                                0.5f, 200.0f));
+                                break;
+                            case 2:
+                                characterList.push_back(
+                                        characterFactory.Create(type::GHOST, "../Textures/ghost.png", sf::Vector2u(3, 4), 0.1f,
+                                                                200.f));
+                                break;
+                        }
+
+                    }
                     player->newCharacter = false;
+                    //NumEnemies++;
                 }
 
                 //PLAYER'S ATTACK
                 player->RangedAttack();
-
 
                 //CHARACTERS
                 bool deathCharacter = false;
 
                 for (auto &character : characterList) {
 
-                    character->Create(deltaTime, window);
 
+                    character->Create(deltaTime, window);
 
                     map.checkCollision(characterList, player);
 
@@ -206,7 +226,7 @@ int main() {
                     }
 
                     if (character->isFiring) {
-                        Bullet newBullet(sf::Vector2f(30, 30), character->dirRanAtt);
+                        Bullet newBullet("../Textures/bullet.png", sf::Vector2f(30, 30), character->dirRanAtt);
                         if(character.get() == player)
                             newBullet.setSize(sf::Vector2f(30, 30));
                         else
@@ -221,7 +241,10 @@ int main() {
 
                     for (int i = 0; i < character->BulletVec.size(); i++) {
                         character->BulletVec[i].Draw(window);
-                        character->BulletVec[i].fire(15.f);
+                        if(character.get() != player)
+                            character->BulletVec[i].fire(20.f);
+                        else
+                            character->BulletVec[i].fire(50.0f);
                     }
 
 
@@ -281,11 +304,14 @@ int main() {
 
                     character->NotifyObservers(map, window);                        //Notify observers for eventual updating
                 }
-                if (deathPlayer) {
-                    if(menu.dead(window))
+                hud.renderHUD(viewHUD, window, player);
+                /*if (deathPlayer) {
+                    over.endClock.restart();
+                    if(over.gameover(window)) {
                         window.close();
+                    }
                     break;
-                }
+                }*/
             }
 
 

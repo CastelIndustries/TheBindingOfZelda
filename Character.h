@@ -36,7 +36,7 @@ public:
 
     virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) = 0;
 
-    Character(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed);
+    Character(std::string filename, sf::Vector2u imageCount, float switchTime, float speed);
 
     Collider GetCollider() {
         return Collider(body);
@@ -46,11 +46,11 @@ public:
 
     int dirRanAtt;
     int hp=100;
-    int kills;
-    int l_kills;
     sf::Clock BulletClock;
     bool roomCompletedText;
     bool doorNewLevel;
+    int kills=0;
+    int l_kills=0;
     sf::Vector2f defaultPos;
     std::vector<Bullet> BulletVec;
     sf::Time ShootDelay;

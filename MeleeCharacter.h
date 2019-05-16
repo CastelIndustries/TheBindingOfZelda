@@ -15,7 +15,7 @@ public:
 protected:
 
 
-    MeleeCharacter(sf::Texture *texture, sf::Vector2u imageCount, float switchTime, float speed) : Character(texture,
+    MeleeCharacter(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : Character(filename,
                                                                                                              imageCount,
                                                                                                              switchTime,
                                                                                                              speed) {}
