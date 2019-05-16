@@ -185,14 +185,17 @@ int main() {
                                 characterList.push_back(
                                         characterFactory.Create(type::RABBIT, &rabbitTexture, sf::Vector2u(6, 4), 0.1f,
                                                                 200.0f));
+                                break;
                             case 1:
                                 characterList.push_back(
                                         characterFactory.Create(type::SKELETON, &skeletonTexture, sf::Vector2u(3, 4),
                                                                 0.2f, 300.0f));
+                                break;
                             case 2:
                                 characterList.push_back(
                                         characterFactory.Create(type::GHOST, &ghostTexture, sf::Vector2u(3, 4), 0.1f,
                                                                 200.f));
+                                break;
                         }
 
                     }
