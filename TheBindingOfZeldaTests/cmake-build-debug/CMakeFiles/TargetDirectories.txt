@@ -1,0 +1,3 @@
+/home/frangio/CLionProjects/TheBindingOfZeldaTests/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/frangio/CLionProjects/TheBindingOfZeldaTests/cmake-build-debug/CMakeFiles/TheBindingOfZeldaTests.dir
+/home/frangio/CLionProjects/TheBindingOfZeldaTests/cmake-build-debug/CMakeFiles/edit_cache.dir
