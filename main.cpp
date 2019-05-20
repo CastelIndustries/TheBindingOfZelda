@@ -305,13 +305,13 @@ int main() {
                     character->NotifyObservers(map, window);                        //Notify observers for eventual updating
                 }
                 hud.renderHUD(viewHUD, window, player);
-                /*if (deathPlayer) {
-                    over.endClock.restart();
-                    if(over.gameover(window)) {
+                if (deathPlayer) {
+                    //over.endClock.restart();
+                    //if(over.gameover(window)) {
                         window.close();
-                    }
+
                     break;
-                }*/
+                }
             }
 
 
