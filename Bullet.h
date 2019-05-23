@@ -6,6 +6,7 @@
 #define SFML_TESTS_LINK_BULLET_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Collider.h"
 
 
@@ -53,6 +54,9 @@ private:
     sf::Texture bulletTexture;
     sf::RectangleShape bullet;
     int BulletDir;
+
+    //f::SoundBuffer blast;
+    //sf::Sound laser;
 
 
 

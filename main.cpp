@@ -63,9 +63,28 @@ int main() {
 
     //ELEMENTS
     std::vector<Element*> elements;                                         //Vector of elements
+
+    //SOUNDS
+    sf::SoundBuffer sel;
+    sf::SoundBuffer conf;
+    sf::SoundBuffer blast;
+    blast.loadFromFile("../Textures/laser.ogg");
+    conf.loadFromFile("../Textures/confirm.ogg");
+    sel.loadFromFile("../Textures/selection.ogg");
+    sf::Sound selection;
+    sf::Sound confirm;
+    sf::Sound laser;
+    selection.setBuffer(sel);
+    laser.setBuffer(blast);
+    confirm.setBuffer(conf);
     sf::Music soundtrack;
     if(!soundtrack.openFromFile("../Textures/song.ogg"))
         std::cout<<"ERROR"<<std::endl;
+
+    soundtrack.setVolume(10.0f);
+    selection.setVolume(10.0f);
+    confirm.setVolume(10.0f);
+    laser.setVolume(10.0f);
 
 
     //elements.push_back(new Element(538, 175, "../Textures/chiave.png", 0.5, 0.5));
@@ -115,15 +134,18 @@ int main() {
                         switch (evnt.key.code) {
                             case sf::Keyboard::Up:
                                 menu.moveUp();
+                                selection.play();
                                 break;
 
                             case sf::Keyboard::Down:
                                 menu.moveDown();
+                                selection.play();
                                 break;
 
                             case sf::Keyboard::Return:
                                 switch (menu.GetPressedItem()) {
                                     case 0:
+                                        confirm.play();
                                         if(menu.clock.getElapsedTime().asSeconds() > 1) {           //TIME FOR INSTRUCTIONS BEFORE GAME STARTS
                                             menu.clock.restart();
                                             soundtrack.play();
@@ -240,6 +262,7 @@ int main() {
                         Bullet newBullet("../Textures/bullet.png", sf::Vector2f(30, 30), character->dirRanAtt);
                         if(character.get() == player) {
                             newBullet.setSize(sf::Vector2f(30, 30));
+                            laser.play();
                         }
                         else {
                             newBullet.setSize(sf::Vector2f(80, 80));

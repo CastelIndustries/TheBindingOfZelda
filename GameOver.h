@@ -24,10 +24,7 @@ public:
 
         window.clear();
         window.draw(end[0]);
-        if(endClock.getElapsedTime() > timeLast)
-            return true;
-        else
-            return false;
+        return true;
     }
     sf::Clock endClock;
 private:

@@ -14,7 +14,7 @@ void HUD::renderHUD(sf::View &viewHUD, sf::RenderWindow &window, Character* play
         }
     }
 
-    hudTexts[killText].setPosition(posX + viewHUD.getSize().x * 1.7f -580 , posY - viewHUD.getSize().y * 1.7f +300);
+    hudTexts[killText].setPosition(posX + viewHUD.getSize().x * 1.7f - 610 , posY - viewHUD.getSize().y * 1.7f +300);
     hudTexts[killText].setString("Kills:"+ std::to_string(player->l_kills));
     hudTexts[1].setOrigin(hudTexts[1].getGlobalBounds().width /4 , hudTexts[1].getGlobalBounds().height / 4);
     hudTexts[1].setPosition(posX, posY - viewHUD.getSize().y * 1.8f);

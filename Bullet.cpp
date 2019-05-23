@@ -10,13 +10,14 @@ Bullet::Bullet(std::string filename, sf::Vector2f size, int dir) {
     bullet.setTexture(&bulletTexture);
     bullet.setSize(size);
     bullet.setOrigin(bullet.getGlobalBounds().width /2, bullet.getGlobalBounds().height/2);
-
-    //bullet.setFillColor(sf::Color::Red);
+    //blast.loadFromFile("../Textures/laser.ogg");
+    //laser.setBuffer(blast);
     BulletDir=dir;
     damage=100;
 }
 
 void Bullet::fire(float speed) {
+    //laser.play();
     if (BulletDir==0){
 
         bullet.move(-speed,0);
