@@ -45,7 +45,7 @@ public:
 
     void NotifyObservers (TileMap &map, sf::RenderWindow &window) override;
 
-    void Punch(std::unique_ptr<Character> &character);
+    void Punch(std::unique_ptr<Character> &character) override;
 
 private:
     bool punching = false;

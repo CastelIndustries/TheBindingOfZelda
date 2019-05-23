@@ -34,6 +34,8 @@ public:
 
     virtual void RangedAttack();
 
+    virtual void Punch(std::unique_ptr<Character> &character) = 0;
+
     virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) = 0;
 
     Character(std::string filename, sf::Vector2u imageCount, float switchTime, float speed);

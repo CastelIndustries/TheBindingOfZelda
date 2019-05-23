@@ -34,7 +34,7 @@ public:
 
     //virtual void Update(float deltatime, sf::RenderWindow &window) override{};
 
-    virtual void Create(float deltatime, sf::RenderWindow &window) override;
+    void Create(float deltatime, sf::RenderWindow &window) override;
 
     void RegisterObserver (Observer* observer) override;
 

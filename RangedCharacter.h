@@ -28,6 +28,8 @@ protected:
 
     virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
 
+    void  Punch (std::unique_ptr<Character>& enemy) override {};
+
     float init;
 
     float range = 100.0f;

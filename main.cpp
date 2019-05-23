@@ -16,8 +16,6 @@
 #include "HUD.h"
 #include "Menu.h"
 #include <random>
-#include "GameOver.h"
-
 #include <SFML/Graphics.hpp>
 
 
@@ -38,7 +36,7 @@ int main() {
     characterList.push_back(characterFactory.Create(type::PLAYER, "../Textures/FRANCO DEFINITIVO1.png", sf::Vector2u(3, 6), 0.1f, 600.0f));
     characterList.push_back(characterFactory.Create(type::RABBIT, "../Textures/rabbit.png", sf::Vector2u(6, 4), 0.1f, 200.0f));
     characterList.push_back(characterFactory.Create(type::SKELETON, "../Textures/skeleton.png", sf::Vector2u(3, 4), 0.5f, 200.0f));
-    characterList.push_back(characterFactory.Create(type::GHOST, "../Textures/ghost.png", sf::Vector2u(3, 4), 0.1f, 200.f));
+    characterList.push_back(characterFactory.Create(type::GHOST, "../Textures/ghost.png", sf::Vector2u(2, 4), 0.3f, 200.f));
 
     auto player = characterList.begin()->get();                             //calling first element of the list PLAYER to understand better
 
@@ -193,7 +191,7 @@ int main() {
                                 break;
                             case 2:
                                 characterList.push_back(
-                                        characterFactory.Create(type::GHOST, "../Textures/ghost.png", sf::Vector2u(3, 4), 0.1f,
+                                        characterFactory.Create(type::GHOST, "../Textures/ghost.png", sf::Vector2u(2, 4), 0.3f,
                                                                 200.f));
                                 break;
                         }
@@ -206,6 +204,7 @@ int main() {
                 //PLAYER'S ATTACK
                 player->RangedAttack();
 
+
                 //CHARACTERS
                 bool deathCharacter = false;
 
@@ -213,6 +212,8 @@ int main() {
 
 
                     character->Create(deltaTime, window);
+
+
 
                     map.checkCollision(characterList, player);
 
@@ -222,15 +223,19 @@ int main() {
                     }
 
                     if(character.get() != player){
+
                         character->ArtificialIntelligence(*player, deltaTime, window);
                     }
 
                     if (character->isFiring) {
                         Bullet newBullet("../Textures/bullet.png", sf::Vector2f(30, 30), character->dirRanAtt);
-                        if(character.get() == player)
+                        if(character.get() == player) {
                             newBullet.setSize(sf::Vector2f(30, 30));
-                        else
+                        }
+                        else {
                             newBullet.setSize(sf::Vector2f(80, 80));
+                            newBullet.damage = 34;
+                        }
 
                         newBullet.setPos(sf::Vector2f(character->body.getPosition().x + character->body.getSize().x / 2,
                                                       character->body.getPosition().y + character->body.getSize().y / 2));
@@ -261,7 +266,7 @@ int main() {
                                 player->BulletVec.pop_back();
                             }
                         }
-                        if (character->hp == 0) {                                                                                                //Dead character
+                        if (character->hp <= 0) {                                                                                                //Dead character
                             player->kills++;
                             player->l_kills++;
                             characterList.remove(character);
@@ -290,10 +295,7 @@ int main() {
                                     character->BulletVec.pop_back();
                                 }
                             }
-                            if (player->hp == 0) {                                                                                                //Dead character
-                                deathPlayer = true;
-                                break;
-                            }
+                            deathPlayer = hud.lifePointRemove(player);
                         }
                     }
 
@@ -306,10 +308,7 @@ int main() {
                 }
                 hud.renderHUD(viewHUD, window, player);
                 if (deathPlayer) {
-                    //over.endClock.restart();
-                    //if(over.gameover(window)) {
-                        window.close();
-
+                    window.close();
                     break;
                 }
             }

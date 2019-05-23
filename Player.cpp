@@ -14,21 +14,21 @@ void Player::Update(float deltaTime, sf::RenderWindow &window) {
     sf::Vector2f movement(0.0f, 0.0f);
 
         bool stop=false;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){// && body.getPosition().x >= 0) {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
             movement.x -= this->speed * deltaTime;
             this->row = 2;
         }else {
             if (sf::Keyboard::isKeyPressed(
-                    sf::Keyboard::D)) {// && body.getPosition().x + body.getLocalBounds().width <= window.getSize().x) {
+                    sf::Keyboard::D)) {
                 movement.x += this->speed * deltaTime;
                 this->row = 3;
             } else {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {// && body.getPosition().y >=-40) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
                     movement.y -= this->speed * deltaTime;
                     this->row = 1;
                 } else {
                     if (sf::Keyboard::isKeyPressed(
-                            sf::Keyboard::S)) {// && body.getPosition().y+ body.getLocalBounds().width <= window.getSize().y-60) {
+                            sf::Keyboard::S)) {
                         movement.y += this->speed * deltaTime;
                         this->row = 0;
                     } else {
@@ -128,7 +128,6 @@ void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
             body.setPosition(defaultPos);
             doorNewLevel = false;
             roomCompletedText = false;
-            l_kills=0;
         }
 
     }
@@ -138,7 +137,7 @@ void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
 }
 
 void Player::Punch(std::unique_ptr<Character> &character) {
-    if (punching && character->GetCollider().CheckCollision(this->GetCollider(), 0.0f)) {
+    if (punching && this->GetCollider().CheckCollision(character->GetCollider(), 0.0f)) {
         character->hp -= 50;
     }
 }
