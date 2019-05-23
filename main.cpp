@@ -15,8 +15,10 @@
 #include "ObserverReward.h"
 #include "HUD.h"
 #include "Menu.h"
+#include "GameOver.h"
 #include <random>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 
 
@@ -53,7 +55,7 @@ int main() {
 
     //MENU
     Menu menu(window.getSize().x, window.getSize().y);
-    //GameOver over(window.getSize().x, window.getSize().y);
+    GameOver over(window.getSize().x, window.getSize().y);
 
     //HUD
     HUD hud;
@@ -61,6 +63,10 @@ int main() {
 
     //ELEMENTS
     std::vector<Element*> elements;                                         //Vector of elements
+    sf::Music soundtrack;
+    if(!soundtrack.openFromFile("../Textures/song.ogg"))
+        std::cout<<"ERROR"<<std::endl;
+
 
     //elements.push_back(new Element(538, 175, "../Textures/chiave.png", 0.5, 0.5));
     elements.push_back(new Element(175, 175, "../Textures/tesoro-b.png", 0.5, 0.5));
@@ -120,6 +126,7 @@ int main() {
                                     case 0:
                                         if(menu.clock.getElapsedTime().asSeconds() > 1) {           //TIME FOR INSTRUCTIONS BEFORE GAME STARTS
                                             menu.clock.restart();
+                                            soundtrack.play();
                                             caseMenu = 1;
                                             inMenu = false;
                                             break;
@@ -143,10 +150,12 @@ int main() {
         }
         window.clear();
         //MENU
+
         menu.draw(window);
         //PLAY SELECTED
         if(caseMenu==1) {
             window.clear();
+
             //INSTRUCTIONS
             if (menu.instructions(window)) {
                 //GAME STARTS
@@ -308,7 +317,7 @@ int main() {
                 }
                 hud.renderHUD(viewHUD, window, player);
                 if (deathPlayer) {
-                    window.close();
+                    over.gameover(window);
                     break;
                 }
             }
