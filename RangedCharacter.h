@@ -32,7 +32,7 @@ protected:
 
     float init;
 
-    float range = 100.0f;
+    float range = 25.0f;
 
     bool Check = false;
 

@@ -7,6 +7,8 @@
 #include <random>
 #include "TileMap.h"
 
+
+
 bool TileMap::load(const std::string &tilesetFile, sf::RenderWindow &window, bool newLevel) {
     // load the tilesetFile texture
 
@@ -86,8 +88,7 @@ void TileMap::checkCollision(std::list<std::unique_ptr<Character>> &characterLis
             if (!tiles_to_draw->getWalk()) {
                 character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f);
             }
-            if (!tiles_to_draw->getInMap() &&
-                character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f)) {
+            if (!tiles_to_draw->getInMap() && character->GetCollider().CheckCollision(tiles_to_draw->GetCollider(), 0.0f)) {
                 character->body.setPosition(distrX(eng), distrY(eng));
             }
 
@@ -123,23 +124,23 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 }
 
-void TileMap::LoadColMap(){
-    preInit = init;
+void TileMap::LoadColMap(int preMap){
+    preMap = init;
     bool done = false;
     std::ifstream openFile;
 
     while(!done) {
         init = rand() % 3;
-        if (init == 0 && preInit != 0) {
-            openFile.open("../Textures/Map.txt");
+        if (init == 0 && preMap != 0) {
+            openFile.open(MAP_1);
             done = true;
         }
-        if (init == 1 && preInit != 1) {
-            openFile.open("../Textures/Map1.txt");
+        if (init == 1 && preMap != 1) {
+            openFile.open(MAP_2);
             done = true;
         }
-        if (init == 2 && preInit != 2) {
-            openFile.open("../Textures/Map2.txt");
+        if (init == 2 && preMap != 2) {
+            openFile.open(MAP_3);
             done = true;
         }
     }

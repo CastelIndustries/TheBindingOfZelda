@@ -36,12 +36,6 @@ public:
 
     void Create(float deltatime, sf::RenderWindow &window) override;
 
-    void RegisterObserver (Observer* observer) override;
-
-    void RemoveObserver (Observer* observer) override;
-
-    void NotifyObservers (TileMap &map, sf::RenderWindow &window) override;
-
 private:
     sf::Texture skeletonTexture;
 

@@ -1,16 +1,15 @@
-//
-// Created by nicola on 16/03/19.
-//
-
 #include "ObserverReward.h"
 #include "iostream"
 #include "TileMap.h"
 #include "CharacterFactory.h"
+#include "NextLevel.h"
+#include "MainMenuState.h"
 
-void ObserverReward::newLevel(TileMap &map, sf::RenderWindow &window) {
+void ObserverReward::newLevel(GameDataRef &_data) {
 
-    map.LoadColMap();
-    map.load("../Textures/tileset3.png", window, true);
+    if(_data->numEnemies < 5)
+        _data->numEnemies++;
+    _data->machine.AddState(StateRef(new NextLevel(_data)), true);
 
 
 }
@@ -26,13 +25,6 @@ void ObserverReward::update(TileMap &map, sf::RenderWindow &window) {
 
     }
 
-    map.load("../Textures/tileset3.png", window, true);
-
-
-
-}
-
-void ObserverReward::key(Element* &key, sf::RenderWindow &window) {
-        key->Draw(window);
+    map.load(TILE_SET_TEXTURE, window, true);
 
 }

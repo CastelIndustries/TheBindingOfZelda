@@ -53,14 +53,4 @@ void Skeleton::Create(float deltaTime, sf::RenderWindow &window) {
     Check=false;
 }
 
-void Skeleton::RegisterObserver(Observer *observer) {
-    observers.push_back(observer);
-}
-
-void Skeleton::RemoveObserver(Observer *observer) {
-    observers.remove(observer);
-}
-
-void Skeleton::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
-}
 

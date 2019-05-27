@@ -52,11 +52,12 @@ public:
     bool roomCompletedText;
     bool doorNewLevel;
     int kills=0;
-    int l_kills=0;
+    int l_kills;
     sf::Vector2f defaultPos;
     std::vector<Bullet> BulletVec;
     sf::Time ShootDelay;
     bool newCharacter = false;
+
 
 
 protected:

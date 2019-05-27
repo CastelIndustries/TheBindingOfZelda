@@ -72,7 +72,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         dirRanAtt = 2;
 
         row = 3;
-        movement.x += (this->speed+200) * deltaTime;
+        movement.x += (this->speed+2) * deltaTime;
         Check = true;
     } else if (body.getPosition().x >= player.body.getPosition().x + range &&
                body.getPosition().y + (body.getSize().y) / 2 <= player.body.getPosition().y + player.body.getSize().y &&
@@ -85,7 +85,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         }
         dirRanAtt = 0;
         row = 2;
-        movement.x -= (this->speed+200)* deltaTime;
+        movement.x -= (this->speed+2)* deltaTime;
         Check = true;
     } else if (
             body.getPosition().y + body.getSize().y + range <= player.body.getPosition().y + player.body.getSize().y &&
@@ -98,7 +98,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         }
         dirRanAtt = 3;
         row = 0;
-        movement.y += (this->speed+200) * deltaTime;
+        movement.y += (this->speed+2) * deltaTime;
         Check = true;
     } else if (body.getPosition().y >= player.body.getPosition().y + range &&
                body.getPosition().x + (body.getSize().x) / 2 <= player.body.getPosition().x + player.body.getSize().x &&
@@ -110,7 +110,7 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
         }
         dirRanAtt = 1;
         row = 1;
-        movement.y -= (this->speed+200) * deltaTime;
+        movement.y -= (this->speed+2) * deltaTime;
         Check = true;
     }
 

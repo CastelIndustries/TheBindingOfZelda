@@ -43,7 +43,7 @@ public:
 
     void RemoveObserver (Observer* observer) override;
 
-    void NotifyObservers (TileMap &map, sf::RenderWindow &window) override;
+    void NotifyObservers (GameDataRef _data, TileMap &map, sf::RenderWindow &window) override;
 
     void Punch(std::unique_ptr<Character> &character) override;
 

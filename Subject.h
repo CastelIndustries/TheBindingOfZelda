@@ -14,7 +14,7 @@ protected:
 public:
     virtual  void RegisterObserver(Observer* observer){};
     virtual void RemoveObserver(Observer* observer){};
-    virtual void NotifyObservers(TileMap &map, sf::RenderWindow &window){};
+    virtual void NotifyObservers(GameDataRef _data, TileMap &map, sf::RenderWindow &window){};
     std::list<Observer*> observers;
 
 };

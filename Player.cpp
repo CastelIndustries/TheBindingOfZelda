@@ -71,7 +71,7 @@ void Player::Create(float deltaTime, sf::RenderWindow &window) {
 void Player::RangedAttack() {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && BulletClock.getElapsedTime()>=ShootDelay){
 
-         dirRanAtt=0;
+        dirRanAtt=0;
         isFiring= true;
         BulletClock.restart();
 
@@ -107,13 +107,14 @@ void Player::RemoveObserver(Observer *observer) {
     observers.remove(observer);
 }
 
-void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
+void Player::NotifyObservers(GameDataRef _data, TileMap &map, sf::RenderWindow &window) {
 
-    if (kills == 3) {
+    l_kills = _data->totalKills;
+
+    if (kills == _data->numEnemies) {
         roomCompletedText = true;
         for (auto itr:observers) {
             itr->update(map, window);
-
             kills = 0;
         }
 
@@ -123,7 +124,7 @@ void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
     }
     if(doorNewLevel) {
         for (auto itr:observers) {
-            itr->newLevel(map, window);
+            itr->newLevel(_data);
             newCharacter = true;
             body.setPosition(defaultPos);
             doorNewLevel = false;
@@ -137,7 +138,7 @@ void Player::NotifyObservers(TileMap &map, sf::RenderWindow &window) {
 }
 
 void Player::Punch(std::unique_ptr<Character> &character) {
-    if (punching && this->GetCollider().CheckCollision(character->GetCollider(), 0.0f)) {
+    if (punching && this->GetCollider().CheckCollision(this->GetCollider(), 0.0f)) {
         character->hp -= 50;
     }
 }

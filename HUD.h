@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Player.h"
+#include "DEFINITIONS.h"
 
 #define NUM_HUD_TEXTS 2
 
@@ -18,7 +19,7 @@ public:
 
 
     HUD(){
-        heartTexture.loadFromFile("../Textures/Heart.png");
+        heartTexture.loadFromFile(HEART_TEXTURE);
         heart.setTexture(heartTexture);
         heart.setScale(0.5, 0.5);
 
@@ -26,32 +27,19 @@ public:
             hearts.push_back(heart);
         }
 
-        if(!font.loadFromFile("../Textures/font.ttf")){
+        if(!font.loadFromFile(FONT)){
             std::cout<<"Error! Could not load the file font.ttf" << std::endl;
         }
         hudTexts[killText].setFont(font);
         hudTexts[killText].setScale(4.0, 4.0);
-        hudTexts[1].setFont(font);
-        hudTexts[1].setScale(2.0, 2.0);
+        hudTexts[enterDoor].setFont(font);
+        hudTexts[enterDoor].setScale(2.0, 2.0);
     }
 
-    void renderHUD(sf::View &viewHUD, sf::RenderWindow &window, Character* player);
+    void renderHUD(sf::View &viewHUD, sf::RenderWindow &window, Character* player, int heartTotal);
 
-    bool lifePointRemove(Character* player){
-        if(player->hp == 66 && hearts.size() == 3 ) {
-            hearts.back();
-            hearts.pop_back();
-        }
-        if(player->hp <= 32 && hearts.size() == 2 )
-            hearts.pop_back();
-        if(player->hp <= 0 && hearts.size() == 1 ) {
-            hearts.pop_back();
-            return true;
-        }else
-            return false;
+    bool lifePointRemove(Character* player);
 
-
-    }
 
 private:
     std::vector<sf::Sprite> hearts;
@@ -60,6 +48,7 @@ private:
     sf::Text hudTexts[NUM_HUD_TEXTS];
     sf::Font font;
     int killText=0;
+    int enterDoor=1;
 };
 
 

@@ -13,13 +13,16 @@
 #include "Player.h"
 #include <list>
 #include <random>
+#include "DEFINITIONS.h"
 
 
 class TileMap : public sf::Drawable, public sf::Transformable
 {
 public:
-    TileMap(unsigned int w, unsigned int h, sf::Vector2u tS){
+    TileMap(){}
+    ~TileMap(){}
 
+    void InitMap(unsigned int w, unsigned int h, sf::Vector2u tS){
         width = w;
         height = h;
         tileSize = tS;
@@ -35,9 +38,7 @@ public:
         }
     }
 
-    void LoadColMap();
-
-    ~TileMap(){}
+    void LoadColMap(int preMap);
 
     std::vector<std::vector<int>> map;
 
@@ -52,7 +53,6 @@ private:
     sf::VertexArray vertices;
     sf::Texture tileset;
     int init;
-    int preInit;
 
     sf::Vector2u tileSize = sf::Vector2u(175, 175);
 
