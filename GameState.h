@@ -21,7 +21,6 @@
 #include "TileMap.h"
 #include "ObserverReward.h"
 #include "HUD.h"
-#include "Menu.h"
 #include <random>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
