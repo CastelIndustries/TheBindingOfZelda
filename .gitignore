@@ -1,5 +1,7 @@
 .idea/
 cmake-build-debug/
-.gitignore
-TheBindingOfZeldaTests
+TheBindingOfZelda/TheBindingOfZeldaTests/cmake-build-debug
+TheBindingOfZelda/TheBindingOfZeldaTests/.idea
+TheBindingOfZelda/TheBindingOfZeldaTests/googletest
+TheBindingOfZelda/TheBindingOfZeldaTests/CMakeLists.txt
 CMakeLists.txt
