@@ -13,8 +13,9 @@
 #include "Bullet.h"
 #include "iostream"
 #include "Subject.h"
+#include "Strategy.h"
 
-class Character : public Subject  {
+class Character : public Subject, public Strategy   {
 
 public:
 
@@ -32,9 +33,11 @@ public:
 
     virtual void Create(float deltaTime, sf::RenderWindow &window);
 
-    virtual void RangedAttack();
+    virtual void RangedAttack() = 0;
 
-    virtual void Punch(std::unique_ptr<Character> &character) = 0;
+    virtual void MeleeAttack(Character &character) = 0;
+
+    void Attack(Character& player, float deltaTime, sf::RenderWindow &window) override;
 
     virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) = 0;
 
@@ -46,9 +49,10 @@ public:
 
     bool isFiring= false;
 
-    int dirRanAtt;
+    float distance;
     int hp=100;
     sf::Clock BulletClock;
+    sf::Clock PunchClock;
     bool roomCompletedText;
     bool doorNewLevel;
     int kills=0;
@@ -56,7 +60,9 @@ public:
     sf::Vector2f defaultPos;
     std::vector<Bullet> BulletVec;
     sf::Time ShootDelay;
-    bool newCharacter = false;
+    bool best = false;
+    sf::Vector2f playerDir;
+    bool punching = false;
 
 
 

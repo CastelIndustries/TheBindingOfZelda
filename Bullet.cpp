@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Bullet.h"
-Bullet::Bullet(std::string filename, sf::Vector2f size, int dir) {
+Bullet::Bullet(std::string filename, sf::Vector2f size, sf::Vector2f dir) {
 
     bulletTexture.loadFromFile(filename);
     bullet.setTexture(&bulletTexture);
@@ -17,8 +17,11 @@ Bullet::Bullet(std::string filename, sf::Vector2f size, int dir) {
 }
 
 void Bullet::fire(float speed) {
+    bullet.move(BulletDir.x * speed, BulletDir.y * speed);
+
+
     //laser.play();
-    if (BulletDir==0){
+    /*if (BulletDir==0){
 
         bullet.move(-speed,0);
     }else{
@@ -33,7 +36,7 @@ void Bullet::fire(float speed) {
                 }
             }
         }
-    }
+    }*/
 }
 
 bool Bullet::CheckCollision(sf::RectangleShape &character) {

@@ -7,4 +7,5 @@ int main(){
 
     Game(SCREEN_WIDTH, SCREEN_HEIGHT, "THE BINDING OF ZELDA");
 
+
 }

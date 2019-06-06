@@ -67,6 +67,8 @@ private:
 
     //OTHER VARIABLES
 
+
+    std::vector<Bullet> BulletVecEnemy;
     bool deathPlayer;
     bool deathCharacter;
 

@@ -15,8 +15,9 @@ class GameOverState : public State
 public:
     GameOverState(GameDataRef data);
 
-    void Init() override;
+    void storeScore();
 
+    void Init() override;
     void HandleInput() override;
     void Update(float dt) override;
     void Draw(float dt) override;
@@ -26,9 +27,11 @@ private:
 
     sf::Clock _clock;
 
-    sf::Text death[2];
+    sf::Text gameOverTexts[3];
 
     sf::View _view;
+
+    int score;
 
 
 };

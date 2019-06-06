@@ -8,13 +8,13 @@
 #include "Character.h"
 #include "Bullet.h"
 
-class RangedCharacter : public Character {
+class RangedCharacter : public Character{
 
 public:
     RangedCharacter() {};
     virtual    ~RangedCharacter() {};
 
-protected:
+
     RangedCharacter(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : Character(filename,
                                                                                                               imageCount,
                                                                                                               switchTime,
@@ -24,17 +24,21 @@ protected:
 
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
-    virtual void RangedAttack ()override ;
+    void RangedAttack () override ;
 
-    virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
+    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
 
-    void  Punch (std::unique_ptr<Character>& enemy) override {};
+    void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
 
+    void MeleeAttack(Character &character) override;
+
+    void Draw(sf::RenderWindow &window) override;
+
+
+protected:
     float init;
 
-    float range = 25.0f;
-
-    bool Check = false;
+    bool check = false;
 
 
 

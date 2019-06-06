@@ -4,6 +4,8 @@
 
 #include "Character.h"
 #include "Animation.h"
+#include "DEFINITIONS.h"
+#include <cmath>
 
 #include <iostream>
 
@@ -21,9 +23,15 @@ void Character::Draw(sf::RenderWindow &window) {
     window.draw(body);
 }
 
-void Character::RangedAttack() {}
-
 void Character::Create(float deltaTime, sf::RenderWindow &window) {
     this->Update(deltaTime, window);
     this->Draw(window);
+}
+
+void Character::Attack(Character &player, float deltaTime, sf::RenderWindow &window) {
+    distance=sqrt(pow(body.getPosition().x - player.body.getPosition().x, 2 ) + pow(body.getPosition().y - player.body.getPosition().y, 2));
+
+    if(distance < RANGE){
+        this->ArtificialIntelligence(player, deltaTime, window);
+    }
 };

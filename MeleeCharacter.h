@@ -12,24 +12,31 @@ public:
     MeleeCharacter() {};
     virtual    ~MeleeCharacter() {};
 
-protected:
-
-
     MeleeCharacter(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : Character(filename,
                                                                                                              imageCount,
                                                                                                              switchTime,
                                                                                                              speed) {}
 
 
-    virtual void MeleeAttack() {};                           //TODO
+    void Create(float deltaTime, sf::RenderWindow &window) override;
 
-    virtual void Create(float deltaTime, sf::RenderWindow &window) override;
+    void Update(float deltaTime, sf::RenderWindow &window) override;
 
-    virtual void Update(float deltaTime, sf::RenderWindow &window) override =0;
+    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
 
-    virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override {};
+    void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
 
-    void Punch(std::unique_ptr<Character> &character) override {};
+    void MeleeAttack(Character &character) override;
+
+    void RangedAttack() override;
+
+    void Draw(sf::RenderWindow &window) override;
+
+
+protected:
+    float init;
+
+    bool check = false;
 
 };
 

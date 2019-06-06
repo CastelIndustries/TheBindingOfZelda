@@ -44,6 +44,12 @@ void MainMenuState::Init() {
     menu[1].setPosition(sf::Vector2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / (MAX_NUMBER_OF_ITEMS + 1) * 3));
     menu[1].setScale(2.0f, 2.0f);
 
+    score[0].setFont(this->_data->assets.GetFont("Text Font"));
+    score[0].setFillColor(sf::Color::White);
+    score[0].setOrigin(menu[1].getGlobalBounds().width / 2, menu[1].getGlobalBounds().height / 2);
+    score[0].setPosition(sf::Vector2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / (MAX_NUMBER_OF_ITEMS + 1) * 1));
+    score[0].setScale(2.0f, 2.0f);
+
     selectedItemIndex = 0;
 
     texts[0].setFont(this->_data->assets.GetFont("Text Font"));
@@ -97,7 +103,7 @@ void MainMenuState::HandleInput()
                                 this->_data->window.close();
                                 break;
                         }
-
+                        break;
                 }
 
         }
@@ -136,6 +142,8 @@ void MainMenuState::Draw(float dt)
 
 
     this->_data->window.draw(this->texts[0]);
+
+
 
     this->_view.setCenter(sf::Vector2f(SCREEN_WIDTH /2.0f, SCREEN_HEIGHT/2.0f));
 

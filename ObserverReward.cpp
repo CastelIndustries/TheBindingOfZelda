@@ -4,6 +4,8 @@
 #include "CharacterFactory.h"
 #include "NextLevel.h"
 #include "MainMenuState.h"
+#include "HUD.h"
+#include "DEFINITIONS.h"
 
 void ObserverReward::newLevel(GameDataRef &_data) {
 
@@ -26,5 +28,14 @@ void ObserverReward::update(TileMap &map, sf::RenderWindow &window) {
     }
 
     map.load(TILE_SET_TEXTURE, window, true);
+
+}
+
+void ObserverReward::newHighScore(GameDataRef &_data, HUD &hud) {
+
+
+    _data->window.draw(hud.hudTexts[BEST_SCORE_TEXT]);
+
+
 
 }

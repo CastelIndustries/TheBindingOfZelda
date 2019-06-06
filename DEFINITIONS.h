@@ -24,24 +24,30 @@
 #define PLAYER_IMAGE_COUNT sf::Vector2u(3, 6)
 #define SKELETON_IMAGE_COUNT sf::Vector2u(3, 4)
 #define GHOST_IMAGE_COUNT sf::Vector2u(2, 4)
-#define RABBIT_IMAGE_COUNT sf::Vector2u(6, 4)
+#define RABBIT_IMAGE_COUNT sf::Vector2u(2, 4)
 
 #define PLAYER_SWITCH_TIME 0.1f
 #define SKELETON_SWITCH_TIME 0.5f
 #define GHOST_SWITCH_TIME 0.3f
-#define RABBIT_SWITCH_TIME 0.1f
+#define RABBIT_SWITCH_TIME 0.3f
 
-#define PLAYER_SPEED 600.0f
-#define SKELETON_SPEED 200.0f
-#define GHOST_SPEED 200.0f
-#define RABBIT_SPEED 200.0f
+#define PLAYER_SPEED 8
+#define SKELETON_SPEED 7
+#define GHOST_SPEED 6
+#define RABBIT_SPEED 10
 
 //ELEMENTS
+
+#define HIGHSCORE_FILE "../Resources/res/highscores.txt"
+
+#define PLAYER_BULLET_SPEED 18
+#define ENEMY_BULLET_SPEED 12
+#define RANGE 1500
 
 #define BLAST_AUDIO "../Resources/res/laser.ogg"
 #define CONFIRM_AUDIO "../Resources/res/confirm.ogg"
 #define SELECTION_AUDIO "../Resources/res/selection.ogg"
-#define  SONG_AUDIO "../Resources/res/song.ogg"
+#define SONG_AUDIO "../Resources/res/song.ogg"
 
 #define CHEST_TEXTURE "../Resources/res/tesoro-b.png"
 #define BONE_1_TEXTURE "../Resources/res/skeleton 1b.png"
@@ -49,6 +55,8 @@
 #define BONE_3_TEXTURE "../Resources/res/skeleton 3b.png"
 
 #define MAX_NUMBER_OF_ITEMS 4
+
+#define NUM_HUD_TEXTS 3
 
 
 //MAP
@@ -64,6 +72,9 @@
 //HUD
 
 #define HEART_TEXTURE "../Resources/res/Heart.png"
+#define KILL_TEXT 0
+#define ENTER_DOOR_TEXT 1
+#define BEST_SCORE_TEXT 2
 
 //FONTS
 #define FONT "../Resources/font/font.ttf"

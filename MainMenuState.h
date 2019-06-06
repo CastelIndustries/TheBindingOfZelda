@@ -32,6 +32,8 @@ private:
     sf::Text texts[MAX_NUMBER_OF_ITEMS];
     sf::Text menu[MAX_NUMBER_OF_ITEMS];
 
+    sf::Text score[1];
+
     sf::View _view;
 
 

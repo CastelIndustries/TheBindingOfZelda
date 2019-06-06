@@ -3,36 +3,37 @@
 //
 
 #include "RangedCharacter.h"
+#include <cmath>
+#include <stdlib.h>
+#include "DEFINITIONS.h"
 
 
 void RangedCharacter::Update(float deltaTime, sf::RenderWindow &window) {
     bool stop = false;
 
-
-    sf::Vector2f movement(0.0f, 0.0f);
-    if (clock.getElapsedTime().asSeconds() > 3) {
+    if (clock.getElapsedTime().asSeconds() > 2) {
         init = rand() % 4;
         clock.restart();
     }
 
     if (init == 0) {
-        movement.x -= this->speed * deltaTime;
-        if(!Check)
+        body.move(-this->speed, 0);
+        if(!check)
             row = 2;
     }
     if (init == 1) {
-        movement.x += this->speed * deltaTime;
-        if(!Check)
+        body.move(this->speed, 0);
+        if(!check)
             row = 3;
     }
     if (init == 2) {
-        movement.y -= this->speed * deltaTime;
-        if(!Check)
+        body.move(0 , -this->speed);
+        if(!check)
             row = 1;
     }
     if (init == 3) {
-        movement.y += this->speed * deltaTime;
-        if (!Check)
+        body.move(0, this->speed);
+        if (!check)
             row = 0;
     }
 
@@ -45,7 +46,7 @@ void RangedCharacter::Update(float deltaTime, sf::RenderWindow &window) {
 
     animation.Update(row, deltaTime);
     body.setTextureRect(animation.uvRect);
-    body.move(movement);
+
 
 }
 
@@ -53,73 +54,59 @@ void RangedCharacter::Create(float deltaTime, sf::RenderWindow &window) {
     Character::Create(deltaTime, window);
 }
 void RangedCharacter::RangedAttack() {
-    Character::RangedAttack();
+    if(BulletClock.getElapsedTime() >= ShootDelay) {
+        std::cout<<"FIRE" << std::endl;
+        isFiring = true;
+        BulletClock.restart();
+    }
 }
 
 void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) {
 
+    playerDir.x = (player.body.getPosition().x - body.getPosition().x)/distance;
+    playerDir.y = (player.body.getPosition().y - body.getPosition().y)/distance;
 
-    sf::Vector2f movement(0.0f, 0.0f);
-    if (body.getPosition().x + range <= player.body.getPosition().x &&
-        body.getPosition().y + (body.getSize().y) / 2 <= player.body.getPosition().y + (player.body.getSize().y) &&
-        body.getPosition().y + (body.getSize().y) / 2 >= player.body.getPosition().y){
-
-        if(BulletClock.getElapsedTime() >= ShootDelay) {
-            isFiring = true;
-            BulletClock.restart();
-        }
-
-        dirRanAtt = 2;
+    if (playerDir.x > 0 && std::abs(playerDir.y) < std::abs(playerDir.x)){            //DESTRA
 
         row = 3;
-        movement.x += (this->speed+2) * deltaTime;
-        Check = true;
-    } else if (body.getPosition().x >= player.body.getPosition().x + range &&
-               body.getPosition().y + (body.getSize().y) / 2 <= player.body.getPosition().y + player.body.getSize().y &&
-               body.getPosition().y + (body.getSize().y) / 2 >= player.body.getPosition().y){
+    }
+    if (playerDir.x < 0 && std::abs(playerDir.y) < std::abs(playerDir.x)){            //SINISTRA
 
-
-        if(BulletClock.getElapsedTime() >= ShootDelay) {
-            isFiring = true;
-            BulletClock.restart();
-        }
-        dirRanAtt = 0;
         row = 2;
-        movement.x -= (this->speed+2)* deltaTime;
-        Check = true;
-    } else if (
-            body.getPosition().y + body.getSize().y + range <= player.body.getPosition().y + player.body.getSize().y &&
-               body.getPosition().x + body.getSize().x / 2 <= player.body.getPosition().x + player.body.getSize().x &&
-               body.getPosition().x + (body.getSize().x) / 2 >= player.body.getPosition().x){
 
-        if(BulletClock.getElapsedTime() >= ShootDelay) {
-            isFiring = true;
-            BulletClock.restart();
-        }
-        dirRanAtt = 3;
+    }
+    if (playerDir.y > 0 && std::abs(playerDir.y) > std::abs(playerDir.x)){            //GIU
+
         row = 0;
-        movement.y += (this->speed+2) * deltaTime;
-        Check = true;
-    } else if (body.getPosition().y >= player.body.getPosition().y + range &&
-               body.getPosition().x + (body.getSize().x) / 2 <= player.body.getPosition().x + player.body.getSize().x &&
-               body.getPosition().x + (body.getSize().x) / 2 >= player.body.getPosition().x){
 
-        if(BulletClock.getElapsedTime() >= ShootDelay) {
-            isFiring = true;
-            BulletClock.restart();
-        }
-        dirRanAtt = 1;
+    }
+    if (playerDir.y < 0 && std::abs(playerDir.y) > std::abs(playerDir.x)){            //SU
+
         row = 1;
-        movement.y -= (this->speed+2) * deltaTime;
-        Check = true;
+
     }
 
     animation.Update(row, deltaTime);
     body.setTextureRect(animation.uvRect);
-    body.move(movement);
+    body.move(playerDir.x * this->speed, playerDir.y * this->speed);
 
+    if(distance<RANGE-300)
+        RangedAttack();
 
+    check= true;
 
+}
+
+void RangedCharacter::Attack(Character &player, float deltaTime, sf::RenderWindow &window) {
+    Character::Attack(player, deltaTime, window);
+}
+
+void RangedCharacter::MeleeAttack(Character &character) {
+
+}
+
+void RangedCharacter::Draw(sf::RenderWindow &window) {
+    Character::Draw(window);
 }
 
 

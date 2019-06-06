@@ -11,7 +11,8 @@
 #include "Collider.h"
 #include "Subject.h"
 #include "Element.h"
-class Player : public RangedCharacter   {
+
+class Player : public RangedCharacter  {
 public:
 
     Player(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : RangedCharacter(filename,
@@ -39,16 +40,22 @@ public:
 
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
+    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
+
+    void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
+
+    void MeleeAttack(Character &character) override;
+
+    void Draw(sf::RenderWindow &window) override;
+
     void RegisterObserver (Observer* observer) override;
 
     void RemoveObserver (Observer* observer) override;
 
-    void NotifyObservers (GameDataRef _data, TileMap &map, sf::RenderWindow &window) override;
-
-    void Punch(std::unique_ptr<Character> &character) override;
+    void NotifyObservers (GameDataRef &_data, TileMap &map, sf::RenderWindow &window, HUD &hud) override;
 
 private:
-    bool punching = false;
+
     sf::Texture playerTexture;
 
 

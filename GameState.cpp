@@ -4,9 +4,6 @@
 // Created by frangio on 24/05/19.
 //
 
-#include "GameState.h"
-
-
 
 #include <sstream>
 #include "GameState.h"
@@ -25,8 +22,6 @@ GameState::GameState(GameDataRef data) : _data(std::move(data))
 
 void GameState::Init()
 {
-
-
     this->_data->window.clear();
 
     srand((unsigned) time(nullptr));
@@ -49,7 +44,7 @@ void GameState::Init()
     characterList.push_back(characterFactory.Create(type::PLAYER , PLAYER_TEXTURE , PLAYER_IMAGE_COUNT , PLAYER_SWITCH_TIME , PLAYER_SPEED));
 
     for (int i = 0; i < this->_data->numEnemies ; i++) {
-        int j = rand() % 3;
+        int j =rand() % 3;
         switch (j) {
             case 0:
                 characterList.push_back(
@@ -76,6 +71,7 @@ void GameState::Init()
     //OBSERVER
     for(auto &characterObs : characterList){                                //Register every character to observer
         characterObs->RegisterObserver(&this->CheckRoom);
+
     }
 
     //SOUNDS
@@ -106,8 +102,10 @@ void GameState::HandleInput()
         }
 
         if(sf::Event::KeyReleased == event.type){
-            if(sf::Keyboard::Escape == event.key.code)
-                this->_data->machine.AddState(StateRef( new PauseState(_data)), false);
+            if(sf::Keyboard::Escape == event.key.code) {
+                this->_data->machine.AddState(StateRef(new PauseState(_data)), false);
+            }
+
         }
     }
 
@@ -133,8 +131,10 @@ void GameState::Draw(float dt) {
     for (auto element:elements){
         element->Draw(this->_data->window);
     }
-    for(auto &character : characterList)
+    for(auto &character : characterList) {
         character->Create(dt, this->_data->window);
+        player->playerDir = character->playerDir;
+    }
 
     //HUD
     hud.renderHUD(viewHUD, this->_data->window, player, this->_data->Lives);
@@ -166,14 +166,15 @@ void GameState::charGame(float dt) {
     deathPlayer = false;
     deathCharacter = false;
     player->RangedAttack();
+
     if(!characterList.empty()) {
         for (auto &character : characterList) {
             if (character.get() != player) {
-                character->ArtificialIntelligence(*player, dt, this->_data->window);
-            }
+                character->Attack(*player, dt, this->_data->window);
 
+            }
             if (character->isFiring) {
-                Bullet newBullet("../Resources/res/bullet.png", sf::Vector2f(30, 30), character->dirRanAtt);
+                Bullet newBullet("../Resources/res/bullet.png", sf::Vector2f(30, 30), character->playerDir);
                 if (character.get() == player) {
                     newBullet.setSize(sf::Vector2f(30, 30));
                     laser.play();
@@ -185,21 +186,37 @@ void GameState::charGame(float dt) {
                 newBullet.setPos(sf::Vector2f(character->body.getPosition().x + character->body.getSize().x / 2,
                                               character->body.getPosition().y + character->body.getSize().y / 2));
 
-                character->BulletVec.push_back(newBullet);
+                if(character.get() != player)
+                    BulletVecEnemy.push_back(newBullet);
+                else
+                    player->BulletVec.push_back(newBullet);
+
                 character->isFiring = false;
             }
 
-            for (int i = 0; i < character->BulletVec.size(); i++) {
-                character->BulletVec[i].Draw(this->_data->window);
-                if (character.get() != player)
-                    character->BulletVec[i].fire(20.f);
-                else
-                    character->BulletVec[i].fire(50.0f);
+            if(character->punching){
+                if(character->GetCollider().CheckCollision(player->body, 0.0f) && character.get() != player) {
+                    player->hp -= 34;
+                    this->_data->Lives--;
+                    deathPlayer = hud.lifePointRemove(player);
+                    character->punching = false;
+                }
+            }
+
+            if(character.get() != player) {
+                for (int i = 0; i < BulletVecEnemy.size(); i++) {
+                    BulletVecEnemy[i].Draw(this->_data->window);
+                    BulletVecEnemy[i].fire(ENEMY_BULLET_SPEED);
+                }
+            }else{
+                for (int i = 0; i < player->BulletVec.size(); i++) {
+                    player->BulletVec[i].Draw(this->_data->window);
+                    player->BulletVec[i].fire(PLAYER_BULLET_SPEED);
+                }
             }
 
 
-            for (int i = 0; i <
-                            player->BulletVec.size(); i++) {                                                     //Collision with bullets
+            for (int i = 0; i < player->BulletVec.size(); i++) {                                                     //Collision with bullets
                 if (player->BulletVec[i].CheckCollision(character->body) && character.get() != player) {
                     player->BulletVec[i] = player->BulletVec.back();
                     player->BulletVec.pop_back();
@@ -228,19 +245,18 @@ void GameState::charGame(float dt) {
                 break;
 
             if (character.get() != player) {
-                for (int i = 0; i <
-                                character->BulletVec.size(); i++) {                                                     //Collision with bullets
-                    if (character->BulletVec[i].CheckCollision(player->body)) {
-                        character->BulletVec[i] = character->BulletVec.back();
-                        character->BulletVec.pop_back();
-                        player->hp -= character->BulletVec[i].damage;
+                for (int i = 0; i < BulletVecEnemy.size(); i++) {                                                     //Collision with bullets
+                    if (BulletVecEnemy[i].CheckCollision(player->body)) {
+                        BulletVecEnemy[i] = BulletVecEnemy.back();
+                        BulletVecEnemy.pop_back();
+                        player->hp -= BulletVecEnemy[i].damage;
                         this->_data->Lives--;
 
                     }
                     for (auto tiles:map.colTiles) {
-                        if (character->BulletVec[i].CheckCollision(tiles->tile) && !tiles->getWalk()) {
-                            character->BulletVec[i] = character->BulletVec.back();                                          //Collision bullet-walls
-                            character->BulletVec.pop_back();
+                        if (BulletVecEnemy[i].CheckCollision(tiles->tile) && !tiles->getWalk()) {
+                            BulletVecEnemy[i] = BulletVecEnemy.back();                                          //Collision bullet-walls
+                            BulletVecEnemy.pop_back();
                         }
                     }
                     deathPlayer = hud.lifePointRemove(player);
@@ -255,7 +271,7 @@ void GameState::charGame(float dt) {
 
 
             character->NotifyObservers(this->_data, map,
-                                       this->_data->window);                        //Notify observers for eventual updating
+                                       this->_data->window, this->hud);                        //Notify observers for eventual updating
         }
     }
 }

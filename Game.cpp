@@ -17,6 +17,19 @@ Game::Game(int width, int height, std::string title)
     _data->soundtrack.setBuffer(song);
     _data->soundtrack.setVolume(10.0f);
 
+    std::ifstream readFile;
+    readFile.open(HIGHSCORE_FILE);
+
+    if( readFile.is_open() )
+    {
+        while(!readFile.eof())
+        {
+            readFile >> _data->highScore;
+        }
+    }
+
+    readFile.close();
+
     this->Run();
 
 }
@@ -35,4 +48,5 @@ void Game::Run()
         this->_data->machine.GetActiveState()->Draw(dt);
     }
 }
+
 

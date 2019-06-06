@@ -9,6 +9,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <fstream>
 #include "StateMachine.h"
 #include "AssetManager.h"
 #include "InputManager.h"
@@ -20,8 +21,7 @@ struct GameData
     AssetManager assets;
     InputManager input;
     sf::Sound soundtrack;
-    int levelCount, Lives, preMap, totalKills,  numEnemies;
-
+    int levelCount, Lives, preMap, totalKills,  numEnemies, highScore;
 };
 
 typedef std::shared_ptr<GameData> GameDataRef;

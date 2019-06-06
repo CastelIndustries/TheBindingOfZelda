@@ -17,6 +17,7 @@ public:
 
     ObserverReward() {};
 
+    void newHighScore(GameDataRef &_data, HUD &hud) override;
     void newLevel(GameDataRef &_data) override;
     void update(TileMap &map, sf::RenderWindow &window) override;
 

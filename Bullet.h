@@ -13,7 +13,7 @@
 class Bullet{
 
 public:
-    Bullet(std::string filename, sf::Vector2f size, int dir);
+    Bullet(std::string filename, sf::Vector2f size, sf::Vector2f dir);
 
     float getRight() {
         return bullet.getPosition().x + bullet.getSize().x;
@@ -53,7 +53,7 @@ public:
 private:
     sf::Texture bulletTexture;
     sf::RectangleShape bullet;
-    int BulletDir;
+    sf::Vector2f BulletDir;
 
     //f::SoundBuffer blast;
     //sf::Sound laser;

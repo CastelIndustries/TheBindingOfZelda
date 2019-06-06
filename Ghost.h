@@ -14,13 +14,21 @@ public:
     ~Ghost();
 
 
-    virtual void Create(float deltaTime, sf::RenderWindow &window);
+    void Create(float deltaTime, sf::RenderWindow &window) override;
 
-    virtual void Update(float deltatime, sf::RenderWindow &window) override;
+    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
+
+    void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
+
+    void MeleeAttack(Character &character) override;
+
+    void RangedAttack() override;
+
+    void Update(float deltaTime, sf::RenderWindow &window) override;
+
+    void Draw(sf::RenderWindow &window) override;
 
     float init;
-
-    void MeleeAttack() override {};                            //TODO
 
     Ghost(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(filename,
                                                                                                          imageCount,
@@ -28,8 +36,8 @@ public:
                                                                                                          speed) {
         std::uniform_int_distribution<int> distrX(2963, 8280);
         std::uniform_int_distribution<int> distrY(1757, 4336);
-            std::random_device generator;
-            std::mt19937 eng(generator());
+        std::random_device generator;
+        std::mt19937 eng(generator());
         this->speed = speed;
         dash = speed;
         row = 2;
@@ -37,6 +45,7 @@ public:
         body.setPosition(distrX(eng), distrY(eng));
         ghostTexture.loadFromFile(filename);
         body.setTexture(&ghostTexture);
+        this->ShootDelay = sf::seconds(2.0f);
     }
 
 private:

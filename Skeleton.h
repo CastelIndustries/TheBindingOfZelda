@@ -30,11 +30,20 @@ public:
 
     ~Skeleton();
 
-    void RangedAttack() override {};                    //TO DO
+    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
 
-    //virtual void Update(float deltatime, sf::RenderWindow &window) override{};
+    void RangedAttack() override;
 
-    void Create(float deltatime, sf::RenderWindow &window) override;
+    void Create(float deltaTime, sf::RenderWindow &window) override;
+
+    void Update(float deltaTime, sf::RenderWindow &window) override;
+
+    void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
+
+    void MeleeAttack(Character &character) override;
+
+    void Draw(sf::RenderWindow &window) override;
+
 
 private:
     sf::Texture skeletonTexture;

@@ -12,17 +12,23 @@ class KungFuRabbit : public MeleeCharacter {
 
 public:
 
-    ~KungFuRabbit();
+    ~KungFuRabbit(){};
 
-    virtual void Create(float deltaTime, sf::RenderWindow &window) override;
+    void Create(float deltaTime, sf::RenderWindow &window) override;
+
+    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
+
+    void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
+
+    void MeleeAttack(Character &character) override;
+
+    void RangedAttack() override;
 
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
-    float init;
+    void Draw(sf::RenderWindow &window) override;
 
 
-
-    void MeleeAttack() override {};                             //TO DO
 
     KungFuRabbit(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : MeleeCharacter(filename,
                                                                                                                 imageCount,
@@ -39,9 +45,11 @@ public:
             body.setPosition(distrX(eng), distrY(eng));
             rabbitTexture.loadFromFile(filename);
             body.setTexture(&rabbitTexture);
+            this->ShootDelay = sf::seconds(2.0f);
             //body.setFillColor(sf::Color::White);
             clock.restart();
     }
+
 
 private:
     sf::Texture rabbitTexture;
