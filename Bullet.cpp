@@ -13,7 +13,6 @@ Bullet::Bullet(std::string filename, sf::Vector2f size, sf::Vector2f dir) {
     //blast.loadFromFile("../Textures/laser.ogg");
     //laser.setBuffer(blast);
     BulletDir=dir;
-    damage=100;
 }
 
 void Bullet::fire(float speed) {

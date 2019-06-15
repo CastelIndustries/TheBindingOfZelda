@@ -46,7 +46,6 @@ public:
     }
 
     const sf::RectangleShape &getBullet() const;
-    int damage;
     void setBullet(const sf::RectangleShape &bullet);
 
 

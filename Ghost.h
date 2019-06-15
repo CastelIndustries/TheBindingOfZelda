@@ -16,11 +16,7 @@ public:
 
     void Create(float deltaTime, sf::RenderWindow &window) override;
 
-    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
-
     void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
-
-    void MeleeAttack(Character &character) override;
 
     void RangedAttack() override;
 

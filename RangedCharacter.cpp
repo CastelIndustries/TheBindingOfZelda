@@ -97,14 +97,6 @@ void RangedCharacter::ArtificialIntelligence(Character &player, float deltaTime,
 
 }
 
-void RangedCharacter::Attack(Character &player, float deltaTime, sf::RenderWindow &window) {
-    Character::Attack(player, deltaTime, window);
-}
-
-void RangedCharacter::MeleeAttack(Character &character) {
-
-}
-
 void RangedCharacter::Draw(sf::RenderWindow &window) {
     Character::Draw(window);
 }

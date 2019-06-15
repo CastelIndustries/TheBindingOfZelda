@@ -27,9 +27,10 @@ public:
 
     sf::Text hudTexts[3];
     sf::Clock bestClock;
+    std::vector<sf::Sprite> hearts;
 
 private:
-    std::vector<sf::Sprite> hearts;
+
     sf::Sprite heart;
     sf::Texture heartTexture;
 

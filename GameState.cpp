@@ -13,6 +13,8 @@
 #include "GameOverState.h"
 //#include "PauseState.h"
 //#include "GameOverState.h"
+#include "RangedStrategy.h"
+#include "MeleeStrategy.h"
 
 #include <iostream>
 GameState::GameState(GameDataRef data) : _data(std::move(data))
@@ -43,6 +45,7 @@ void GameState::Init()
     //CHARACTERS
     characterList.push_back(characterFactory.Create(type::PLAYER , PLAYER_TEXTURE , PLAYER_IMAGE_COUNT , PLAYER_SWITCH_TIME , PLAYER_SPEED));
 
+
     for (int i = 0; i < this->_data->numEnemies ; i++) {
         int j =rand() % 3;
         switch (j) {
@@ -67,10 +70,11 @@ void GameState::Init()
 
     //calling first element of the list PLAYER to understand better
     player = characterList.begin()->get();
+    player->hp = _data->Lives;
 
-    //OBSERVER
-    for(auto &characterObs : characterList){                                //Register every character to observer
-        characterObs->RegisterObserver(&this->CheckRoom);
+    for (auto &characters : characterList) {                                //Register every character to observer
+        characters->RegisterObserver(&this->CheckRoom);
+        characters->hp = 3;
 
     }
 
@@ -170,7 +174,14 @@ void GameState::charGame(float dt) {
     if(!characterList.empty()) {
         for (auto &character : characterList) {
             if (character.get() != player) {
-                character->Attack(*player, dt, this->_data->window);
+                Strategy *str;
+                if (character->ranged) {
+                    str = new RangedStrategy;
+                } else {
+                    str = new MeleeStrategy;
+                }
+                character->setStrategy(str);
+                character->str->Attack(player, *character, dt, this->_data->window);
 
             }
             if (character->isFiring) {
@@ -180,7 +191,6 @@ void GameState::charGame(float dt) {
                     laser.play();
                 } else {
                     newBullet.setSize(sf::Vector2f(80, 80));
-                    newBullet.damage = 34;
                 }
 
                 newBullet.setPos(sf::Vector2f(character->body.getPosition().x + character->body.getSize().x / 2,
@@ -196,9 +206,10 @@ void GameState::charGame(float dt) {
 
             if(character->punching){
                 if(character->GetCollider().CheckCollision(player->body, 0.0f) && character.get() != player) {
-                    player->hp -= 34;
                     this->_data->Lives--;
-                    deathPlayer = hud.lifePointRemove(player);
+                    player->hp = _data->Lives;
+                    hud.hearts.pop_back();
+                    deathPlayer = _data->Lives == 0;
                     character->punching = false;
                 }
             }
@@ -220,7 +231,7 @@ void GameState::charGame(float dt) {
                 if (player->BulletVec[i].CheckCollision(character->body) && character.get() != player) {
                     player->BulletVec[i] = player->BulletVec.back();
                     player->BulletVec.pop_back();
-                    character->hp -= player->BulletVec[i].damage;
+                    character->hp--;
 
                 }
                 for (auto tiles:map.colTiles) {
@@ -249,7 +260,8 @@ void GameState::charGame(float dt) {
                     if (BulletVecEnemy[i].CheckCollision(player->body)) {
                         BulletVecEnemy[i] = BulletVecEnemy.back();
                         BulletVecEnemy.pop_back();
-                        player->hp -= BulletVecEnemy[i].damage;
+                        hud.hearts.pop_back();
+                        player->hp--;
                         this->_data->Lives--;
 
                     }
@@ -259,7 +271,8 @@ void GameState::charGame(float dt) {
                             BulletVecEnemy.pop_back();
                         }
                     }
-                    deathPlayer = hud.lifePointRemove(player);
+
+                    deathPlayer = _data->Lives == 0;
                 }
             }
 

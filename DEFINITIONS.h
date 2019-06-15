@@ -31,9 +31,9 @@
 #define GHOST_SWITCH_TIME 0.3f
 #define RABBIT_SWITCH_TIME 0.3f
 
-#define PLAYER_SPEED 8
-#define SKELETON_SPEED 7
-#define GHOST_SPEED 6
+#define PLAYER_SPEED 15
+#define SKELETON_SPEED 10
+#define GHOST_SPEED 8
 #define RABBIT_SPEED 10
 
 //ELEMENTS
@@ -53,6 +53,8 @@
 #define BONE_1_TEXTURE "../Resources/res/skeleton 1b.png"
 #define BONE_2_TEXTURE "../Resources/res/skeleton 2b.png"
 #define BONE_3_TEXTURE "../Resources/res/skeleton 3b.png"
+
+#define BULLET_TEXTURE "../Resources/res/bullet.png"
 
 #define MAX_NUMBER_OF_ITEMS 4
 

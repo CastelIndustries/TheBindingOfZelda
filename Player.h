@@ -40,11 +40,7 @@ public:
 
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
-    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
-
     void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
-
-    void MeleeAttack(Character &character) override;
 
     void Draw(sf::RenderWindow &window) override;
 

@@ -14,16 +14,8 @@ void Ghost::Create(float deltaTime, sf::RenderWindow &window) {
     check=false;
 }
 
-void Ghost::Attack(Character &player, float deltaTime, sf::RenderWindow &window) {
-    MeleeCharacter::Attack(player, deltaTime, window);
-}
-
 void Ghost::ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) {
     MeleeCharacter::ArtificialIntelligence(player, deltaTime, window);
-}
-
-void Ghost::MeleeAttack(Character &character) {
-    MeleeCharacter::MeleeAttack(character);
 }
 
 void Ghost::Draw(sf::RenderWindow &window) {

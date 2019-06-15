@@ -15,7 +15,7 @@
 #include "Subject.h"
 #include "Strategy.h"
 
-class Character : public Subject, public Strategy   {
+class Character : public Subject {
 
 public:
 
@@ -35,13 +35,14 @@ public:
 
     virtual void RangedAttack() = 0;
 
-    virtual void MeleeAttack(Character &character) = 0;
+    virtual void Attack(Character &player, float deltaTime, sf::RenderWindow &window) {};
 
-    void Attack(Character& player, float deltaTime, sf::RenderWindow &window) override;
 
     virtual void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) = 0;
 
     Character(std::string filename, sf::Vector2u imageCount, float switchTime, float speed);
+
+    void setStrategy(Strategy *str);
 
     Collider GetCollider() {
         return Collider(body);
@@ -50,7 +51,7 @@ public:
     bool isFiring= false;
 
     float distance;
-    int hp=100;
+    int hp;
     sf::Clock BulletClock;
     sf::Clock PunchClock;
     bool roomCompletedText;
@@ -63,6 +64,8 @@ public:
     bool best = false;
     sf::Vector2f playerDir;
     bool punching = false;
+    Strategy *str;
+    bool ranged;
 
 
 

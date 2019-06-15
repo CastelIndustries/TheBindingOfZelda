@@ -51,10 +51,6 @@ void MeleeCharacter::Update(float deltaTime, sf::RenderWindow &window) {
 }
 
 
-void MeleeCharacter::Attack(Character &player, float deltaTime, sf::RenderWindow &window) {
-    Character::Attack(player, deltaTime, window);
-}
-
 void MeleeCharacter::ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) {
 
     playerDir.x = (player.body.getPosition().x - body.getPosition().x)/distance;
@@ -84,19 +80,11 @@ void MeleeCharacter::ArtificialIntelligence(Character &player, float deltaTime, 
     body.setTextureRect(animation.uvRect);
     body.move(playerDir.x * this->speed, playerDir.y * this->speed);
 
-    if(body.getGlobalBounds().intersects(player.body.getGlobalBounds()))
-        MeleeAttack(player);
 
     check= true;
 
 }
 
-void MeleeCharacter::MeleeAttack(Character &character) {
-    if(PunchClock.getElapsedTime() >= ShootDelay) {
-        punching = true;
-        PunchClock.restart();
-    }
-}
 
 void MeleeCharacter::RangedAttack() {
 

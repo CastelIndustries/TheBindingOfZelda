@@ -11,7 +11,11 @@ class Character;
 
 class Strategy{
 public:
-    virtual void Attack(Character& character, float  deltaTime, sf::RenderWindow &window)=0;
+    Strategy() {};
+
+    virtual ~Strategy() {};
+
+    virtual void Attack(Character *player, Character &character, float deltaTime, sf::RenderWindow &window) = 0;
 
 };
 

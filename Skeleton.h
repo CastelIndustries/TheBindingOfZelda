@@ -7,6 +7,7 @@
 
 #include <random>
 #include "RangedCharacter.h"
+#include "Strategy.h"
 
 class Skeleton : public RangedCharacter {
 public:
@@ -30,9 +31,6 @@ public:
 
     ~Skeleton();
 
-    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
-
-    void RangedAttack() override;
 
     void Create(float deltaTime, sf::RenderWindow &window) override;
 
@@ -40,7 +38,6 @@ public:
 
     void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
 
-    void MeleeAttack(Character &character) override;
 
     void Draw(sf::RenderWindow &window) override;
 

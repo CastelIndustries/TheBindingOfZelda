@@ -15,18 +15,16 @@ public:
     MeleeCharacter(std::string filename, sf::Vector2u imageCount, float switchTime, float speed) : Character(filename,
                                                                                                              imageCount,
                                                                                                              switchTime,
-                                                                                                             speed) {}
+                                                                                                             speed) {
+        ranged = false;
+    }
 
 
     void Create(float deltaTime, sf::RenderWindow &window) override;
 
     void Update(float deltaTime, sf::RenderWindow &window) override;
 
-    void Attack(Character &player, float deltaTime, sf::RenderWindow &window) override;
-
     void ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) override;
-
-    void MeleeAttack(Character &character) override;
 
     void RangedAttack() override;
 

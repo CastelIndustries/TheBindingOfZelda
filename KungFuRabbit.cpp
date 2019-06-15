@@ -13,17 +13,10 @@ void KungFuRabbit::Create(float deltaTime, sf::RenderWindow &window) {
 }
 
 
-void KungFuRabbit::Attack(Character &player, float deltaTime, sf::RenderWindow &window) {
-    MeleeCharacter::Attack(player, deltaTime, window);
-}
-
 void KungFuRabbit::ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) {
     MeleeCharacter::ArtificialIntelligence(player, deltaTime, window);
 }
 
-void KungFuRabbit::MeleeAttack(Character &character) {
-    MeleeCharacter::MeleeAttack(character);
-}
 
 void KungFuRabbit::Update(float deltaTime, sf::RenderWindow &window) {
     MeleeCharacter::Update(deltaTime, window);

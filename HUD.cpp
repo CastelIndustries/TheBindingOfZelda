@@ -60,14 +60,14 @@ void HUD::renderHUD(sf::View &viewHUD, sf::RenderWindow &window, Character* play
 }
 
 bool HUD::lifePointRemove(Character *player) {
-    if(player->hp == 66 && hearts.size() == 3 ) {
+    if (player->hp == 2 && hearts.size() == 3) {
         hearts.back();
         hearts.pop_back();
     }
-    if(player->hp <= 32 && hearts.size() == 2 ) {
+    if (player->hp == 1 && hearts.size() == 2) {
         hearts.pop_back();
     }
-    if(player->hp <= 0 && hearts.size() == 1 ) {
+    if (player->hp == 0 && hearts.size() == 1) {
         hearts.pop_back();
         return true;
     }

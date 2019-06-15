@@ -28,10 +28,14 @@ void Character::Create(float deltaTime, sf::RenderWindow &window) {
     this->Draw(window);
 }
 
-void Character::Attack(Character &player, float deltaTime, sf::RenderWindow &window) {
+void Character::setStrategy(Strategy *str) {
+    this->str = str;
+}
+
+/*void Character::Attack(Character &player, float deltaTime, sf::RenderWindow &window) {
     distance=sqrt(pow(body.getPosition().x - player.body.getPosition().x, 2 ) + pow(body.getPosition().y - player.body.getPosition().y, 2));
 
     if(distance < RANGE){
         this->ArtificialIntelligence(player, deltaTime, window);
     }
-};
+};*/

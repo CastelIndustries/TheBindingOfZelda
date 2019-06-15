@@ -136,15 +136,7 @@ void Player::Draw(sf::RenderWindow &window) {
     RangedCharacter::Draw(window);
 }
 
-void Player::MeleeAttack(Character &character) {
-    RangedCharacter::MeleeAttack(character);
-}
-
 void Player::ArtificialIntelligence(Character &player, float deltaTime, sf::RenderWindow &window) {
-
-}
-
-void Player::Attack(Character &player, float deltaTime, sf::RenderWindow &window) {
 
 }
 
